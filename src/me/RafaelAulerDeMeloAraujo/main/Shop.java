@@ -189,7 +189,7 @@ public class Shop
   public void kit(InventoryClickEvent e)
   {
     
-	  if (!(e.getInventory() instanceof CustomHolder2)) {
+	  if (!(e.getInventory().getHolder() instanceof CustomHolder2)) {
 		  	return;
 		  }
       e.setCancelled(true);
@@ -199,7 +199,7 @@ public class Shop
   @EventHandler
   public void warps(InventoryClickEvent e)
   {
-	  if (!(e.getClickedInventory() instanceof CustomHolder2)) {
+	  if (!(e.getClickedInventory().getHolder() instanceof CustomHolder2)) {
 	  	return;
 	  }
     Player p = (Player)e.getWhoClicked();

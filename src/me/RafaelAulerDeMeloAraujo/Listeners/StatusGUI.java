@@ -68,7 +68,7 @@ public class StatusGUI implements Listener {
 
     @EventHandler
     private void onInventoryClick(InventoryClickEvent event) {
-    	if (!(event.getClickedInventory() instanceof CustomHolder3)) {
+    	if (!(event.getClickedInventory().getHolder() instanceof CustomHolder3)) {
     		return;
     	}
     	else if (event.getWhoClicked() instanceof Player && event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && !event.getCurrentItem().getItemMeta().getDisplayName().equals("§6Display status in chat")) {
@@ -83,7 +83,7 @@ public class StatusGUI implements Listener {
     		return;
     	}
     	
-    	if (!(event.getClickedInventory() instanceof CustomHolder3)) {
+    	if (!(event.getClickedInventory().getHolder() instanceof CustomHolder3)) {
     		return;
     	}
     

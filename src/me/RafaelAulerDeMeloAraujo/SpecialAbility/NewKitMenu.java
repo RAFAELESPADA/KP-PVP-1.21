@@ -54,7 +54,7 @@ import me.RafaelAulerDeMeloAraujo.Listeners.CustomHolder;
 /*  52 */       	if (e.getCurrentItem() == null) {
 	return;
 }
-if (!(e.getClickedInventory() instanceof CustomHolder)) {
+if (!(e.getClickedInventory().getHolder() instanceof CustomHolder)) {
 	return;
 }
 /*  54 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.KitMenu")), 1.0F, 1.0F);
