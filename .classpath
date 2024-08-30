@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Downloads/spigot-api-1.21-R0.1-20240703.211717-52.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Downloads/KPCore-v2.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Desktop/KOMBOPVP SW E SURVIVAL E PRISON E PVP E SKYBLOCK/LOBBY/plugins/PlaceholderAPI-2.11.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Desktop/KOMBOPVP SW E SURVIVAL E PRISON E PVP E SKYBLOCK/LOBBY/plugins/Vault.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Desktop/KOMBOPVP SW E SURVIVAL E PRISON E PVP E SKYBLOCK/PRISON/plugins/ajLeaderboards-2.8.0 (6).jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Downloads/lombok.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Downloads/json-simple-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Desktop/KOMBOPVP SW E SURVIVAL E PRISON E PVP E SKYBLOCK/PVP - 1.8/plugins/DecentHolograms-2.8.9.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
