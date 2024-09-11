@@ -1,4 +1,4 @@
-#KitPvP Version BUILD-65 | Author: zEnderX5_ , Rafael Auler
+#KitPvP Version BUILD-111 | Author: zEnderX5_ , Rafael Auler
 #Author Channel: https://www.youtube.com/channel/UCb1kjbiQj2B4KnRQpgeUwmQ
 #Subscribe to help me to improve the plugin. Thanks =D
 #PS: use /kp for view the plugin command list
@@ -19,6 +19,13 @@ ScoreBoard-Interval-Update: 3
 #and players is automatically put on kitpvp when they join the server
 #and will be unable to leave
 bungeemode: false
+
+#Execute commands on the killer and killed on kills
+#Placeholders #killer and %killed%
+Commands-ON-KILL-Enabled: false
+Commands-Executed-On-Kill:
+- 'givecoins %killer% 50'
+- 'effect %killed% speed 20'
 
 #Disable Compass
 DisableCompassItem: false
