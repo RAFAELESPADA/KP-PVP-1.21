@@ -83,7 +83,7 @@ Sun8oxData2.getPvp().addDeaths(1);
 Sun8oxData.getPvp().addKillstreak(1);
   if (Main.getInstance().getConfig().getBoolean("Commands-ON-KILL-Enabled")) {
 	  for (String commands : Main.getInstance().getConfig().getStringList("Commands-Executed-On-Kill")) {
-	  Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commands.replace("%killed%", p.getName()).replace("%killer%", k.getName()));
+	  Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commands.replace("%killer%", k.getName()).replace("%killed%", p.getName()));
   }
   }
 if (killstreak % Main.customization.getInt("XP-Required-To-LevelUP") == 0) {
