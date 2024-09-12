@@ -82,8 +82,9 @@ Sun8oxData.getPvp().addKills(1);
 Sun8oxData2.getPvp().addDeaths(1);
 Sun8oxData.getPvp().addKillstreak(1);
   if (Main.getInstance().getConfig().getBoolean("Commands-ON-KILL-Enabled")) {
-	  for (String commands : Main.getInstance().getConfig().getStringList("Commands-Executed-On-Kill"))
+	  for (String commands : Main.getInstance().getConfig().getStringList("Commands-Executed-On-Kill")) {
 	  Bukkit.dispatchCommand(Bukkit.getConsoleSender(), commands.replace("%killed%", p.getName()).replace("%killer%", k.getName()));
+  }
   }
 if (killstreak % Main.customization.getInt("XP-Required-To-LevelUP") == 0) {
 	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
