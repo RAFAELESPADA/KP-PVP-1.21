@@ -42,9 +42,14 @@ import net.helix.core.bukkit.account.HelixPlayer;
 /*     */   public void onEnable() {}
 /*     */   
 /*     */   @EventHandler
-/*  45 */   public void playerdeath(PlayerDeathEvent ev) { Player p = ev.getEntity();
+/*  45 */   public void playerdeath(PlayerDeathEvent ev) { 
+	if (ev.getEntity().getKiller() == null) {
+		return;
+	}
+Player p = ev.getEntity();
 Player k = p.getKiller();
 boolean isCitizensNPC = p.hasMetadata("NPC");
+
 double killstreak = XP.getXP(k);
 /*  46 */     if ((p.getKiller() instanceof Player))
 /*     */     {
@@ -104,7 +109,6 @@ k.sendMessage("§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
 k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
 HelixBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData);
 HelixBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData2);
-
 Bukkit.getConsoleSender().sendMessage("§e" + p.getName() + " (" +  ev.getEntityType() + ")" + " has been killed by " + k.getName() + " (" +  ev.getEntity().getKiller().getType() + ")" + " on kitpvp");
 /*     */     
   }
