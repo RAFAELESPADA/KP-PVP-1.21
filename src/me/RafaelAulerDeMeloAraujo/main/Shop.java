@@ -188,7 +188,9 @@ public class Shop
   @EventHandler
   public void kit(InventoryClickEvent e)
   {
-    
+	  if (e.getClickedInventory() == null) {
+  		return;
+  	}
 	  if (!(e.getInventory().getHolder() instanceof CustomHolder2)) {
 		  	return;
 		  }
@@ -197,8 +199,10 @@ public class Shop
   
   
   @EventHandler
-  public void warps(InventoryClickEvent e)
-  {
+  public void warps(InventoryClickEvent e) {
+  if (e.getClickedInventory() == null) {
+		return;
+	}
 	  if (!(e.getClickedInventory().getHolder() instanceof CustomHolder2)) {
 	  	return;
 	  }

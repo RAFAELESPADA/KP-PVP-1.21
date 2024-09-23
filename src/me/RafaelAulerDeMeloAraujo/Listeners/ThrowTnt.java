@@ -1,27 +1,23 @@
 /*    */ package me.RafaelAulerDeMeloAraujo.Listeners;
 
-import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
-import me.RafaelAulerDeMeloAraujo.SpecialAbility.Cooldown;
-import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
-/*    */ 
-/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.helix.core.bukkit.item.ItemBuilder;
-
 /*    */ import org.bukkit.Location;
 /*    */ import org.bukkit.Material;
 /*    */ import org.bukkit.World;
 /*    */ import org.bukkit.entity.Entity;
 /*    */ import org.bukkit.entity.Player;
-import org.bukkit.entity.Snowball;
 /*    */ import org.bukkit.entity.TNTPrimed;
 /*    */ import org.bukkit.event.EventHandler;
 /*    */ import org.bukkit.event.Listener;
 /*    */ import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
 /*    */ import org.bukkit.event.player.PlayerInteractEvent;
-/*    */ import org.bukkit.inventory.ItemStack;
 /*    */
 /*    */ import org.bukkit.util.Vector;
+
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.Cooldown;
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
+/*    */ 
+/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*    */ 
 /*    */ public class ThrowTnt implements Listener
 /*    */ {

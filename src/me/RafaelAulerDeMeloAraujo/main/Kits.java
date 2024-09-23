@@ -187,7 +187,7 @@ p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), 
 /* 134 */         s.removePotionEffect(effect.getType());
 /*     */       }
 /* 136 */       ItemStack sword = new ItemStack(Material.DIAMOND_SWORD);
-/* 137 */       sword.addEnchantment(Enchantment.PROTECTION, 1);
+/* 137 */       sword.addEnchantment(Enchantment.SHARPNESS, 1);
 /* 138 */       ItemStack colete = new ItemStack(Material.IRON_CHESTPLATE);
 /* 139 */       colete.addEnchantment(Enchantment.PROTECTION, 1);
 /* 140 */       colete.addEnchantment(Enchantment.UNBREAKING, 3);

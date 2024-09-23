@@ -35,9 +35,9 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Cooldown;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
 import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
 /*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
-/*     */ 
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
+
 /*    */ public class Sumo
 /*    */   implements Listener
 /*    */ {
@@ -233,8 +233,8 @@ public void onMove(PlayerMoveEvent event) {
     /* 271 */           Sumo.entrar1v1(player);
     /* 272 */           morreu.updateInventory();
     /* 273 */           matou.updateInventory();
-    HelixPlayer killerHelixPlayer = HelixBukkit.getInstance().getPlayerManager().getPlayer(matou.getName());
-    HelixPlayer killerHelixPlayer2 = HelixBukkit.getInstance().getPlayerManager().getPlayer(morreu.getName());
+    WavePlayer killerHelixPlayer = WaveBukkit.getInstance().getPlayerManager().getPlayer(matou.getName());
+    WavePlayer killerHelixPlayer2 = WaveBukkit.getInstance().getPlayerManager().getPlayer(morreu.getName());
    	killerHelixPlayer.getPvp().addKills(1);
  	killerHelixPlayer2.getPvp().addDeaths(1);
  	killerHelixPlayer2.getPvp().setKillstreak(0);

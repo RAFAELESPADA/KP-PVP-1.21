@@ -30,8 +30,8 @@ import me.RafaelAulerDeMeloAraujo.Coins.XP;
 import me.RafaelAulerDeMeloAraujo.ScoreboardManager.Level;
 import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
 import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 
 public class StatusGUI implements Listener {
 
@@ -68,6 +68,9 @@ public class StatusGUI implements Listener {
 
     @EventHandler
     private void onInventoryClick(InventoryClickEvent event) {
+    	if (event.getClickedInventory() == null) {
+    		return;
+    	}
     	if (!(event.getClickedInventory().getHolder() instanceof CustomHolder3)) {
     		return;
     	}
@@ -90,7 +93,7 @@ public class StatusGUI implements Listener {
     	else if (event.getWhoClicked() instanceof Player && event.getCurrentItem().getItemMeta().getDisplayName().equals("§6Display status in chat")) {
         	int kills = AntiDeathDrop.GetKills(p);
             int deaths = AntiDeathDrop.GetDeaths(p);
-            HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
+            WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
     		int ks = Sun8oxData.getPvp().getKillstreak();
             p.sendMessage(Main.messages.getString("Status").replace("&", "§").replace("%player%", p.getName()));
             p.sendMessage("");
@@ -122,7 +125,7 @@ public class StatusGUI implements Listener {
         inv.setItem(12, glass);
         inv.setItem(14, glass);
         inv.setItem(15, glass);
-        HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
+        WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
 		int ks = Sun8oxData.getPvp().getKillstreak();
         for (int i = 17; i > 0; i--) {
         	if(Main.messages.getString("StatusGlassMaterial") == null){

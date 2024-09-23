@@ -7,8 +7,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 
 
 
@@ -37,7 +37,7 @@ public class Kills implements CommandExecutor {
 			if(args[0].equalsIgnoreCase("give")){
 				
 				try{
-					HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
+					WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
 					Sun8oxData.getPvp().addKills(tanto);
 					sender.sendMessage("§aYou give " + tanto + " Kills to the player " + t.getName());
 					t.sendMessage("§e" + tanto + " §aKills has been added to your account!");
@@ -52,7 +52,7 @@ public class Kills implements CommandExecutor {
 				
 				try{
 
-					HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
+					WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
 					Sun8oxData.getPvp().setKills(tanto);sender.sendMessage("§aYou remove " + tanto + " Kills of the player " + t.getName());
 					t.sendMessage("§e" + tanto + " §aKills has been removed from your account!");
 				}catch(Exception e){

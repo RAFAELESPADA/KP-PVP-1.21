@@ -13,8 +13,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 
 
 
@@ -80,7 +80,7 @@ public class AntiDeathDrop
 		  if (p == null) {
 			  return 0;
 		  }
-		  HelixPlayer killerHelixPlayer = HelixBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
+		  WavePlayer killerHelixPlayer = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
 			
 	      
 	    return killerHelixPlayer.getPvp().getKills();
@@ -92,7 +92,7 @@ public class AntiDeathDrop
 		  if (p == null) {
 			  return 0;
 		  }
-		  HelixPlayer killerHelixPlayer = HelixBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
+		  WavePlayer killerHelixPlayer = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
 			
 	      
 		    return killerHelixPlayer.getPvp().getDeaths();

@@ -10,8 +10,8 @@ import me.RafaelAulerDeMeloAraujo.Coins.Coins;
 import me.RafaelAulerDeMeloAraujo.Coins.XP;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 
 public class ScoreboardTask extends BukkitRunnable
 {
@@ -26,7 +26,7 @@ public class ScoreboardTask extends BukkitRunnable
 				return;
 			}
 			Scoreboard scoreboard = player.getScoreboard();
-			 HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
+			 WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
 				int ks = Sun8oxData.getPvp().getKillstreak();
 			scoreboard.getTeam("kit").setSuffix(Habilidade.getAbility(player));
 			scoreboard.getTeam("kills").setSuffix(String.valueOf(AntiDeathDrop.GetKills(player)));

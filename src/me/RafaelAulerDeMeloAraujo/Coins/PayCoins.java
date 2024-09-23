@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 
 public class PayCoins implements CommandExecutor, Listener {
    public static boolean isNumeric(String str) {
@@ -45,8 +45,8 @@ public class PayCoins implements CommandExecutor, Listener {
 
                Coins.addCoins(target, coins);
                Coins.removeCoins(p, coins);
-               HelixPlayer t1 = HelixBukkit.getInstance().getPlayerManager().getPlayer(target.getName());
-				HelixBukkit.getInstance().getPlayerManager().getController().save(t1);
+               WavePlayer t1 = WaveBukkit.getInstance().getPlayerManager().getPlayer(target.getName());
+			   WaveBukkit.getInstance().getPlayerManager().getController().save(t1);
                p.sendMessage(String.valueOf(API.NomeServer) + " §8-> §7You donate to: §d" + target.getName() + " §7§ §2" + coins + " Coins§7.");
                target.sendMessage(String.valueOf(API.NomeServer) + " §8-> §7You receive from the player: §d" + p.getName() + " §7§ §2" + coins + " Coins§7.");
             }

@@ -10,8 +10,8 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
 import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
 import me.RafaelAulerDeMeloAraujo.main.Main;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 
 /**
  * This class will be registered through the register-method in the 
@@ -133,7 +133,7 @@ import net.helix.core.bukkit.account.HelixPlayer;
       }
     if (indentifier.equals("player_streak"))
     {
-    	HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
+    	WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
     	if (Sun8oxData == null) {
     		  return "0";
     	  }
@@ -158,7 +158,7 @@ import net.helix.core.bukkit.account.HelixPlayer;
         return String.valueOf(level);
       }
     if (indentifier.equals("player_is_on_kitpvp")) {
-        return String.valueOf(this.plugin.IsOnKitPvP(p.getName()));
+        return String.valueOf(plugin.IsOnKitPvP(p.getName()));
       }
     if (indentifier.equals("player_kit")) {
       return Habilidade.getAbility(p);

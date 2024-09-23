@@ -16,6 +16,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import cooldown1.ItemCooldown;
+import cooldown1.WaveCooldown2;
 import me.RafaelAulerDeMeloAraujo.Coins.Coins;
 import me.RafaelAulerDeMeloAraujo.Coins.XP;
 import me.RafaelAulerDeMeloAraujo.ScoreboardManager.FastBoard;
@@ -23,9 +25,9 @@ import me.RafaelAulerDeMeloAraujo.ScoreboardManager.Level;
 import me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder;
 import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
 import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
-import net.helix.core.util.HelixCooldown2;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
+import net.wavemc.core.util.WaveCooldownAPI;
 
 
 
@@ -107,7 +109,7 @@ public class API
     		    		return;
     		    	}
     		    	/*     */ 	/*     */       FastBoard board = new FastBoard(p);
-    		    	 HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
+    		    	 WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
     		 		int ks = Sun8oxData.getPvp().getKillstreak();
     		    				 board.updateTitle(Main.messages.getString("ScoreBoardTitle").replace("&", "§"));
     		    	String l10 = "§3";
@@ -191,48 +193,48 @@ public static void tirarEfeitos(final Player p) {
     p.removePotionEffect(PotionEffectType.WITHER);
 }
 protected boolean hasCooldown(Player player) {
-    return HelixCooldown2.hasCooldown(player, "Kit");
+    return WaveCooldown2.hasCooldown(player, "Kit");
 }
 
 protected boolean hasCooldown(Player player, String cooldown) {
-    return HelixCooldown2.hasCooldown(player, cooldown);
+    return WaveCooldown2.hasCooldown(player, cooldown);
 }
 
 protected boolean inCooldown(Player player, String cooldown) {
-    return HelixCooldown2.inCooldown(player, cooldown);
+    return WaveCooldown2.inCooldown(player, cooldown);
 }
 
 protected boolean inCooldown(Player player) {
-    return HelixCooldown2.inCooldown(player, "Kit");
+    return WaveCooldown2.inCooldown(player, "Kit");
 }
 
 protected static void sendMessageCooldown(Player player) {
-	HelixCooldown2.sendMessage(player, "Kit");
+	WaveCooldown2.sendMessage(player, "Kit");
 }
 
 protected void sendMessageCooldown(Player player, String cooldown) {
-	HelixCooldown2.sendMessage(player, cooldown);
+	WaveCooldown2.sendMessage(player, cooldown);
 }
 
 protected void addCooldown(Player player, String cooldownName, long time) {
-    if (HelixCooldown2.hasCooldown(player, cooldownName)) {
-        HelixCooldown2.removeCooldown(player, cooldownName);
+    if (WaveCooldown2.hasCooldown(player, cooldownName)) {
+       WaveCooldown2.removeCooldown(player, cooldownName);
     }
-    HelixCooldown2.addCooldown(player, new net.helix.core.util.HelixCooldownAPI(cooldownName, time));
+    WaveCooldown2.addCooldown(player, new net.wavemc.core.util.WaveCooldownAPI(cooldownName, time));
 }
 
 protected static void addCooldown(Player player, long time) {
-    if (HelixCooldown2.hasCooldown(player, "Kit")) {
-        HelixCooldown2.removeCooldown(player, "Kit");
+    if (WaveCooldown2.hasCooldown(player, "Kit")) {
+        WaveCooldown2.removeCooldown(player, "Kit");
     }
-    HelixCooldown2.addCooldown(player, new net.helix.core.util.HelixCooldownAPI("Kit", time));
+    WaveCooldown2.addCooldown(player, new WaveCooldownAPI("Kit", time));
 }
 
 protected void addItemCooldown(Player player, ItemStack item, String cooldownName, long time) {
-    if (HelixCooldown2.hasCooldown(player, cooldownName)) {
-        HelixCooldown2.removeCooldown(player, cooldownName);
+    if (WaveCooldown2.hasCooldown(player, cooldownName)) {
+       WaveCooldown2.removeCooldown(player, cooldownName);
     }
-    HelixCooldown2.addCooldown(player, new net.helix.core.util.ItemCooldown(item, cooldownName, time));
+    WaveCooldown2.addCooldown(player, new ItemCooldown(item, cooldownName, time));
 }
 
 public static void give(Player p)

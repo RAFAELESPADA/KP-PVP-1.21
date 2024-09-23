@@ -54,6 +54,9 @@ import me.RafaelAulerDeMeloAraujo.Listeners.CustomHolder;
 /*  52 */       	if (e.getCurrentItem() == null) {
 	return;
 }
+if (e.getClickedInventory() == null) {
+	return;
+}
 if (!(e.getClickedInventory().getHolder() instanceof CustomHolder)) {
 	return;
 }

@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 
 import me.RafaelAulerDeMeloAraujo.Coins.Commands;
 import me.RafaelAulerDeMeloAraujo.Coins.XP;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 
 
 public class KPSETLEVEL implements CommandExecutor {
@@ -52,8 +52,8 @@ Integer i = Integer.parseInt(args[1]);
 	}
 		
 /* 40 */           SetLevel(t, i);
-HelixPlayer t1 = HelixBukkit.getInstance().getPlayerManager().getPlayer(t.getName());
-HelixBukkit.getInstance().getPlayerManager().getController().save(t1);
+WavePlayer t1 = WaveBukkit.getInstance().getPlayerManager().getPlayer(t.getName());
+WaveBukkit.getInstance().getPlayerManager().getController().save(t1);
 sender.sendMessage(ChatColor.GREEN + "You seted the level: " + i + " to the player " + t.getName());
 /*    */ 	
 	        

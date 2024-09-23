@@ -6,8 +6,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
+
 
 
 
@@ -41,8 +42,8 @@ public class Commands implements CommandExecutor {
 					Integer coins = Integer.parseInt(args[1]);
 				
 					Coins.addCoins(target, coins);
-					HelixPlayer t1 = HelixBukkit.getInstance().getPlayerManager().getPlayer(target.getName());
-					HelixBukkit.getInstance().getPlayerManager().getController().save(t1);
+					WavePlayer t1 = WaveBukkit.getInstance().getPlayerManager().getPlayer(target.getName());
+				 WaveBukkit.getInstance().getPlayerManager().getController().save(t1);
 					sender.sendMessage( "§eYou give the player " + target.getName() + "" + coins
 							+ "§bCoins");
 					target.sendMessage( "§eYou receive " + coins

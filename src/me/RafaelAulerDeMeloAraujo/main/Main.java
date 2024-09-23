@@ -37,6 +37,8 @@ import org.bukkit.inventory.ItemStack;
 /*     */
 import org.bukkit.scheduler.BukkitRunnable;
 
+import cooldown1.UpdateScheduler;
+import cooldown1.UpdateScheduler2;
 import eu.decentsoftware.holograms.api.DHAPI;
 import eu.decentsoftware.holograms.api.holograms.Hologram;
 /*     */ import me.RafaelAulerDeMeloAraujo.BStatsSystem.Metrics;
@@ -121,7 +123,7 @@ import me.RafaelAulerDeMeloAraujo.X1.SetSumo;
 /*     */ import me.RafaelAulerDeMeloAraujo.X1.SetX1;
 import me.RafaelAulerDeMeloAraujo.X1.Sumo;
 /*     */ import me.RafaelAulerDeMeloAraujo.X1.X1;
-import net.helix.core.bukkit.HelixBukkit;
+import net.wavemc.core.bukkit.WaveBukkit;
 import us.ajg0702.leaderboards.LeaderboardPlugin;
 
 
@@ -338,7 +340,7 @@ Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aScoreboard Initilizated");
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading top kills system");
 loadTopPlayersHologram();
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aTopKills setupped sucessufully.");
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aStorage: " + HelixBukkit.getInstance().getStorage().getName());
+Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aStorage: " + WaveBukkit.getStorage().getName());
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §chttps://www.spigotmc.org/resources/kp-pvp-the-ultimate-kitpvp-plugin.50969/");
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §2Your version is: §e" + Main.getInstance().getDescription().getVersion());
 /*     */   
@@ -486,6 +488,7 @@ getCommand("kptpall").setExecutor(new KPTPALL());
 /* 208 */     getCommand("pyro").setExecutor(new Kits(this));
 getCommand("kviking").setExecutor(new Kits(this));
 getCommand("kp").setExecutor(new Join(this));
+startUpdating();
 /* 209 */     getCommand("kthor").setExecutor(new ThorKITCOMMAND(this));
 getCommand("kvampire").setExecutor(new Vampire(this));
 getCommand("kpsetdeathspawn").setExecutor(new kpsetdeathspawn());
@@ -555,6 +558,11 @@ switch (updateChecker.check()) {
 }
 /*     */   }
 /*     */   
+private void startUpdating() {
+
+    Bukkit.getServer().getScheduler().runTaskTimer(getInstance(), new UpdateScheduler(), 20, 20);
+    Bukkit.getServer().getScheduler().runTaskTimer(getInstance(), new UpdateScheduler2(), 20, 20);
+ }
 /*     */   private void registerEvents()
 /*     */   {
 	          this.pm.registerEvents(new ArrowMessage(), this);

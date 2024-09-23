@@ -13,7 +13,7 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Cooldown;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.helix.core.bukkit.item.ItemBuilder;
+import net.wavemc.core.bukkit.item.ItemBuilder;
 
 public class MilkMan implements Listener {
 

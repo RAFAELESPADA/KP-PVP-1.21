@@ -95,6 +95,7 @@ if (!Join.game.contains(p.getName())) {
 	if (Join.saveinv.containsKey(p.getName())) {
 		p.getInventory().setContents(Join.saveinv.get(p.getName()));
 		p.sendMessage(ChatColor.BLUE + "[KitPvP] Your inventory gets restaured! :)");
+		Join.saveinv.remove(p.getName());
 	}
 	
 /*  74 */     Join.game.remove(p.getName());

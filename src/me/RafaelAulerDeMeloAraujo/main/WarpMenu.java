@@ -22,6 +22,9 @@ public class WarpMenu
   {
     if ((e.getCurrentItem() != null) && (e.getCurrentItem().getItemMeta() != null))
     {
+    	if (e.getClickedInventory() == null) {
+    		return;
+    	}
       Player p = (Player)e.getWhoClicked();
 	  if (!(e.getClickedInventory().getHolder() instanceof CustomHolder4)) {
 	  	return;

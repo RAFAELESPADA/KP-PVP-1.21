@@ -1,11 +1,10 @@
 package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-import java.util.*;
-import org.bukkit.entity.*;
+import java.util.HashMap;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.helix.core.util.HelixCooldown2;
-
-import org.bukkit.*;
 
 public class Cooldown extends API
 {

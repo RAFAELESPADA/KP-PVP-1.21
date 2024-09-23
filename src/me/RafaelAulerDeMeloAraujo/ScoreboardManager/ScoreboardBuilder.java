@@ -13,8 +13,8 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
 import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
 import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.helix.core.bukkit.HelixBukkit;
-import net.helix.core.bukkit.account.HelixPlayer;
+import net.wavemc.core.bukkit.WaveBukkit;
+import net.wavemc.core.bukkit.account.WavePlayer;
 public class ScoreboardBuilder {
 
 
@@ -29,7 +29,7 @@ public class ScoreboardBuilder {
 		
 		
 		;
-		 HelixPlayer Sun8oxData = HelixBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
+		WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
 		int ks = Sun8oxData.getPvp().getKillstreak();
 		String l10 = "§3";
 		String l9 = Main.messages.getString("ScoreBoardKit").replace("&", "§") + Habilidade.getAbility(player);

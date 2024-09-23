@@ -27,15 +27,15 @@ import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.BlockIterator;
 import org.bukkit.util.Vector;
 
+import cooldown1.CooldownFinishEvent;
+import cooldown1.CooldownStartEvent;
+import cooldown1.ItemCooldown;
+import cooldown1.WaveCooldown2;
 import me.RafaelAulerDeMeloAraujo.main.Main;
 import me.RafaelAulerDeMeloAraujo.main.RTP;
 import me.RafaelAulerDeMeloAraujo.main.ServerTimerEvent;
-import net.helix.core.bukkit.api.HelixActionBar;
-import net.helix.core.util.CooldownFinishEvent;
-import net.helix.core.util.CooldownStartEvent;
-import net.helix.core.util.HelixCooldown2;
-import net.helix.core.util.HelixCooldownAPI;
-import net.helix.core.util.ItemCooldown;
+import net.wavemc.core.bukkit.api.HelixActionBar;
+import net.wavemc.core.util.WaveCooldownAPI;
 
 
 public class Ryu 
@@ -88,15 +88,15 @@ implements Listener, CommandExecutor
 		if (event.getCurrentTick() % 2 > 0)
 			return;
 
-		for (UUID uuid : net.helix.core.util.HelixCooldown2.map.keySet()) {
+		for (UUID uuid : WaveCooldown2.map.keySet()) {
 			Player player = Bukkit.getPlayer(uuid);
 			if (player != null) {
-				List<HelixCooldownAPI> list = HelixCooldown2.map.get(uuid);
-				Iterator<HelixCooldownAPI> it = list.iterator();
+				List<WaveCooldownAPI> list = WaveCooldown2.map.get(uuid);
+				Iterator<WaveCooldownAPI> it = list.iterator();
 
-				HelixCooldownAPI found = null;
+				WaveCooldownAPI found = null;
 				while (it.hasNext()) {
-					HelixCooldownAPI cooldown = it.next();
+					WaveCooldownAPI cooldown = it.next();
 					if (!cooldown.expired()) {
 						if (cooldown instanceof ItemCooldown) {
 							ItemStack hand = player.getEquipment().getItemInHand();
@@ -122,13 +122,13 @@ implements Listener, CommandExecutor
 					CooldownStartEvent e = new CooldownStartEvent(player, found);
 					Bukkit.getPluginManager().callEvent(e);
 					if (!e.isCancelled()) {
-						HelixCooldown2.display(player, found);
+						WaveCooldown2.display(player, found);
 					}
 				} else if (list.isEmpty()) {
 					HelixActionBar.send(player, "");
-					HelixCooldown2.map.remove(uuid);
+					WaveCooldown2.map.remove(uuid);
 				} else {
-					HelixCooldownAPI cooldown = list.get(0);
+					WaveCooldownAPI cooldown = list.get(0);
 					if (cooldown instanceof ItemCooldown) {
 						ItemCooldown item = (ItemCooldown) cooldown;
 						if (item.isSelected()) {
