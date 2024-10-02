@@ -63,7 +63,13 @@ public static HashMap<String, Double> bal = new HashMap();
   public static void removeCoins(Player player, int amount)
   {
       WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
-		
+		if (Sun8oxData.getPvp().getCoins() > amount) {
 	  Sun8oxData.getPvp().removeCoins(amount);
   }
+  	else {
+
+  	  Sun8oxData.getPvp().setCoins(0);
+  	}
+  }
+  
 }

@@ -13,6 +13,6 @@
 	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Downloads/lombok.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Downloads/json-simple-1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="C:/Users/Home/Desktop/KOMBOPVP SW E SURVIVAL E PRISON E PVP E SKYBLOCK/PVP - 1.8/plugins/DecentHolograms-2.8.9.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/Home/eclipse-workspace/WaveCore/target/KPCore-v3.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Home/eclipse-workspace/WaveCore/target/KP-CORE-v3.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
