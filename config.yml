@@ -15,6 +15,9 @@ ScoreBoardEnabled: false
 #Interval to update the scoreboard
 ScoreBoard-Interval-Update: 3
 
+#Use vault instead of coins
+UseVault: false
+
 #If this is enable the perworldsupport is disabled
 #and players is automatically put on kitpvp when they join the server
 #and will be unable to leave
