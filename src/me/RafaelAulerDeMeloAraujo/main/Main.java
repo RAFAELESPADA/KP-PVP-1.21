@@ -178,6 +178,12 @@ private me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder scoreboar
         getServer().getPluginManager().disablePlugin(this);
         return;
     }
+	if (!Coins.setupEconomy()) {
+		cmd.sendMessage("KP-PVP - Disabled due to no Vault dependency found! KP-PVP VERSION" + getDescription().getVersion());
+        cmd.sendMessage("Install vault to KP-PVP work!");
+        getServer().getPluginManager().disablePlugin(this);
+        return;
+    }
 	if (!Bukkit.getPluginManager().isPluginEnabled("KPCore")) {
 		 Bukkit.getConsoleSender().sendMessage("KPCORE is not installed! It is required for MYSQL SUPPORT (MANDATORY)");
 		 Bukkit.getConsoleSender().sendMessage("Disabling KP-PVP");
@@ -207,10 +213,10 @@ metrics.addCustomChart(new Metrics.DrilldownPie("serverAddress", () -> {
 
 
 if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
-	/* 151 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aPlaceHolderAPI is found!");
-	/* 151 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aHooking into it!");
+	/* 151 */       Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aPlaceHolderAPI is found!");
+	/* 151 */       Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aHooking into it!");
     new PlaceHolderAPIHook(this).register();
-	/* 151 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aPlaceHolderAPI has hooked sucefully!");
+	/* 151 */       Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aPlaceHolderAPI has hooked sucefully!");
 }
  
 
@@ -290,8 +296,8 @@ new BukkitRunnable() {
 /* 148 */       getConfig().options().copyDefaults(true);
 /* 149 */       getConfig().options().copyHeader(true);
 /* 150 */       saveConfig();
-/* 151 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aThe server is using 1.14/1.15 MINECRAFT VERSION");
-/* 152 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aAltering config sounds to 1.14 Sounds...");
+/* 151 */       Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aThe server is using 1.14/1.15 MINECRAFT VERSION");
+/* 152 */       Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aAltering config sounds to 1.14 Sounds...");
 getConfig().options().copyDefaults(true);
 getConfig().options().copyHeader(true);
 saveConfig();
@@ -325,24 +331,24 @@ getConfig().set("Sound.DoubleJump-Ability", "ENTITY_FIREWORK_ROCKET_BLAST");
 getConfig().set("Sound.StomperDamage", "BLOCK_ANVIL_LAND");
 getConfig().set("Sound.AnchorHit", "BLOCK_ANVIL_LAND");
 getConfig().set("Sound.RyuAbility", "ENTITY_GENERIC_EXPLODE");
-/* 178 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aDone! All Sounds have been modified to 1.14 Sounds.");
+/* 178 */       Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aDone! All Sounds have been modified to 1.14 Sounds.");
 /*     */     }
 registerEvents();
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aSetupping warps");
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aSetupping warps");
 settings.setup(this);
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aWarps Loaded");
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aWarps Loaded");
 registerCommands();
 if (Main.getInstance().getConfig().getBoolean("ScoreBoardEnabled")) {
-	Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading scoreboard");
+	Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aLoading scoreboard");
 	loadScore();
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aScoreboard Initilizated");
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aScoreboard Initilizated");
 }
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading top kills system");
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aLoading top kills system");
 loadTopPlayersHologram();
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aTopKills setupped sucessufully.");
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aStorage: " + WaveBukkit.getStorage().getName());
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §chttps://www.spigotmc.org/resources/kp-pvp-the-ultimate-kitpvp-plugin.50969/");
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §2Your version is: §e" + Main.getInstance().getDescription().getVersion());
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aTopKills setupped sucessufully.");
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§aStorage: " + WaveBukkit.getStorage().getName());
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§chttps://www.spigotmc.org/resources/kp-pvp-the-ultimate-kitpvp-plugin.50969/");
+Bukkit.getConsoleSender().sendMessage("Â§e[KP-PVP] Â§2Your version is: Â§e" + Main.getInstance().getDescription().getVersion());
 /*     */   
 
   
@@ -364,24 +370,24 @@ public static void handleTopPlayers(Location location) {
 		return;
 	}
 		
-		String header = "§e§lTop 15 players §a(KILLS)";	
+		String header = "Â§eÂ§lTop 15 players Â§a(KILLS)";	
 			List<String> lines = Arrays.asList(header,
-				"§61"  + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_1_alltime_name%" +
-				" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_1_alltime_value%", "§62" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_2_alltime_name%" +
-						" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_2_alltime_value%", "§63" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_3_alltime_name%" +
-								" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_3_alltime_value%", "§64" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_4_alltime_name%" +
-										" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_4_alltime_value%", "§65" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_5_alltime_name%" +
-												" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_5_alltime_value%", "§66" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_6_alltime_name%" +
-														" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_6_alltime_value%", "§67" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_7_alltime_name%" +
-																" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_7_alltime_value%", "§68" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_8_alltime_name%" +
-																		" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_8_alltime_value%", "§69" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_9_alltime_name%" +
-																				" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_9_alltime_value%", "§610" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_10_alltime_name%" +
-																						" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_10_alltime_value%", "§611" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_11_alltime_name%" +
-																								" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_11_alltime_value%", "§612" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_12_alltime_name%" +
-																										" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_12_alltime_value%", "§613" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_13_alltime_name%" +
-																												" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_13_alltime_value%", "§614" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_14_alltime_name%" +
-																														" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_14_alltime_value%", "§615" + "º " + "§e" + "%ajlb_lb_kp-pvp_player_kills_15_alltime_name%" +
-																																" §fKills: §6" + "%ajlb_lb_kp-pvp_player_kills_15_alltime_value%");
+				"Â§61"  + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_1_alltime_name%" +
+				" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_1_alltime_value%", "Â§62" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_2_alltime_name%" +
+						" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_2_alltime_value%", "Â§63" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_3_alltime_name%" +
+								" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_3_alltime_value%", "Â§64" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_4_alltime_name%" +
+										" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_4_alltime_value%", "Â§65" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_5_alltime_name%" +
+												" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_5_alltime_value%", "Â§66" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_6_alltime_name%" +
+														" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_6_alltime_value%", "Â§67" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_7_alltime_name%" +
+																" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_7_alltime_value%", "Â§68" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_8_alltime_name%" +
+																		" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_8_alltime_value%", "Â§69" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_9_alltime_name%" +
+																				" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_9_alltime_value%", "Â§610" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_10_alltime_name%" +
+																						" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_10_alltime_value%", "Â§611" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_11_alltime_name%" +
+																								" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_11_alltime_value%", "Â§612" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_12_alltime_name%" +
+																										" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_12_alltime_value%", "Â§613" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_13_alltime_name%" +
+																												" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_13_alltime_value%", "Â§614" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_14_alltime_name%" +
+																														" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_14_alltime_value%", "Â§615" + "Âº " + "Â§e" + "%ajlb_lb_kp-pvp_player_kills_15_alltime_name%" +
+																																" Â§fKills: Â§6" + "%ajlb_lb_kp-pvp_player_kills_15_alltime_value%");
 		
 		
 			
@@ -700,9 +706,9 @@ public void onDisable()
 {
   ConsoleCommandSender cmd = Bukkit.getConsoleSender();
   cmd.sendMessage(" ");
-  cmd.sendMessage("    §7KP-PVP Version " + Main.getInstance().getDescription().getVersion() + " has been disabled");
-  cmd.sendMessage("    §cAuthor: §EzEnderX5_ , Rafael Auler    ");
-  cmd.sendMessage("    §cThank you for use the plugin §a=D    ");
+  cmd.sendMessage("    Â§7KP-PVP Version " + Main.getInstance().getDescription().getVersion() + " has been disabled");
+  cmd.sendMessage("    Â§cAuthor: Â§EzEnderX5_ , Rafael Auler    ");
+  cmd.sendMessage("    Â§cThank you for use the plugin Â§a=D    ");
   cmd.sendMessage(" ");
   /*     */ for(Player p: Bukkit.getOnlinePlayers()){
 	  if (Join.game.contains(p.getName()) && !Main.plugin.getConfig().getBoolean("bungeemode")) {
