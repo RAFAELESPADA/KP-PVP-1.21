@@ -20,7 +20,7 @@ public class Coins
 public static HashMap<String, Double> bal = new HashMap();
   public static Economy econ = null;
   public static Permission perms = null;
-  public static boolean VAULTON = Main.getInstace().getConfig().getBoolean("UseVault");
+  public static boolean VAULTON = Main.getInstance().getConfig().getBoolean("UseVault");
   
   public static HashMap<String, Double> getCoinsMap()
   {
