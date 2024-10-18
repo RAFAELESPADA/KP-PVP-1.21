@@ -171,6 +171,9 @@ private me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder scoreboar
 /*     */   
 /*     */   public void onEnable()
 /*     */   {
+	
+   instance = this;
+   plugin = this;
 	ConsoleCommandSender cmd = Bukkit.getConsoleSender();
 	if (!Coins.setupPermissions()) {
 		cmd.sendMessage("KP-PVP - Disabled due to no Vault dependency found! KP-PVP VERSION" + getDescription().getVersion());
@@ -231,8 +234,6 @@ if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
 /* 118 */     
 /* 119 */    
 
-/* 121 */     instance = this;
-/* 122 */     plugin = this;
 /*     */     
 /* 124 */     cH = new ConfigUtils();
 /*     */     
