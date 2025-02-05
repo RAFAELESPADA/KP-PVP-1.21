@@ -168,15 +168,12 @@ private static Hologram topPlayersHd;
 /*     */   
 /*     */   public void onEnable()
 /*     */   {
-<<<<<<< HEAD
 
 /* 121 */     instance = this;
 /* 122 */     plugin = this;
-=======
 	
    instance = this;
    plugin = this;
->>>>>>> 9cc15049f76f1da1a2f8326ebcdf7e18ca6bae2d
 	ConsoleCommandSender cmd = Bukkit.getConsoleSender();
 	if (!Coins.setupPermissions()) {
 		cmd.sendMessage("KP-PVP - Disabled due to no Vault dependency found! KP-PVP VERSION" + getDescription().getVersion());
@@ -341,16 +338,13 @@ Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aSetupping warps");
 settings.setup(this);
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aWarps Loaded");
 registerCommands();
-<<<<<<< HEAD
-Bukkit.getConsoleSender().sendMessage("�e[KP-PVP] �aLoading top kills system");
-=======
+Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading top kills system");
 if (Main.getInstance().getConfig().getBoolean("ScoreBoardEnabled")) {
 	Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading scoreboard");
 	loadScore();
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aScoreboard Initilizated");
 }
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading top kills system");
->>>>>>> 9cc15049f76f1da1a2f8326ebcdf7e18ca6bae2d
 loadTopPlayersHologram();
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aTopKills setupped sucessufully.");
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aStorage: " + WaveBukkit.getStorage().getName());
