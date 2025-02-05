@@ -13,6 +13,9 @@ Prefix: '&8[&cKitPvP&8] '
 #Use vault instead of coins
 UseVault: false
 
+#Use vault instead of coins
+UseVault: false
+
 #If this is enable the perworldsupport is disabled
 #and players is automatically put on kitpvp when they join the server
 #and will be unable to leave
