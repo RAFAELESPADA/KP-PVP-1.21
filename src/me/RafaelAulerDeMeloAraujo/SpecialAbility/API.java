@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -14,19 +13,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import cooldown1.ItemCooldown;
 import cooldown1.WaveCooldown2;
-import me.RafaelAulerDeMeloAraujo.Coins.Coins;
-import me.RafaelAulerDeMeloAraujo.Coins.XP;
-import me.RafaelAulerDeMeloAraujo.ScoreboardManager.FastBoard;
-import me.RafaelAulerDeMeloAraujo.ScoreboardManager.Level;
-import me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder;
-import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
 import me.RafaelAulerDeMeloAraujo.main.Main;
-import net.wavemc.core.bukkit.WaveBukkit;
-import net.wavemc.core.bukkit.account.WavePlayer;
 import net.wavemc.core.util.WaveCooldownAPI;
 
 
@@ -96,56 +86,7 @@ public class API
     			}
     		 
    	    }
-    	   public static void init() {
-    	
-    		      for (Player p : Bukkit.getOnlinePlayers()) {
-    		      new BukkitRunnable() {	
-    		    		@Override
-    		    			public void run() {
-    		    	/*     */         if (!Main.getInstance().getConfig().getBoolean("ScoreBoardEnabled")) {
-    		    		return;
-    		    	}
-    		    	/*     */               else if (!Join.game.contains(p.getName())) {
-    		    		return;
-    		    	}
-    		    	/*     */ 	/*     */       FastBoard board = new FastBoard(p);
-    		    	 WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
-    		 		int ks = Sun8oxData.getPvp().getKillstreak();
-    		    				 board.updateTitle(Main.messages.getString("ScoreBoardTitle").replace("&", "§"));
-    		    	String l10 = "§3";
-    		    	String l9 = Main.messages.getString("ScoreBoardKit").replace("&", "§") + Habilidade.getAbility(p);
-    		    	String l8 = "§2";
-    		    	String l7 = Main.messages.getString("ScoreBoardKills").replace("&", "§") + AntiDeathDrop.GetKills(p);
-    		    	String l6 = Main.messages.getString("ScoreBoardDeaths").replace("&", "§") + AntiDeathDrop.GetDeaths(p);
-    		    	String l5 = Main.messages.getString("ScoreBoardKS").replace("&", "§") + ks;
-    		    	String l4 = "§1";
-    		    	String l3 = Main.messages.getString("ScoreBoardCoins").replace("&", "§") + Coins.getCoins(p);
-    		    	String l2 = Main.messages.getString("ScoreBoardXP").replace("&", "§") + XP.getXP(p);
-    		    	String l1 = "§0";
-    		    	String l0 = Main.messages.getString("ScoreBoardLevel").replace("&", "§") + Level.getLevel(p);
-    		    	String lxp = Main.messages.getString("ScoreBoardNeedXP").replace("&", "§") + Level.getXPToLevelUp(p);
 
-    		    	board.updateLines(
-    		    	        l10,
-    		    	        l9,
-    		    	        l8,
-    		    	        l7,
-    		    	        l6,
-    		    	        l5,
-    		    	        l4,
-    		    	        l3,
-    		    	        l2,
-    		    	        l1,
-    		    	        l0,
-    		    	        lxp,
-    		    	        ""
-    		    	);
-    		    	ScoreboardBuilder.boards.put(p.getUniqueId(), board);
-    		    		}}.runTaskTimer(Main.getInstance(), 1 * 20L, 20L * Main.getInstance().getConfig().getInt("ScoreBoard-Interval-Update"));
-    	
-    				}
-    		
-    		      }
 		
 	    public static void tirarArmadura(final Player p) {
 	        p.getInventory().setHelmet(new ItemStack(Material.AIR));

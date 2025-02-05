@@ -1,15 +1,17 @@
 package me.RafaelAulerDeMeloAraujo.SpecialAbility;
 
-import org.bukkit.event.player.*;
-import org.bukkit.entity.*;
+import java.util.Random;
 
-import java.util.*;
-import org.bukkit.*;
-import org.bukkit.plugin.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
+
 import me.RafaelAulerDeMeloAraujo.main.Main;
-
-import org.bukkit.inventory.*;
-import org.bukkit.event.*;
 
 public class Monk implements Listener
 {
@@ -28,6 +30,7 @@ public class Monk implements Listener
                 	p.sendMessage("Please dont monk our npcs!");
                 	return;
                 }
+                
                 final int random = new Random().nextInt(jogadorClicado.getInventory().getSize() - 10 + 1 + 10);
                 final ItemStack ItemSelecionado = jogadorClicado.getInventory().getItem(random);
                 final ItemStack ItemMudado = jogadorClicado.getItemInHand();

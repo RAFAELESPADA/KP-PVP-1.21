@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -72,7 +73,7 @@ implements Listener, CommandExecutor
 	        while (blocksToAdd.hasNext())
 	        {
 	          Location blockToAdd = blocksToAdd.next().getLocation();
-	          p.getWorld().playEffect(blockToAdd, Effect.STEP_SOUND, Material.LAVA, 20);
+	          p.getWorld().playEffect(blockToAdd, Effect.STEP_SOUND, Material.LAVA, 40);
 	          p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.RyuAbility")), 3.0F, 3.0F);
 	        }
 	        Snowball h = (Snowball)p.launchProjectile(Snowball.class);
@@ -178,6 +179,10 @@ implements Listener, CommandExecutor
 	  /* 42 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.NoPermissionMessage")), 1.0F, 1.0F);
 	  /* 43 */         return true;
 	  /*    */       }
+	  if (Main.kits.getBoolean("RyuDisabled")) {
+			p.sendMessage(API.NomeServer + ChatColor.RED + "The Ryu kit is disabled, sorry");
+			return true;
+		}
 	  /* 39 */       if (!Join.game.contains(p.getName()))
 	  /*    */       {
 	  /* 41 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + " §eYou are not in kitpvp to choose this kit!");

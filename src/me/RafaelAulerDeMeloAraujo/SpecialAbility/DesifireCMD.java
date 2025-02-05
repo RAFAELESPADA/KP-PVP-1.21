@@ -1,18 +1,16 @@
 /*    */ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-/*    */ 
-/*    */ import java.util.ArrayList;
-/*    */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
-/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
+import org.bukkit.ChatColor;
 /*    */ import org.bukkit.Material;
 /*    */ import org.bukkit.Sound;
 /*    */ import org.bukkit.command.Command;
 /*    */ import org.bukkit.command.CommandExecutor;
 /*    */ import org.bukkit.command.CommandSender;
-/*    */ import org.bukkit.configuration.file.FileConfiguration;
 /*    */ import org.bukkit.entity.Player;
 /*    */ import org.bukkit.inventory.ItemStack;
-/*    */ import org.bukkit.inventory.PlayerInventory;
 /*    */ import org.bukkit.inventory.meta.ItemMeta;
+
+/*    */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
+/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*    */ 
 /*    */ public class DesifireCMD implements CommandExecutor
 /*    */ {
@@ -47,6 +45,10 @@
 /* 47 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.NoPermissionMessage")), 1.0F, 1.0F);
 /* 48 */         return true;
 /*    */       }
+if (Main.kits.getBoolean("DeshfireDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Deshfire kit is disabled, sorry");
+	return true;
+}
 /*    */       
 /*    */ 
 /*    */ 

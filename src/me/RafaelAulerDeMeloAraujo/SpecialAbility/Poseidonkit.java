@@ -1,15 +1,15 @@
 package me.RafaelAulerDeMeloAraujo.SpecialAbility;
 
-/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
+import org.bukkit.ChatColor;
 /*    */ import org.bukkit.Material;
 import org.bukkit.Sound;
 /*    */ import org.bukkit.command.Command;
 /*    */ import org.bukkit.command.CommandSender;
-/*    */ import org.bukkit.configuration.file.FileConfiguration;
 /*    */ import org.bukkit.entity.Player;
 /*    */ import org.bukkit.inventory.ItemStack;
-/*    */ import org.bukkit.inventory.PlayerInventory;
 /*    */ import org.bukkit.inventory.meta.ItemMeta;
+
+/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*    */ 
 /*    */ public class Poseidonkit implements org.bukkit.command.CommandExecutor
 /*    */ {
@@ -42,6 +42,10 @@ import org.bukkit.Sound;
 /* 47 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.NoPermissionMessage")), 1.0F, 1.0F);
 /* 48 */         return true;
 /*    */       }
+if (Main.kits.getBoolean("PoseidonDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Poseidon kit is disabled, sorry");
+	return true;
+}
 /* 39 */       if (!Join.game.contains(p.getName()))
 /*    */       {
 /* 41 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "ï¿½")) + " §You are not in kitpvp to choose this kit!");

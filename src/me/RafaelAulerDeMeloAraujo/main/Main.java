@@ -68,8 +68,6 @@ import me.RafaelAulerDeMeloAraujo.Listeners.StatusGUI;
 import me.RafaelAulerDeMeloAraujo.Listeners.UpdateUtil;
 /*     */ import me.RafaelAulerDeMeloAraujo.Listeners.WallClamber;
 import me.RafaelAulerDeMeloAraujo.PluginHooks.PlaceHolderAPIHook;
-import me.RafaelAulerDeMeloAraujo.ScoreboardManager.FastBoard;
-import me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder;
 
 /*     */ 
 
@@ -161,7 +159,6 @@ private static Hologram topPlayersHd;
 /*     */   public static Plugin plugin;
 /*     */   public static Main instance;
 /*     */   private static ConfigUtils cH;
-private me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder scoreboardBuilder;
 /*  98 */   public static File file_x1 = new File("plugins/KP-PVP", "1v1.yml");
 /*     */   SettingsManager settings = SettingsManager.getInstance();
 /*     */   public static Main getPlugin()
@@ -171,8 +168,17 @@ private me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder scoreboar
 /*     */   
 /*     */   public void onEnable()
 /*     */   {
+
+/* 121 */     instance = this;
+/* 122 */     plugin = this;
 	ConsoleCommandSender cmd = Bukkit.getConsoleSender();
 	if (!Coins.setupPermissions()) {
+		cmd.sendMessage("KP-PVP - Disabled due to no Vault dependency found! KP-PVP VERSION" + getDescription().getVersion());
+        cmd.sendMessage("Install vault to KP-PVP work!");
+        getServer().getPluginManager().disablePlugin(this);
+        return;
+    }
+	if (!Coins.setupEconomy()) {
 		cmd.sendMessage("KP-PVP - Disabled due to no Vault dependency found! KP-PVP VERSION" + getDescription().getVersion());
         cmd.sendMessage("Install vault to KP-PVP work!");
         getServer().getPluginManager().disablePlugin(this);
@@ -193,7 +199,6 @@ private me.RafaelAulerDeMeloAraujo.ScoreboardManager.ScoreboardBuilder scoreboar
 metrics.addCustomChart(new Metrics.DrilldownPie("serverAddress", () -> {
 	Map<String, Map<String, Integer>> map = new HashMap<>();
 	Map<String, Integer> entry = new HashMap<>();
-	this.scoreboardBuilder = new ScoreboardBuilder();
 	if (getConfig().getBoolean("SendIPAddressData")) entry.put(server.getIp(), 1);
 	else entry.put("Hidden", 1);
 	
@@ -225,8 +230,6 @@ if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
 /* 118 */     
 /* 119 */    
 
-/* 121 */     instance = this;
-/* 122 */     plugin = this;
 /*     */     
 /* 124 */     cH = new ConfigUtils();
 /*     */     
@@ -332,11 +335,6 @@ Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aSetupping warps");
 settings.setup(this);
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aWarps Loaded");
 registerCommands();
-if (Main.getInstance().getConfig().getBoolean("ScoreBoardEnabled")) {
-	Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading scoreboard");
-	loadScore();
-Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aScoreboard Initilizated");
-}
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aLoading top kills system");
 loadTopPlayersHologram();
 Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aTopKills setupped sucessufully.");
@@ -402,28 +400,6 @@ public static void handleTopPlayers(Location location) {
 
 			
 
-public static void loadScore() {
-	new BukkitRunnable() {
-		
-		@Override
-		public void run() {
-			for (Player p1 : Bukkit.getOnlinePlayers()) {
-				if (Join.game.contains(p1.getName())) {
-				            for (FastBoard board : ScoreboardBuilder.boards.values()) {
-				                ScoreboardBuilder.build(board);
-				            }
-					 		}
-								else if (!Join.game.contains(p1.getName()) && Join.savescore.containsKey(p1.getName())) {
-									FastBoard board = ScoreboardBuilder.boards.get(p1.getUniqueId());
-
-							        if (board != null && !board.isDeleted()) {
-							            board.delete();
-							        }
-									p1.setScoreboard(Join.savescore.get(p1.getName()));
-									
-				
-								}}}}.runTaskTimer(Main.getInstance(), 10 * 20L, 20L * Main.getInstance().getConfig().getInt("ScoreBoard-Interval-Update"));
-		}
 			
 
 public static void loadTopPlayersHologram() {
@@ -431,7 +407,6 @@ public static void loadTopPlayersHologram() {
 		@Override
 		public void run() {
 			if (Main.plugin.getConfig().getString("TOP.World") == null) {
-				Bukkit.getLogger().severe("[KP-PVP] TopKills is not seted. Please set it with /settopkills command");
 				return;
 			}
 		      World w = Bukkit.getServer().getWorld(Main.plugin.getConfig().getString("TOP.World"));

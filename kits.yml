@@ -44,6 +44,8 @@ MilkmanLore: '&7Gets stronger with your milk'
 #Modify the cooldown of some kits
 #They are in seconds
 
+GladiatorHasCooldown: true
+
 StomperCooldown: 30
 ThorCooldown: 5
 TimelordCooldown: 30
@@ -54,6 +56,7 @@ NarutoCooldown: 40
 RyuCooldown: 25
 NinjaCooldown: 10
 MonkCooldown: 25
+GladiatorCooldown: 40
 
 
 #Disable kits here
@@ -72,6 +75,21 @@ TimelordDisabled: false
 SwitcherDisabled: false
 PvPDisabled: false
 MilkmanDisabled: false
+ConfuserDisabled: false
+NinjaDisabled: false
+MonkDisabled: false
+FiremanDisabled: false
+SonicDisabled: false
+DeshfireDisabled: false
+CriticalDisabled: false
+RyuDisabled: false
+NarutoDisabled: false
+PoseidonDisabled: false
+VampireDisabled: false
+ViperDisabled: false
+WaspDisabled: false
+ResouperDisabled: false
+
 
 #Edit some kits ability options
 #Edit the chance of the kit working on each hit (Viper , Snail, Vampire , Confuser)

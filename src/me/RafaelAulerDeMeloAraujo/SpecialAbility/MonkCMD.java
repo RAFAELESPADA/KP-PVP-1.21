@@ -1,6 +1,5 @@
 /*    */ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-/*    */ 
-/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
+import org.bukkit.ChatColor;
 /*    */ import org.bukkit.Material;
 import org.bukkit.Sound;
 /*    */ import org.bukkit.command.Command;
@@ -10,6 +9,9 @@ import org.bukkit.Sound;
 /*    */ import org.bukkit.inventory.ItemStack;
 /*    */ 
 /*    */ import org.bukkit.inventory.meta.ItemMeta;
+
+/*    */ 
+/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*    */ 
 /*    */ public class MonkCMD implements org.bukkit.command.CommandExecutor
 /*    */ {
@@ -37,6 +39,10 @@ import org.bukkit.Sound;
 /* 36 */         p.playSound(p.getLocation(), org.bukkit.Sound.valueOf(this.main.getConfig().getString("Sound.KitUse")), 1.0F, 1.0F);
 /* 37 */         return true;
 /*    */       }
+    if (Main.kits.getBoolean("MonkDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Monk kit is disabled, sorry");
+	return true;
+}
 /* 45 */       if (!p.hasPermission("kitpvp.kit.monk")) {
 /* 46 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + " §cYou dont have permission :)!");
 /* 47 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.NoPermissionMessage")), 1.0F, 1.0F);

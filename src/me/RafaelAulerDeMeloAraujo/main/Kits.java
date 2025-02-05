@@ -143,7 +143,9 @@ if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
 	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
 	}
 p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+if (!Main.getInstance().getConfig().getBoolean("DisableShopItem")) {
 /* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+}
 /* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
 /*     */       
 /*     */ 
@@ -731,6 +733,10 @@ RTP.TeleportArenaRandom(p);
 /* 598 */         s.playSound(s.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.KitUse")), 1.0F, 1.0F);
 /* 599 */         return true;
 /*     */       }
+if (Main.kits.getBoolean("WaspDisabled")) {
+	s.sendMessage(ChatColor.RED + "The wasp kit is disabled, sorry");
+	return true;
+}
 /* 601 */       s.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "Wasp").replace("&", "§"));
 /* 602 */       s.getInventory().clear();
 /* 603 */       s.setHealth(s.getMaxHealth());

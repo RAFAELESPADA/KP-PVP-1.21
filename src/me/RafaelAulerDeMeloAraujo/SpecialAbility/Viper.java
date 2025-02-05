@@ -1,26 +1,25 @@
 /*     */ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-/*     */ 
-/*     */ import java.util.ArrayList;
 /*     */ import java.util.Random;
-/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
-/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
+
+import org.bukkit.ChatColor;
 /*     */ import org.bukkit.GameMode;
 /*     */ import org.bukkit.Material;
 /*     */ import org.bukkit.Sound;
 /*     */ import org.bukkit.command.Command;
 /*     */ import org.bukkit.command.CommandExecutor;
 /*     */ import org.bukkit.command.CommandSender;
-/*     */ import org.bukkit.configuration.file.FileConfiguration;
 /*     */ import org.bukkit.entity.LivingEntity;
 /*     */ import org.bukkit.entity.Player;
 /*     */ import org.bukkit.event.EventHandler;
 /*     */ import org.bukkit.event.Listener;
 /*     */ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 /*     */ import org.bukkit.inventory.ItemStack;
-/*     */ import org.bukkit.inventory.PlayerInventory;
 /*     */ import org.bukkit.inventory.meta.ItemMeta;
 /*     */ import org.bukkit.potion.PotionEffect;
 /*     */ import org.bukkit.potion.PotionEffectType;
+
+/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
+/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*     */ 
 /*     */ public class Viper
 /*     */   implements Listener, CommandExecutor
@@ -92,6 +91,10 @@
 /*  85 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.NoPermissionMessage")), 1.0F, 1.0F);
 /*  86 */         return true;
 /*     */       }
+/*     */       if (Main.kits.getBoolean("ViperDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Viper kit is disabled, sorry");
+	return true;
+}
 /*     */       
 /*  89 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "Viper").replace("&", "§"));
 /*  90 */       p.setGameMode(GameMode.ADVENTURE);

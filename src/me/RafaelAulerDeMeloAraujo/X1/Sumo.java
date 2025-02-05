@@ -89,6 +89,8 @@ insumo.remove(p);
 /*  65 */     p.getInventory().setLeggings(new ItemStack(Material.AIR));
 /*  66 */     p.getInventory().setBoots(new ItemStack(Material.AIR));
 p.getInventory().setArmorContents(null);
+if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+	
 /*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
 /*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
 /*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
@@ -131,9 +133,11 @@ if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
 	p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
 }
 p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+if (!Main.getInstance().getConfig().getBoolean("DisableShopItem")) {
 /* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+}
 /* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-/*     */       
+/*     */       }
 /*     */ 
 /* 107 */       p.updateInventory();
 

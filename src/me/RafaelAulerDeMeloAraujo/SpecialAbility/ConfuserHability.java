@@ -3,6 +3,7 @@ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
 
 import java.util.Random;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -72,6 +73,10 @@ import me.RafaelAulerDeMeloAraujo.main.Main;
 /* 41 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + " §eYou are not in kitpvp to choose this kit!");
 /* 42 */         return true;
 /*    */       }
+if (Main.kits.getBoolean("ConfuserDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Confuser kit is disabled, sorry");
+	return true;
+}
 /* 44 */       p.getInventory().clear();
 /* 45 */       ItemStack dima = new ItemStack(Material.DIAMOND_SWORD);
 /* 46 */       ItemMeta souperaa = dima.getItemMeta();

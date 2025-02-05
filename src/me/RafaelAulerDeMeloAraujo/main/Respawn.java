@@ -119,6 +119,8 @@ public class Respawn implements Listener {
 							/* 154 */      double y = Main.plugin.getConfig().getDouble("SpawnD.Y");
 							/* 155 */      double z = Main.plugin.getConfig().getDouble("SpawnD.Z");
 							/* 156 */      Location lobby = new Location(w, x, y, z);
+							if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+								
 							/* 157 */      lobby.setPitch((float)Main.plugin.getConfig().getDouble("SpawnD.Pitch"));
 							/* 158 */      lobby.setYaw((float)Main.plugin.getConfig().getDouble("SpawnD.Yaw"));
 							/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
@@ -162,9 +164,12 @@ public class Respawn implements Listener {
 								p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
 								}
 							p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+							if (!Main.getInstance().getConfig().getBoolean("DisableShopItem")) {
 							/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+							}
+							
 							/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-							/*     */       
+							/*     */       }
 							/*     */ 
 							/* 107 */       p.updateInventory();
 							/*     */       

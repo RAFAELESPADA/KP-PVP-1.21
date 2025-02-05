@@ -1,14 +1,12 @@
 package me.RafaelAulerDeMeloAraujo.SpecialAbility;
 
-/*    */ 
-/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 /*    */ import org.bukkit.Material;
 import org.bukkit.Sound;
 /*    */ import org.bukkit.command.Command;
 /*    */ import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 /*    */ 
 /*    */ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +17,9 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 /*    */ 
 /*    */ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
+
+/*    */ 
+/*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*    */ 
 /*    */ public class Anchor implements org.bukkit.command.CommandExecutor , Listener
 /*    */ {
@@ -45,6 +46,12 @@ public void onPlayerHitAnchor(EntityDamageByEntityEvent e)
   {
     p.setVelocity(new Vector());
     a.playSound(a.getLocation(), org.bukkit.Sound.valueOf(this.main.getConfig().getString("Sound.AnchorHit")), 4.0F, 4.0F);
+    for (Entity ent : p.getNearbyEntities(12, 12, 12)) {
+    	if (ent instanceof Player) {
+    		((Player) ent).playSound(((Player) ent).getLocation(), org.bukkit.Sound.valueOf(this.main.getConfig().getString("Sound.AnchorHit")), 4.0F, 4.0F);
+    	    
+    	}
+    }
     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable()
     {
       public void run()
@@ -56,6 +63,12 @@ public void onPlayerHitAnchor(EntityDamageByEntityEvent e)
   if (Habilidade.getAbility(a).equalsIgnoreCase("Anchor"))
   {
     a.playSound(a.getLocation(), org.bukkit.Sound.valueOf(this.main.getConfig().getString("Sound.AnchorHit")), 4.0F, 4.0F);
+    for (Entity ent : p.getNearbyEntities(12, 12, 12)) {
+    	if (ent instanceof Player) {
+    		((Player) ent).playSound(((Player) ent).getLocation(), org.bukkit.Sound.valueOf(this.main.getConfig().getString("Sound.AnchorHit")), 4.0F, 4.0F);
+    	    
+    	}
+    }
     p.setVelocity(new Vector());
     Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable()
     {

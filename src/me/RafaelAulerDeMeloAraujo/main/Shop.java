@@ -79,7 +79,7 @@ public class Shop
   
   public Shop(Main main)
   {
-	ItemStack vidro = new ItemStack(Material.GREEN_STAINED_GLASS_PANE);
+	ItemStack vidro = new ItemStack(Material.valueOf(Main.getInstace().getConfig().getString("SHOP-BACKGROUND-ITEM-MATERIAL")));
     ItemMeta vidro2 = vidro.getItemMeta();
     vidro2.setDisplayName(Main.messages.getString("ShopItemContents").replace("&", "§"));
     vidro.setItemMeta(vidro2);
@@ -388,6 +388,10 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  if (Main.kits.getBoolean("NarutoDisabled")) {
+    			p.sendMessage(API.NomeServer + ChatColor.RED + "The Naruto kit is disabled, sorry");
+    			return;
+    		}
     	  Coins.perms.playerAdd(p, "kitpvp.kit.naruto");
         p.sendMessage("§6-> §cYou buy the Naruto kit §e-12500 coins");
         Coins.removeCoins(p, 12500);
@@ -410,6 +414,10 @@ public class Shop
           		p.closeInventory();
           		return;
         	}
+          if (Main.kits.getBoolean("ResouperDisabled")) {
+        	  p.sendMessage(API.NomeServer + ChatColor.RED + "The Resouper kit is disabled, sorry");
+        	  return;
+        	  }
       	Coins.perms.playerAdd(p, "kitpvp.kit.resouper");
           p.sendMessage("§6-> §cYou buy the Resouper kit §e-3000 coins");
           Coins.removeCoins(p, 3000);
@@ -457,6 +465,10 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  /*     */       if (Main.kits.getBoolean("VampireDisabled")) {
+    			p.sendMessage(API.NomeServer + ChatColor.RED + "The Vampire kit is disabled, sorry");
+    			return;
+    		}
     	  Coins.perms.playerAdd(p, "kitpvp.kit.vampire");
         p.sendMessage("§6-> §cYou buy the Vampire kit §e-10000 coins");
         Coins.removeCoins(p, 10000);
@@ -478,6 +490,10 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  /*     */       if (Main.kits.getBoolean("NinjaDisabled")) {
+    			p.sendMessage(API.NomeServer + ChatColor.RED + "The Ninja kit is disabled, sorry");
+    			return;
+    		}
     	  Coins.perms.playerAdd(p, "kitpvp.kit.ninja");
         
         p.sendMessage("§6-> §cYou buy the Ninja kit §e-6500 coins");
@@ -500,6 +516,10 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  if (Main.kits.getBoolean("MonkDisabled")) {
+    			p.sendMessage(API.NomeServer + ChatColor.RED + "The Monk kit is disabled, sorry");
+    			return;
+    		}
     	  Coins.perms.playerAdd(p, "kitpvp.kit.monk");
         p.sendMessage("§6-> §cYou buy the Monk kit §e-5000 coins");
         Coins.removeCoins(p, 5000);
@@ -521,6 +541,10 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  if (Main.kits.getBoolean("WaspDisabled")) {
+    			p.sendMessage(ChatColor.RED + "The wasp kit is disabled, sorry");
+    			return;
+    		}
     	  Coins.perms.playerAdd(p, "kitpvp.kit.wasp");
         p.sendMessage("§6-> §cYou buy the Wasp kit §e-6000 coins");
         Coins.removeCoins(p, 6000);
@@ -567,6 +591,10 @@ public class Shop
           		p.closeInventory();
           		return;
         	}
+        	if (Main.kits.getBoolean("SonicDisabled")) {
+        		p.sendMessage(API.NomeServer + ChatColor.RED + "The Sonic kit is disabled, sorry");
+        		return;
+        	}
         	Coins.perms.playerAdd(p, "kitpvp.kit.sonic");
           p.sendMessage("§6-> §cYou buy the Sonic kit §e-11000 coins");
           Coins.removeCoins(p, 11000);
@@ -588,6 +616,10 @@ public class Shop
           		p.closeInventory();
           		return;
         	}
+      	if (Main.kits.getBoolean("FiremanDisabled")) {
+      		p.sendMessage(API.NomeServer + ChatColor.RED + "The Fireman kit is disabled, sorry");
+      		return;
+      	}
       	Coins.perms.playerAdd(p, "kitpvp.kit.fireman");
           p.sendMessage("§6-> §cYou buy the Fireman kit §e-6000 coins");
           Coins.removeCoins(p, 6000);
@@ -609,6 +641,10 @@ public class Shop
           		p.closeInventory();
           		return;
         	}
+      	if (Main.kits.getBoolean("RyuDisabled")) {
+			p.sendMessage(API.NomeServer + ChatColor.RED + "The Ryu kit is disabled, sorry");
+			return;
+		}
       	Coins.perms.playerAdd(p, "kitpvp.kit.ryu");
           p.sendMessage("§6-> §cYou buy the Ryu kit §e-5000 coins");
           Coins.removeCoins(p, 5000);
@@ -680,6 +716,11 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  if (Main.kits.getBoolean("ViperDisabled")) {
+    		  p.sendMessage("§e[KitPvP] §cThe Viper kit is disabled, sorry!");
+      		p.closeInventory();
+      		return; 
+    	  }
     	  Coins.perms.playerAdd(p, "kitpvp.kit.viper");
         p.sendMessage("§6-> §cYou buy the Viper kit §e-7000 coins");
         Coins.removeCoins(p, 7000);
@@ -727,6 +768,10 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  if (Main.kits.getBoolean("DeshfireDisabled")) {
+    			p.sendMessage(API.NomeServer + ChatColor.RED + "The Deshfire kit is disabled, sorry");
+    			return;
+    		}
     	  Coins.perms.playerAdd(p, "kitpvp.kit.deshfire");
         
         p.sendMessage("§6-> §cYou buy the Deshfire kit §e-8500 coins");
@@ -798,6 +843,10 @@ public class Shop
           		p.closeInventory();
           		return;
         	}
+      	  if (Main.kits.getBoolean("PoseidonDisabled")) {
+  			p.sendMessage(API.NomeServer + ChatColor.RED + "The Poseidon kit is disabled, sorry");
+  			return;
+  		}
       	Coins.perms.playerAdd(p, "kitpvp.kit.poseidon");
           p.sendMessage("§6-> §cYou buy the Poseidon kit §e-6000 coins");
           Coins.removeCoins(p, 6000);
@@ -840,6 +889,10 @@ public class Shop
           		p.closeInventory();
           		return;
         	}
+      	if (Main.kits.getBoolean("ConfuserDisabled")) {
+      		p.sendMessage(API.NomeServer + ChatColor.RED + "The Confuser kit is disabled, sorry");
+      		return;
+      	}
       	Coins.perms.playerAdd(p, "kitpvp.kit.confuser");
           p.sendMessage("§6-> §cYou buy the Confuser kit §e-5500 coins");
           Coins.removeCoins(p, 5500);
@@ -1048,6 +1101,10 @@ public class Shop
         		p.closeInventory();
         		return;
       	}
+    	  if (Main.kits.getBoolean("CriticalDisabled")) {
+    			p.sendMessage(API.NomeServer + ChatColor.RED + "The Critical kit is disabled, sorry");
+    			return;
+    		}
     	  Coins.perms.playerAdd(p, "kitpvp.kit.critical");
         p.sendMessage("§6-> §cYou buy the Critical kit §e-8000 coins");
         Coins.removeCoins(p, 8000);

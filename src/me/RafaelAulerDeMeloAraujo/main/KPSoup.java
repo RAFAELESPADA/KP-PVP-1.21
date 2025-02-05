@@ -34,7 +34,7 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
 /*    */   {
 /* 25 */     
 /* 26 */     if (label.equalsIgnoreCase("kpsoups")) {
-	if (Join.game.contains(sender.getName())) {
+	if (!Join.game.contains(sender.getName())) {
 		sender.sendMessage("You must be in game!");
 		return true;
 	}

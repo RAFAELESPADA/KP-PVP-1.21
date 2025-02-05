@@ -1,4 +1,4 @@
-#KitPvP Version BUILD-111 | Author: zEnderX5_ , Rafael Auler
+#KitPvP Version BUILD-122 | Author: zEnderX5_ , Rafael Auler
 #Author Channel: https://www.youtube.com/channel/UCb1kjbiQj2B4KnRQpgeUwmQ
 #Subscribe to help me to improve the plugin. Thanks =D
 #PS: use /kp for view the plugin command list
@@ -10,29 +10,32 @@
 #Prefix settings
 Prefix: '&8[&cKitPvP&8] '
 
-ScoreBoardEnabled: false 
-
-#Interval to update the scoreboard
-ScoreBoard-Interval-Update: 3
+#Use vault instead of coins
+UseVault: false
 
 #If this is enable the perworldsupport is disabled
 #and players is automatically put on kitpvp when they join the server
 #and will be unable to leave
 bungeemode: false
 
+
+#Disable kitpvp initial items
+DisableInitialItems: false
+
 #Execute commands on the killer and killed on kills
 #Placeholders #killer and %killed%
-Commands-ON-KILL-Enabled: false
+Commands-ON-KILL-Enabled: true
 Commands-Executed-On-Kill:
-- 'givecoins %killer% 50'
-- 'effect %killed% speed 20'
+- 'givecoins %killer% 20'
+- 'effect %killed% speed 1 20'
+- 'eco give %killer% 50'
 
 #Disable Compass
 DisableCompassItem: false
 
 #If this is false the player will leave kitpvp when they change world
 #BungeeMode needs to be false to it works
-DisableWorldLeaveKitPvPEvent: false
+DisableWorldLeaveKitPvPEvent: true
 
 #If this is true all players will be able to build and place blocks while on kitpvp
 #If false only players that write /kpeditmode (Needs permission) will be able to build
@@ -132,6 +135,10 @@ Title:
 #Respawn settings
 RespawnSound: true
 
+KITMENU-BACKGROUND-ITEM-MATERIAL: 'GLASS_PANE'
+KITMENU-BLOCKEDKIT-ITEM-MATERIAL: 'RED_STAINED_GLASS_PANE'
+SHOP-BACKGROUND-ITEM-MATERIAL: 'YELLOW_STAINED_GLASS_PANE'
+
 #Sound list: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
 Sound:
   Kit: 'ITEM_PICKUP'
@@ -172,8 +179,16 @@ EnableSoundsToAllCommands: true
 
 #Enable or disable command block feature on kitpvp
 #true means enabled / false means disabled
+#THIS IS A COMMAND BLACKLIST
 #Defaults to true
-EnableCommandBlockingInKitPvP: true
+EnableCommandBlockingInKitPvP: false
+
+#Enable or disable hard command block feature on kitpvp
+#If this is true only these commands can be executed while in kitpvp
+#true means enabled / false means disabled
+#THIS IS A COMMAND WHITELIST
+#Defaults to true
+EnableOnlyCommandsAllowedInKitPvP: true
 
 #Enable or disable hunger on kitpvp
 DisableHungerOnKitPvP: true
@@ -217,6 +232,25 @@ SendIPAddressData: true
 #Play around with that number to see what you want in sponge boost
 SpongeBoostAmplifier: 8
 
+#Put here the cmds that are be allowed in kitpvp
+#Bypass permission: kitpvp.unblockedcmds
+ALLOWED_COMMANDS:
+- /kitpvp
+- /tell
+- /msg
+- /w
+- /adminmode
+- /sc
+- /tp
+- /tpall
+- /kpkitmenu
+- /spawn #Do not remove /spawn without disabling KP-Spawn-Command-Enabled above
+- /tag
+- /mute
+- /kick
+- /warn
+- /ac
+- /staffchat
 #Put here the cmds that are be blocked in kitpvp
 #Bypass permission: kitpvp.unblockedcmds
 BLOCKED_COMMANDS:

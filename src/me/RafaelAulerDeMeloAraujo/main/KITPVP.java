@@ -6,12 +6,15 @@
 /*    */ 
 /*    */ public class KITPVP implements org.bukkit.command.CommandExecutor
 /*    */ {
-/*    */   private Main main;
 /*    */   
 /*    */   public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 /*    */   {
 /* 13 */     Player p = (Player)sender;
 /* 14 */     if (label.equalsIgnoreCase("kphelp")) {
+	if (!p.hasPermission("kitpvp.reload")) {
+		  p.sendMessage("§eYou do not have permission");
+		  return true;
+	}
 /* 15 */       p.sendMessage("§b§l\u2605 §e§lKP-PVP Command Help Menu §b§l\u2605");
 /* 16 */       p.sendMessage("§a<> = Opcional §b/ §a[] = Required");
 /* 17 */       p.sendMessage("§e/kitpvp §7(View the main command list)");
@@ -33,6 +36,7 @@ p.sendMessage("§e/removecoins <Player> <Amount> - remove coins from someone");
 
 /*    */     }
 /*    */     
+
 /*    */ 
 /* 34 */     return false;
 /*    */   }

@@ -28,6 +28,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import me.RafaelAulerDeMeloAraujo.Coins.Coins;
 import me.RafaelAulerDeMeloAraujo.Coins.XP;
 import me.RafaelAulerDeMeloAraujo.ScoreboardManager.Level;
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
 import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
 import me.RafaelAulerDeMeloAraujo.main.Main;
 import net.wavemc.core.bukkit.WaveBukkit;
@@ -41,8 +42,10 @@ public class StatusGUI implements Listener {
     private void onPlayerInteract(PlayerInteractAtEntityEvent event) {
         Player player = event.getPlayer();
         if (player.getItemInHand().getType().equals(Material.PLAYER_HEAD)) {
+        	if (Join.game.contains(player.getName())) {
             if (event.getRightClicked().getType() == EntityType.ARMOR_STAND)
                 event.setCancelled(true);
+        }
         }
     }
     public static Inventory getTopInventory(InventoryEvent event) {
@@ -74,7 +77,7 @@ public class StatusGUI implements Listener {
     	if (!(event.getClickedInventory().getHolder() instanceof CustomHolder3)) {
     		return;
     	}
-    	else if (event.getWhoClicked() instanceof Player && event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && !event.getCurrentItem().getItemMeta().getDisplayName().equals("§6Display status in chat")) {
+    	else if (event.getWhoClicked() instanceof Player && event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta() && !event.getCurrentItem().getItemMeta().getDisplayName().equals(Main.messages.getString("DisplayinChat").replace("&", "§"))) {
             event.setCancelled(true);
         }
     }
@@ -90,7 +93,7 @@ public class StatusGUI implements Listener {
     		return;
     	}
     
-    	else if (event.getWhoClicked() instanceof Player && event.getCurrentItem().getItemMeta().getDisplayName().equals("§6Display status in chat")) {
+    	else if (event.getWhoClicked() instanceof Player && event.getCurrentItem().getItemMeta().getDisplayName().equals(Main.messages.getString("DisplayinChat").replace("&", "§"))) {
         	int kills = AntiDeathDrop.GetKills(p);
             int deaths = AntiDeathDrop.GetDeaths(p);
             WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
@@ -120,6 +123,7 @@ public class StatusGUI implements Listener {
                 }
             }
         }
+        try {
         double kdr = AntiDeathDrop.GetDeaths(player) == 0 ? (double) AntiDeathDrop.GetKills(player) : (double) AntiDeathDrop.GetKills(player) / (double) AntiDeathDrop.GetDeaths(player);
         inv.setItem(11, glass);
         inv.setItem(12, glass);
@@ -129,17 +133,21 @@ public class StatusGUI implements Listener {
 		int ks = Sun8oxData.getPvp().getKillstreak();
         for (int i = 17; i > 0; i--) {
         	if(Main.messages.getString("StatusGlassMaterial") == null){
-        		inv.addItem(getCustomItemStack(Material.getMaterial("YELLOW_STAINED_GLASS_PANE"), "§7(" + "§6§lLEVEL" + "§7) §b§l" + i, Arrays.asList("§a" + player.getName() + " You are currently in Level: §b" + Level.getLevel(player),  "§fYou Reached the Level §b" + i  + "§f? " + (Level.getLevel(player) >= i ? Main.messages.getString("StatusGuiYes").replace("&", "§") : Main.messages.getString("StatusGuiNo").replace("&", "§")))));
+        		inv.addItem(getCustomItemStack(Material.getMaterial("YELLOW_STAINED_GLASS_PANE"), "§7(" + "§6§lLEVEL" + "§7) §b§l" + i, Arrays.asList("§a" + player.getName() + Main.messages.getString("StatusLevelINFO").replace("&", "§") + Level.getLevel(player),  Main.messages.getString("StatusLevelQuestion").replace("&", "§") + i  + "§f? " + (Level.getLevel(player) >= i ? Main.messages.getString("StatusGuiYes").replace("&", "§") : Main.messages.getString("StatusGuiNo").replace("&", "§")))));
         		}
         	else
-            inv.addItem(getCustomItemStack(Material.getMaterial(Main.messages.getString("StatusGlassMaterial").toUpperCase()), "§7(" + "§6§lLEVEL" + "§7) §b§l" + i, Arrays.asList("§a" + player.getName() + " You are currently in Level: §b" + Level.getLevel(player),  "§fYou Reached the Level §b" + i  + "§f? " + (Level.getLevel(player) >= i ? Main.messages.getString("StatusGuiYes").replace("&", "§") : Main.messages.getString("StatusGuiNo").replace("&", "§")))));
+            inv.addItem(getCustomItemStack(Material.getMaterial(Main.messages.getString("StatusGlassMaterial").toUpperCase()), "§7(" + Main.messages.getString("StatusLevelName").replace("&", "§") + "§7) §b§l" + i, Arrays.asList("§a" + player.getName() + Main.messages.getString("StatusLevelINFO").replace("&", "§") + Level.getLevel(player),  Main.messages.getString("StatusLevelQuestion").replace("&", "§") + i  + "§f? " + (Level.getLevel(player) >= i ? Main.messages.getString("StatusGuiYes").replace("&", "§") : Main.messages.getString("StatusGuiNo").replace("&", "§")))));
     }
         inv.setItem(4, editItemStack(getPlayerSkull(player.getName()), Main.messages.getString("StatusGuiInformation").replace("&", "§"), Arrays.asList("§fNick: §a" + player.getName(), "§fUUID: §a" + player.getUniqueId(), "§fCoins: §a" + new DecimalFormat("###,###.##").format(Coins.getCoins(player)), Main.messages.getString("StatusGuiFirstAcess").replace("&", "§") + " §a" + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(player.getFirstPlayed()))));
         inv.setItem(10, getCustomItemStack(Material.DIAMOND_SWORD, Main.messages.getString("StatusGuiPlayerStats").replace("&", "§"), Arrays.asList("§fKills: §a" + AntiDeathDrop.GetKills(player), "§fDeaths: §a" + AntiDeathDrop.GetDeaths(player), "§fKDR: §a" + String.format("%.2f",kdr),"§fKillstreak: §a" + ks)));
         inv.setItem(13, getCustomItemStack(Material.ENDER_EYE, Main.messages.getString("StatusGuiBoosters").replace("&", "§"), Arrays.asList("§fXP Boost: §a" + (player.hasPermission("kitpvp.doublexp") ? "Yes" : "No"), "§fCoins Boost: §a" + (player.hasPermission("kitpvp.doublecoins") ? Main.messages.getString("StatusGuiYes").replace("&", "§") : Main.messages.getString("StatusGuiNo").replace("&", "§")))));
-        inv.setItem(16, getCustomItemStack(Material.EXPERIENCE_BOTTLE, Main.messages.getString("StatusGuiLevel").replace("&", "§"), Arrays.asList("§fLevel: §7(" + "§6§lLEVEL" + "§7) §b" + Level.getLevel(player), "§fNext Level: §b" + (Level.getLevel(player) + 1), "§fXP Necessary to Next Level: §b" + Level.getXPToLevelUp(player) + "XP")));
-        inv.setItem(22, getCustomItemStack(Material.DIAMOND_AXE, "§6Display status in chat", Arrays.asList(Main.messages.getString("StatusGuiYourStatsLore").replace("&", "§"))));
+        inv.setItem(16, getCustomItemStack(Material.EXPERIENCE_BOTTLE, Main.messages.getString("StatusGuiLevel").replace("&", "§"), Arrays.asList("§fLevel: §7(" + "§6§lLEVEL" + "§7) §b" + Level.getLevel(player), Main.messages.getString("StatusLevelNext").replace("&", "§") + (Level.getLevel(player) + 1), Main.messages.getString("StatusXpNecessary").replace("&", "§") + Level.getXPToLevelUp(player) + "XP")));
+        inv.setItem(22, getCustomItemStack(Material.DIAMOND_AXE, Main.messages.getString("DisplayinChat").replace("&", "§"), Arrays.asList(Main.messages.getString("StatusGuiYourStatsLore").replace("&", "§"))));
         target.openInventory(inv);
+        } catch (NullPointerException e) { 	
+        target.sendMessage("THERE IS A FATAL ERROR OPENING THIS MENU! CONTACT SERVER ADMINS");
+        	return;
+        }
     }
 
     public static ItemStack editItemStack(ItemStack itemStack, String name, List<String> lore) {

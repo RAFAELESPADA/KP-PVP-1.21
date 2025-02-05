@@ -1,27 +1,23 @@
 
 /*     */ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-/*     */ 
-/*     */ import java.util.ArrayList;
 /*     */ import java.util.Random;
-/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
-/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
+
 /*     */ import org.bukkit.ChatColor;
-/*     */ import org.bukkit.Effect;
 /*     */ import org.bukkit.Material;
 /*     */ import org.bukkit.Sound;
-/*     */ import org.bukkit.World;
 /*     */ import org.bukkit.command.Command;
 /*     */ import org.bukkit.command.CommandExecutor;
 /*     */ import org.bukkit.command.CommandSender;
-/*     */ import org.bukkit.configuration.file.FileConfiguration;
 /*     */ import org.bukkit.entity.Player;
 /*     */ import org.bukkit.event.EventHandler;
 /*     */ import org.bukkit.event.Listener;
 /*     */ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 /*     */ import org.bukkit.inventory.ItemStack;
-/*     */ import org.bukkit.inventory.PlayerInventory;
 /*     */ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
+
+/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
+/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*     */ 
 /*     */ 
 /*     */ public class Vampire
@@ -80,7 +76,10 @@ import org.bukkit.potion.PotionEffectType;
 /*  77 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + " §eYou are not in kitpvp to choose this kit!");
 /*  78 */         return true;
 /*     */       }
-/*     */       
+/*     */       if (Main.kits.getBoolean("VampireDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Vampire kit is disabled, sorry");
+	return true;
+}
 /*  81 */       if (Habilidade.ContainsAbility(p)) {
 /*  82 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.KitUse").replace("&", "§"));
 /*  83 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.KitUse")), 1.0F, 1.0F);

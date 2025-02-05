@@ -180,6 +180,8 @@ public static ArrayList<Player> player = new ArrayList();
 	/*  69 */       for (PotionEffect effect : p.getActivePotionEffects()) {
 	/*  70 */         p.removePotionEffect(effect.getType());
 	/*     */       }
+	if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+		
 	/*  72 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Clear").replace("&", "§"));
 	/*  73 */       p.getInventory().clear();
 	/*  74 */       p.getInventory().setHelmet(new ItemStack(Material.AIR));
@@ -245,10 +247,12 @@ public static ArrayList<Player> player = new ArrayList();
 		p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
 		}
 	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+	if (!Main.getInstance().getConfig().getBoolean("DisableShopItem")) {
 	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+	}
 	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
 	/*     */       
-	/*     */ 
+	/*     */ }
 	/* 107 */       p.updateInventory();
 	/*     */       
 	/*     */ 
@@ -331,6 +335,8 @@ public static ArrayList<Player> player = new ArrayList();
 /*     */ 
 /* 219 */           p.getInventory().clear();
 p.getInventory().setArmorContents(null);
+if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+	
 /*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
 /*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
 /*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
@@ -373,9 +379,11 @@ if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
 	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
 	}
 p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+if (!Main.getInstance().getConfig().getBoolean("DisableShopItem")) {
 /* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+}
 /* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-/*     */       
+/*     */       }
 /*     */ 
 /* 107 */       p.updateInventory();
 /*     */       

@@ -94,6 +94,12 @@ public class Gladiator implements Listener {
         	p.sendMessage("Please dont challenge our npcs to Gladiator!");
         	return;
         }
+        if (Cooldown.add(p))
+        /*     */       {
+        /*  67 */         event.setCancelled(true);
+        /*  68 */         API.MensagemCooldown(p);
+        /*  69 */         return;
+        /*     */       }
         int y = 80 + new Random().nextInt(100);
         final Location loc = new Location(p.getWorld(), (double) p.getLocation().getBlockX(), p.getLocation().getBlockY() + y, (double) p.getLocation().getBlockZ());
         this.localizacao.put(p, loc);
@@ -233,6 +239,10 @@ public class Gladiator implements Listener {
         	p.setHealth(0.0);
         	final Player t = Bukkit.getServer().getPlayer((String)Gladiator.lutando.get(p.getName()));
         	t.sendMessage("§7Your oponnent disconnected");
+        	if (Main.kits.getBoolean("GladiatorHasCooldown")) {
+
+            	Cooldown.add(p, Main.kits.getInt("GladiatorCooldown"));
+        	}
         }
         }
 
@@ -312,7 +322,9 @@ public class Gladiator implements Listener {
             oldl.remove(t.getName());
         }
         oldl.remove(player.getName());
-
+        if (Main.kits.getBoolean("GladiatorHasCooldown")) {
+        	Cooldown.add(player, Main.kits.getInt("GladiatorCooldown"));
+        	}
         /**
          *
          *         final Player p = e.getEntity();

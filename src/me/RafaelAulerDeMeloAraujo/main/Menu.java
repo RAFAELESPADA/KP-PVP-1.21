@@ -45,6 +45,7 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Gladiator;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.NewKitMenu;
 import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
 import me.RafaelAulerDeMeloAraujo.X1.X1;
 
@@ -163,6 +164,8 @@ new BukkitRunnable() {
 	/*     */ 
 	/* 219 */           p.getInventory().clear();
 	/* 220 */           p.getInventory().setArmorContents(null);
+	if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+		
 	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
 	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
 	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
@@ -208,11 +211,11 @@ new BukkitRunnable() {
 	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
 	/*     */       
 	/*     */ 
-	/* 107 */       p.updateInventory();	p.getInventory().setArmorContents(null);
+	/* 107 */       p.updateInventory();
+	}
+	p.getInventory().setArmorContents(null);
 	/*     */       
-	if (Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
-		 p.getInventory().clear();
-	 }
+		
 	/* 107 */       p.updateInventory();
 	/*     */           
 	/*     */ 
@@ -275,6 +278,8 @@ Bukkit.getConsoleSender().sendMessage("Putting " + p.getName() + " back on KITPV
 	/*     */ 
 	/* 219 */           p.getInventory().clear();
 	/* 220 */           p.getInventory().setArmorContents(null);
+	if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+		
 	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
 	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
 	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
@@ -318,13 +323,11 @@ Bukkit.getConsoleSender().sendMessage("Putting " + p.getName() + " back on KITPV
 	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
 	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
 	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-	/*     */       
+	/*     */       }
 	/*     */ 
 	/* 107 */       p.updateInventory();	p.getInventory().setArmorContents(null);
 	/*     */       
-	if (Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
-		 p.getInventory().clear();
-	 }
+	
 	/* 107 */       p.updateInventory();
 	/*     */           
 	/*     */ 
@@ -848,7 +851,7 @@ public void onKit(PlayerInteractEvent e)
     e.setCancelled(true);
     if ((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK))
     {
-      Bukkit.dispatchCommand(p, "kpkitmenu");
+      NewKitMenu.OPENKIT(p);
       p.playSound(p.getLocation(), Sound.valueOf(Main.getInstace().getConfig().getString("Sound.ShopMenu")), 12.0F, 1.0F);
     }
   }

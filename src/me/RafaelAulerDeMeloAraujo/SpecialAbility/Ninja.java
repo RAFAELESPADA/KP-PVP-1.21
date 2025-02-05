@@ -1,31 +1,24 @@
 /*     */ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-/*     */ 
-/*     */ import java.util.ArrayList;
 /*     */ import java.util.HashMap;
-/*     */ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
-/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
-/*     */ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 /*     */ import org.bukkit.GameMode;
-/*     */ import org.bukkit.Location;
 /*     */ import org.bukkit.Material;
 /*     */ import org.bukkit.Sound;
 /*     */ import org.bukkit.command.Command;
 /*     */ import org.bukkit.command.CommandExecutor;
 /*     */ import org.bukkit.command.CommandSender;
-/*     */ import org.bukkit.configuration.file.FileConfiguration;
 /*     */ import org.bukkit.entity.Player;
 /*     */ import org.bukkit.event.EventHandler;
 /*     */ import org.bukkit.event.Listener;
 /*     */ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 /*     */ import org.bukkit.event.player.PlayerToggleSneakEvent;
 /*     */ import org.bukkit.inventory.ItemStack;
-/*     */ import org.bukkit.inventory.PlayerInventory;
 /*     */ import org.bukkit.inventory.meta.ItemMeta;
-/*     */ import org.bukkit.scheduler.BukkitScheduler;
+
+/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
+/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*     */ 
 /*     */ 
 /*     */ 
@@ -126,7 +119,10 @@ p.sendMessage(Main.messages.getString("NinjaTeleport").replace("&", "§").replace
 /* 121 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Permission").replace("&", "§").replaceAll("%permisson%", cmd));
 /* 122 */         return true;
 /*     */       }
-/*     */       
+/*     */       if (Main.kits.getBoolean("NinjaDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Ninja kit is disabled, sorry");
+	return true;
+}
 /* 125 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "Ninja").replace("&", "§"));
 /* 126 */       p.setGameMode(GameMode.ADVENTURE);
 /* 127 */       p.getInventory().clear();

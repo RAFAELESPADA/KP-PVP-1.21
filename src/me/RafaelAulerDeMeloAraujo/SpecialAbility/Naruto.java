@@ -1,27 +1,24 @@
 /*     */ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-/*     */ 
-/*     */ import java.util.ArrayList;
 /*     */ import java.util.HashMap;
 /*     */ import java.util.concurrent.TimeUnit;
-/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
-/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
+
 /*     */ import org.bukkit.ChatColor;
 /*     */ import org.bukkit.Material;
 /*     */ import org.bukkit.Sound;
 /*     */ import org.bukkit.command.Command;
 /*     */ import org.bukkit.command.CommandExecutor;
 /*     */ import org.bukkit.command.CommandSender;
-/*     */ import org.bukkit.configuration.file.FileConfiguration;
 /*     */ import org.bukkit.entity.Player;
 /*     */ import org.bukkit.event.EventHandler;
 /*     */ import org.bukkit.event.Listener;
 /*     */ import org.bukkit.event.block.Action;
 /*     */ import org.bukkit.event.player.PlayerInteractEvent;
 /*     */ import org.bukkit.inventory.ItemStack;
-/*     */ import org.bukkit.inventory.PlayerInventory;
 /*     */ import org.bukkit.inventory.meta.ItemMeta;
-/*     */ import org.bukkit.potion.PotionEffect;
 /*     */ import org.bukkit.potion.PotionEffectType;
+
+/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
+/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*     */ 
 /*     */ 
 /*     */ 
@@ -88,6 +85,10 @@ API.darEfeito(p, PotionEffectType.SPEED, Main.kits.getInt("NarutoSpeedTime"), Ma
 /*  85 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.KitUse")), 1.0F, 1.0F);
 /*  86 */         return true;
 /*     */       }
+if (Main.kits.getBoolean("NarutoDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Naruto kit is disabled, sorry");
+	return true;
+}
 /*  88 */       if (!p.hasPermission("kitpvp.kit.naruto")) {
 /*  89 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Permission").replace("&", "§").replaceAll("%permisson%", cmd));
 /*  90 */         return true;

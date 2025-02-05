@@ -2,8 +2,7 @@
 /*     */ 
 /*     */ 
 /*     */ import java.util.Random;
-/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
-/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
+
 /*     */ import org.bukkit.ChatColor;
 /*     */ import org.bukkit.Effect;
 /*     */ import org.bukkit.Material;
@@ -20,6 +19,9 @@
 /*     */ import org.bukkit.inventory.ItemStack;
 /*     */ 
 /*     */ import org.bukkit.inventory.meta.ItemMeta;
+
+/*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
+/*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*     */ 
 /*     */ 
 /*     */ public class Critical
@@ -80,6 +82,10 @@
 /*  77 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + " §eYou are not in kitpvp to choose this kit!");
 /*  78 */         return true;
 /*     */       }
+if (Main.kits.getBoolean("CriticalDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Critical kit is disabled, sorry");
+	return true;
+}
 /*     */       
 /*  81 */       if (Habilidade.ContainsAbility(p)) {
 /*  82 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.KitUse").replace("&", "§"));

@@ -1,12 +1,6 @@
 /*    */ package me.RafaelAulerDeMeloAraujo.main;
-import org.bukkit.Bukkit;
-/*    */ 
-/*    */ import org.bukkit.configuration.file.FileConfiguration;
-/*    */ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import java.util.List;
 /*    */ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-/*    */ import org.bukkit.plugin.Plugin;
 /*    */ 
 /*    */ public class BlockCommands implements org.bukkit.event.Listener
 /*    */ {
@@ -30,6 +24,18 @@ public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent e) {
           e.getPlayer().closeInventory();
           e.getPlayer().sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.BlockedCMD-OnKitPvP").replace("&", "§")));
         });
+  } 
+}
+
+@EventHandler
+public void onPlayerCommandPreproctess(PlayerCommandPreprocessEvent e) {
+  if (!e.getPlayer().hasPermission("kitpvp.unblockedcmds") && !e.getPlayer().hasPermission("kitpvp.*") && !e.getPlayer().isOp() && (me.RafaelAulerDeMeloAraujo.SpecialAbility.Join.game.contains(e.getPlayer().getName()) && (Main.getInstace().getConfig().getString("EnableOnlyCommandsAllowedInKitPvP").equalsIgnoreCase("true")))) {
+	  java.util.List<String> list = Main.plugin.getConfig().getStringList("ALLOWED_COMMANDS");
+  if (!list.contains(e.getMessage())) {
+          e.setCancelled(true);
+          e.getPlayer().closeInventory();
+          e.getPlayer().sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.BlockedCMD-OnKitPvP").replace("&", "§")));
+  }
   } 
 }
 

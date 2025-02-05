@@ -103,29 +103,12 @@ StatusGuiLevel: '&eLevel'
 StatusGuiYourStatsLore: '&7Click to show your stats!'
 StatusGuiYes: '&aYes'
 StatusGuiNo: '&cNo'
+StatusLevelINFO: '&eYou are currently in Level: &a'
+StatusLevelName: '&c&lLEVEL'
+StatusLevelQuestion: '&eYou reached the Level: '
+StatusLevelNext: '&fNext Level: &e'
+StatusXpNecessary: '&fXP Necessary to level UP: &e'
 StatusGuiFirstAcess: '&aFirst Acess:'
+DisplayinChat: '&6Display your status in chat'
 BungeeModeEnabled: '&cYou cannot leave kitpvp because BungeeMode is enabled!'
 NeedToRespawn: '&eYou need to respawn first before leaving the kitpvp!'
-
-
-#Scoreboard customization
-
-
-ScoreBoardTitle: '&6&lKITPVP'
-
-#Contents of the ScoreBoard
-ScoreBoardKit: '&eKit: &f'
-ScoreBoardKills: '&eKills: &f'
-ScoreBoardDeaths: '&eDeaths: &f'
-ScoreBoardKS: '&eKS: &f'
-ScoreBoardCoins: '&eCoins: &f'
-ScoreBoardXP: '&eXP: &f'
-ScoreBoardLevel: '&eLevel: &f'
-ScoreBoardNeedXP: '&eNext XP: &f'
-
-#Colors of the scoreboard wave animation
-#Dont put anything that is not a color here
-#And dont put spaces
-ScoreBoardWaveColor1: '&6&l'
-ScoreBoardWaveColor2: '&e&l'
-ScoreBoardWaveColor3: '&f&l'

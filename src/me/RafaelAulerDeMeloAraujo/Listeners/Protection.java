@@ -23,7 +23,16 @@ public void onEntityDamageByEntity(final EntityDamageByEntityEvent event) {
 	if (Main.getInstance().getConfig().getBoolean("DisableKPSpawnProtection")) {
 		return;
 	}
+
 	if (event.getEntity() instanceof Player && (event.getDamager() instanceof Player)) {
+		boolean isCitizensNPC = event.getEntity().hasMetadata("NPC");
+		boolean isCitizensNPC2 = event.getDamager().hasMetadata("NPC");
+		if (isCitizensNPC) {
+			return;
+		}
+		if (isCitizensNPC2) {
+			return;
+		}
 	if (Join.game.contains(event.getEntity().getName()) && !Join.game.contains(event.getDamager().getName())) {
 		event.getDamager().sendMessage(ChatColor.BLUE + "You cannot attack " + event.getEntity().getName() + " because he is on kitpvp and you are not");
 		event.setCancelled(true);

@@ -4,6 +4,7 @@
 /*     */ import java.util.HashMap;
 
 /*     */ import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 /*     */ import org.bukkit.Color;
 /*     */ import org.bukkit.Effect;
 /*     */ import org.bukkit.Location;
@@ -169,6 +170,10 @@ if (Cooldown.add(p)) {
 /* 41 */         p.sendMessage(String.valueOf(Main.getInstace().getConfig().getString("Prefix").replace("&", "§")) + " §eYou are not in kitpvp to choose this kit!");
 /* 42 */         return true;
 /*    */       }
+if (Main.kits.getBoolean("SonicDisabled")) {
+	p.sendMessage(API.NomeServer + ChatColor.RED + "The Sonic kit is disabled, sorry");
+	return true;
+}
 /* 44 */       p.getInventory().clear();
 /* 45 */       ItemStack dima = new ItemStack(Material.DIAMOND_SWORD);
 /* 46 */       ItemMeta souperaa = dima.getItemMeta();
