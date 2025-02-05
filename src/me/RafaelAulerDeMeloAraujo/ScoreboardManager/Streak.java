@@ -75,10 +75,8 @@ if (isCitizensNPC && Main.getInstance().getConfig().getBoolean("BotsKillsAllowed
 
 	k.sendMessage("§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
 	k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
-=======
-	k.sendMessage("Â§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
-	k.sendMessage("Â§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
->>>>>>> 9cc15049f76f1da1a2f8326ebcdf7e18ca6bae2d
+	k.sendMessage("§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
+	k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
     WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData);
 }
 
