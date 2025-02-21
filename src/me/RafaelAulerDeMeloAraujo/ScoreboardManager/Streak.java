@@ -64,10 +64,13 @@ WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(k.
 if (isCitizensNPC && Main.getInstance().getConfig().getBoolean("BotsKillsAllowed")) {
 	Sun8oxData.getPvp().addKills(1);
 	if (killstreak % Main.customization.getInt("XP-Required-To-LevelUP") == 0) {
+
 		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
 		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
-		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "Â§"));
-		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "Â§"));
+
+		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
+		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
+
 	}
 	k.sendMessage(String.valueOf(API.NomeServer + Main.getInstace().getConfig().getString("Kill.Tell").replaceAll("%player%", p.getName())));
 	XP.addXP(k, Main.customization.getInt("XPEarned-OnKill"));
@@ -75,13 +78,12 @@ if (isCitizensNPC && Main.getInstance().getConfig().getBoolean("BotsKillsAllowed
 
 	k.sendMessage("§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
 	k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
-	k.sendMessage("§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
-	k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
+
     WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData);
 }
 
   else if (!isCitizensNPC) {
-
+	  if (p.getKiller() != null) {
 	  
 		  WavePlayer Sun8oxData2 = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
 			
@@ -90,9 +92,9 @@ if (isCitizensNPC && Main.getInstance().getConfig().getBoolean("BotsKillsAllowed
 
 /*  52 */       p.sendMessage(API.NomeServer + "" + (Main.messages.getString("StreakDestroyed").replace("&", "§").replace("%player%", k.getName()))); 
 
-/*  52 */       p.sendMessage(API.NomeServer + "" + (Main.messages.getString("StreakDestroyed").replace("&", "Â§").replace("%player%", k.getName()))); 
+/*  52 */       p.sendMessage(API.NomeServer + "" + (Main.messages.getString("StreakDestroyed").replace("&", "§").replace("%player%", k.getName()))); 
 
-/*  52 */       p.sendMessage(API.NomeServer + "" + (Main.messages.getString("StreakDestroyed").replace("&", "Â§").replace("%player%", k.getName()))); 
+/*  52 */       p.sendMessage(API.NomeServer + "" + (Main.messages.getString("StreakDestroyed").replace("&", "§").replace("%player%", k.getName()))); 
 
 
 /*  53 */       addtokillstreak(k);
@@ -114,14 +116,9 @@ if (kills2 >= 3) {
 	broadcast(API.NomeServer + "" + Main.messages.getString("KillStreakLostBroadcast").replace("&", "§").replace("%killstreak%", String.valueOf(kills2)).replace("%player%", p.getName()).replace("%killer%", k.getName()) , p.getWorld());
 	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
 
-	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "Â§"));
+	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
 }
-/*  64 */       int kills2 = Sun8oxData2.getPvp().getKillstreak();
-if (kills2 >= 3) {
-	broadcast(API.NomeServer + "" + Main.messages.getString("KillStreakLostBroadcast").replace("&", "Â§").replace("%killstreak%", String.valueOf(kills2)).replace("%player%", p.getName()).replace("%killer%", k.getName()) , p.getWorld());
-	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "Â§"));
 
-}
 p.sendMessage(String.valueOf(API.NomeServer + Main.getInstace().getConfig().getString("Death.Tell").replaceAll("%player%", k.getName())));
 k.sendMessage(String.valueOf(API.NomeServer + Main.getInstace().getConfig().getString("Kill.Tell").replaceAll("%player%", p.getName())));
 XP.addXP(k, Main.customization.getInt("XPEarned-OnKill"));
@@ -134,15 +131,9 @@ k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "CO
 WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData);
 WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData2);
 Bukkit.getConsoleSender().sendMessage("§e" + p.getName() + " (" +  ev.getEntityType() + ")" + " has been killed by " + k.getName() + " (" +  ev.getEntity().getKiller().getType() + ")" + " on kitpvp");     
-p.sendMessage("Â§cYou died to " + k.getName());
-k.sendMessage("Â§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
-k.sendMessage("Â§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
-WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData);
-WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData2);
-Bukkit.getConsoleSender().sendMessage("§e" + p.getName() + " (" +  ev.getEntityType() + ")" + " has been killed by " + k.getName() + " (" +  ev.getEntity().getKiller().getType() + ")" + " on kitpvp");     
-
    
   }
+}
 }
 }
 /*     */   
@@ -164,10 +155,7 @@ if (kills != 0) {
 killer.sendMessage(API.NomeServer + "" + ChatColor.GREEN + "You are on " + ChatColor.RED + Integer.toString(kills) + ChatColor.GREEN + " Killstreak.");
 }
 /*  69 */       if (kills % 3 == 0 && kills != 0) {
-
 	broadcast(API.NomeServer + "" + Main.messages.getString("KillStreakBroadcast").replace("&", "§").replace("%killstreak%", String.valueOf(kills)).replace("%player%", name) , killer.getWorld());
-
-	broadcast(API.NomeServer + "" + Main.messages.getString("KillStreakBroadcast").replace("&", "Â§").replace("%killstreak%", String.valueOf(kills)).replace("%player%", name) , killer.getWorld());
         killer.sendMessage(API.NomeServer + "" + ChatColor.GOLD + "You have been awarded " + Main.customization.getDouble("KS-3") + " Coins!");
 /*  74 */         Coins.addCoins(killer, Main.customization.getInt("KS-3"));
 /*     */       }
