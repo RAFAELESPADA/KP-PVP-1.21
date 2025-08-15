@@ -13,6 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerBucketFillEvent;
 
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
@@ -76,7 +78,22 @@ public final class NoBreakEvent
       e.setCancelled(true);
     }
   }
-  
+  @EventHandler
+  public void aoconstruir(PlayerBucketFillEvent e)
+  {
+    Player p = e.getPlayer();
+    if (!embuild.contains(p) && Join.game.contains(e.getPlayer().getName()) && !Main.getInstance().getConfig().getBoolean("EnableBuildingOnKitPvP")) {
+      e.setCancelled(true);
+    }
+  }  
+  @EventHandler
+  public void aoconstruir(PlayerBucketEmptyEvent e)
+  {
+    Player p = e.getPlayer();
+    if (!embuild.contains(p) && Join.game.contains(e.getPlayer().getName()) && !Main.getInstance().getConfig().getBoolean("EnableBuildingOnKitPvP")) {
+      e.setCancelled(true);
+    }
+  }
   @EventHandler
   public void aoconstruir(BlockBreakEvent e)
   {
