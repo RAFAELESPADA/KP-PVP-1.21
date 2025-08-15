@@ -67,7 +67,19 @@ if (Main.kits.getBoolean("HedgehogDisabled")) {
 /* 62 */       especial2.setDisplayName("§cFire in all directions!");
 /* 63 */       especial.setItemMeta(especial2);
 /*    */       
-/* 65 */       
+/* 65 */       /*    */ 
+/* 55 */       ItemStack capacete0 = new ItemStack(Material.IRON_HELMET);
+/*    */       
+/* 57 */       ItemStack peitoral0 = new ItemStack(Material.IRON_CHESTPLATE);
+/*    */       
+/* 59 */       ItemStack calca0 = new ItemStack(Material.IRON_LEGGINGS);
+/*    */       
+/* 61 */       ItemStack Bota0 = new ItemStack(Material.IRON_BOOTS);
+/*    */       
+/* 63 */       p.getInventory().setHelmet(capacete0);
+/* 64 */       p.getInventory().setChestplate(peitoral0);
+/* 65 */       p.getInventory().setLeggings(calca0);
+/* 66 */       p.getInventory().setBoots(Bota0);
 /*    */       
 /* 78 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "HedgeHog").replace("&", "§"));
 /* 79 */       Habilidade.setAbility(p, "HedgeHog");
@@ -77,6 +89,8 @@ if (Main.kits.getBoolean("HedgehogDisabled")) {
 /*    */ 
 /*    */ API.give(p);
 RTP.TeleportArenaRandom(p);
+
+/* 70 */       p.getInventory().addItem(new ItemStack[] { dima });
 /* 85 */       for (int i = 0; i <= 34; i++) {
 /* 86 */         p.getInventory().addItem(new ItemStack[] { sopa });
 /* 87 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.KitUse")), 1.0F, 1.0F);

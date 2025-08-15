@@ -773,7 +773,7 @@ if (Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
 /*     */ 
 /*     */ 
 /* 159 */         
-    NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.CommandSounds"), 1.0F, 1.0F);  } }, 10L);
+    NewKitMenu.playSound(p, "UI_BUTTON_CLICK", 1.0F, 1.0F);  } }, 10L);
 	}
 }
 
@@ -791,7 +791,7 @@ public void onBauKit(PlayerInteractEvent e)
     if ((e.getAction() == Action.RIGHT_CLICK_AIR) || (e.getAction() == Action.RIGHT_CLICK_BLOCK))
     {
       p.openInventory(Shop.shop);
-      NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.CommandSounds"), 1.0F, 1.0F);  }   	  }
+      NewKitMenu.playSound(p, "UI_BUTTON_CLICK", 1.0F, 1.0F);  }   	  }
 }
 @EventHandler
 public void onLeaveKit(PlayerInteractEvent e)
@@ -858,7 +858,9 @@ public void onLeaveKit(PlayerInteractEvent e)
 
     	/*     */   
     	/* 311 */       p.updateInventory();
-    	API.tirarEfeitos(p);NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.CommandSounds"), 1.0F, 1.0F); 
+    	API.tirarEfeitos(p);
+
+        NewKitMenu.playSound(p, "UI_BUTTON_CLICK", 1.0F, 1.0F);  
     }
     	
     
