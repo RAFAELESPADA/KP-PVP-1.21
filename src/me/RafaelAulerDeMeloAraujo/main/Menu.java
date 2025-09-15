@@ -666,7 +666,6 @@ if (Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
 	 X1.inx1.remove(p);
 	 X1.inx1.remove(p);
 	 X1.inx1.remove(p);
-	 GiveKitUnlocker.GiveUnlockers(p);
 		/*     */       p.setGameMode(GameMode.SURVIVAL);
 	 X1.inx1.remove(p);
 	 X1.inx1.remove(p);
@@ -765,6 +764,8 @@ if (Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
 	if (Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
 		 p.getInventory().clear();
 	 }
+
+	 GiveKitUnlocker.GiveUnlockers(p);
 	/* 107 */       p.updateInventory();
 /*     */         
 
