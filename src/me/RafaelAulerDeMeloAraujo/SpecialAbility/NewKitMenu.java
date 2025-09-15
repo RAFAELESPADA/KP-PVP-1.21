@@ -906,11 +906,6 @@ if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Kit §e§lTamer
 /* 235 */       
 
 
-/* 239 */       
-/* 240 */       
-/* 241 */       
-/* 247 */       kits.setItem(41, vidro1);
-/* 248 */       kits.setItem(42, vidro1);
 /* 249 */       kits.setItem(43, vidro1);
 /* 250 */       kits.setItem(44, vidro1);
 /* 251 */       kits.setItem(45, vidro1);
@@ -1127,7 +1122,7 @@ if (p.hasPermission("kitpvp.kit.creeper")) {
 /* 287 */         indiob.add(API.cor(Main.kits.getString("CreeperLore")));
 /* 289 */         metapyro.setLore(indiob);
 /* 290 */         pyro.setItemMeta(metapyro);
-	/* 280 */         kits.addItem(new ItemStack[] { pyro });
+	/* 280 */     kits.addItem(new ItemStack[] { pyro });
 	/*     */       /*     */       } 
 /* 468 */       if (p.hasPermission("kitpvp.kit.cactus")) {
 /* 469 */         ItemStack pyro = new ItemStack(Material.CACTUS);
@@ -1161,7 +1156,7 @@ if (p.hasPermission("kitpvp.kit.berserker"))
 /* 560 */         
 /* 561 */         metapyro.setLore(indiob);
 /* 562 */         pyro.setItemMeta(metapyro);
-	/* 280 */         kits.addItem(new ItemStack[] { pyro });      
+	/* 280 */     kits.addItem(new ItemStack[] { pyro });      
 /*     */        } 
 /* 479 */       if (p.hasPermission("kitpvp.kit.pyro")) {
 /* 480 */         ItemStack pyro = new ItemStack(Material.FLINT_AND_STEEL);

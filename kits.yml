@@ -43,6 +43,8 @@ MilkmanLore: '&7Gets stronger with your milk'
 GhastLore: '&7Throw fireballs'
 TamerLore: '&7Spawn 4 dogs to fight for you!'
 HedgeHogLore: '&7Shoot arrows in all directions'
+BerserkerLore: '&7Get strenght on each kill!'
+CreeperLore: '&7Create a explosion on death!'
 
 #Modify the cooldown of some kits
 #They are in seconds
