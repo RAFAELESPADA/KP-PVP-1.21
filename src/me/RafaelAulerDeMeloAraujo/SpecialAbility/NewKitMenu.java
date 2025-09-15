@@ -902,13 +902,7 @@ if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Kit §e§lTamer
 /*     */       
 /*     */ 
 /* 233 */       
-/* 234 */       
-/* 235 */       
 
-
-/* 249 */       kits.setItem(43, vidro1);
-/* 250 */       kits.setItem(44, vidro1);
-/* 251 */       kits.setItem(45, vidro1);
 /* 252 */       kits.setItem(46, vidro1);
 /* 253 */       kits.setItem(47, vidro1);
 /* 254 */       kits.setItem(48, vidro1);
