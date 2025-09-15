@@ -150,6 +150,7 @@ if (!Main.getInstance().getConfig().getBoolean("DisableShopItem")) {
 /* 107 */       p.updateInventory();
 /*     */       
 /*     */ 
+GiveKitUnlocker.GiveUnlockers(p);
 /* 107 */       p.updateInventory();
 /*     */        p.setAllowFlight(false);
 /*     */ 

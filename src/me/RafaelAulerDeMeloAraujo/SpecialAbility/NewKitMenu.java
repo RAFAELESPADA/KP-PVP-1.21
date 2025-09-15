@@ -44,11 +44,6 @@ import me.RafaelAulerDeMeloAraujo.Listeners.CustomHolder;
 /*     */ 
 /*     */ public static void OPENKIT(Player p) {
 kits.clear();
-	ItemStack vidro = new ItemStack(Material.valueOf(Main.getInstace().getConfig().getString("KITMENU-BLOCKEDKIT-ITEM-MATERIAL")));
-	/* 218 */       ItemMeta vidro2 = vidro.getItemMeta();
-	/* 219 */       vidro2.setDisplayName((Main.messages.getString("KitSlotBlocked").replace("&", "§")));
-	/* 220 */       vidro.setItemMeta(vidro2);
-	/*     */       
 	/* 222 */       ItemStack vidro1 = new ItemStack(Material.valueOf(Main.getInstace().getConfig().getString("KITMENU-BACKGROUND-ITEM-MATERIAL")));
 	/* 223 */       ItemMeta vidro12 = vidro1.getItemMeta();
 	/* 224 */       vidro12.setDisplayName("§a§k========");
@@ -91,6 +86,17 @@ kits.clear();
 	/* 279 */         pyro.setItemMeta(metapyro);
 	/* 280 */         kits.addItem(new ItemStack[] { pyro });
 	/*     */       }
+
+if (p.hasPermission("kitpvp.kit.berserker")) {
+/* 555 */         ItemStack pyro = new ItemStack(Material.GOLDEN_CARROT);
+/* 556 */         ItemMeta metapyro = pyro.getItemMeta();
+/* 557 */         metapyro.setDisplayName("§7Kit §e§lBerserker");
+/* 558 */         ArrayList indiob = new ArrayList();
+/* 559 */         indiob.add((Main.kits.getString("BerserkerLore")).replace("&", "§"));
+/* 561 */         metapyro.setLore(indiob);
+/* 562 */         pyro.setItemMeta(metapyro);
+	/* 280 */     kits.addItem(new ItemStack[] { pyro });      
+/*     */        }
 	/* 282 */       if (p.hasPermission("kitpvp.kit.kangaroo")) {
 	/* 283 */         ItemStack pyro = new ItemStack(Material.FIREWORK_ROCKET);
 	/* 284 */         ItemMeta metapyro = pyro.getItemMeta();
@@ -324,6 +330,16 @@ kits.clear();
 	/* 487 */         pyro.setItemMeta(metapyro);
 	/* 488 */         kits.addItem(new ItemStack[] { pyro });
 	/*     */       }
+	if (p.hasPermission("kitpvp.kit.creeper")) {
+		/* 283 */         ItemStack pyro = new ItemStack(Material.COMPARATOR);
+		/* 284 */         ItemMeta metapyro = pyro.getItemMeta();
+		/* 285 */         metapyro.setDisplayName("§7Kit §e§lCreeper");
+		/* 286 */         ArrayList indiob = new ArrayList();
+		/* 287 */         indiob.add(API.cor(Main.kits.getString("CreeperLore")));
+		/* 289 */         metapyro.setLore(indiob);
+		/* 290 */         pyro.setItemMeta(metapyro);
+			/* 280 */     kits.addItem(new ItemStack[] { pyro });
+			/*     */       /*     */       }
 	/* 490 */       if (p.hasPermission("kitpvp.kit.jumper")) {
 	/* 491 */         ItemStack pyro = new ItemStack(Material.LEATHER_BOOTS);
 	/* 492 */         ItemMeta metapyro = pyro.getItemMeta();
@@ -560,16 +576,7 @@ if (p.hasPermission("kitpvp.kit.ghast"))
 /* 561 */         metapyro.setLore(indiob);
 /* 562 */         pyro.setItemMeta(metapyro);
 /* 563 */         kits.addItem(new ItemStack[] { pyro });
-/*     */       }
-
-	/*     */       ItemStack[] arrayOfItemStack;
-	/* 566 */       int descpyro1 = (arrayOfItemStack = kits.getContents()).length;
-	/* 567 */       for (int metapyro1 = 0; metapyro1 < descpyro1; metapyro1++)
-	/*     */       {
-	/* 569 */         ItemStack item = arrayOfItemStack[metapyro1];
-	/* 570 */         if (item == null) {
-	/* 571 */           kits.setItem(kits.firstEmpty(), vidro);
-	/*     */         }
+/*     */       
 	/*     */       }
 	/*     */       
 	/* 575 */       p.openInventory(kits);
@@ -884,11 +891,6 @@ if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Kit §e§lTamer
 /* 212 */     Player p = (Player)sender;
 /* 213 */     if (cmd.getName().equalsIgnoreCase("kpkitmenu"))
 /*     */     {
-/* 215 */       
-/* 217 */       ItemStack vidro = new ItemStack(Material.valueOf(Main.getInstace().getConfig().getString("KITMENU-BLOCKEDKIT-ITEM-MATERIAL")));
-/* 218 */       ItemMeta vidro2 = vidro.getItemMeta();
-/* 219 */       vidro2.setDisplayName((Main.messages.getString("KitSlotBlocked").replace("&", "§")));
-/* 220 */       vidro.setItemMeta(vidro2);
 /*     */       
 /* 222 */       ItemStack vidro1 = new ItemStack(Material.valueOf(Main.getInstace().getConfig().getString("KITMENU-BACKGROUND-ITEM-MATERIAL")));
 /* 223 */       ItemMeta vidro12 = vidro1.getItemMeta();
@@ -1140,14 +1142,12 @@ if (p.hasPermission("kitpvp.kit.antistomper")) {
 /* 476 */         pyro.setItemMeta(metapyro);
 /* 477 */         kits.addItem(new ItemStack[] { pyro });
 /*     */       }
-if (p.hasPermission("kitpvp.kit.berserker"))
-/*     */       {
+if (p.hasPermission("kitpvp.kit.berserker")) {
 /* 555 */         ItemStack pyro = new ItemStack(Material.GOLDEN_CARROT);
 /* 556 */         ItemMeta metapyro = pyro.getItemMeta();
 /* 557 */         metapyro.setDisplayName("§7Kit §e§lBerserker");
 /* 558 */         ArrayList indiob = new ArrayList();
 /* 559 */         indiob.add((Main.kits.getString("BerserkerLore")).replace("&", "§"));
-/* 560 */         
 /* 561 */         metapyro.setLore(indiob);
 /* 562 */         pyro.setItemMeta(metapyro);
 	/* 280 */     kits.addItem(new ItemStack[] { pyro });      
@@ -1388,15 +1388,7 @@ if (p.hasPermission("kitpvp.kit.shielder"))
 /* 563 */         kits.addItem(new ItemStack[] { pyro });
 /*     */       }
 
-/*     */       ItemStack[] arrayOfItemStack;
-/* 566 */       int descpyro1 = (arrayOfItemStack = kits.getContents()).length;
-/* 567 */       for (int metapyro1 = 0; metapyro1 < descpyro1; metapyro1++)
-/*     */       {
-/* 569 */         ItemStack item = arrayOfItemStack[metapyro1];
-/* 570 */         if (item == null) {
-/* 571 */           kits.setItem(kits.firstEmpty(), vidro);
-/*     */         }
-/*     */       }
+/*     */      
 /*     */       
 /* 575 */       p.openInventory(kits);
 /*     */     }

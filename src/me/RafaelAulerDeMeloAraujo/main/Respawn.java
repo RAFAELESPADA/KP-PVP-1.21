@@ -76,6 +76,7 @@ public class Respawn implements Listener {
 						} else {
 							/* 191 */       p.getInventory().setArmorContents(null);
 							/*     */       
+							 GiveKitUnlocker.GiveUnlockers(p);
 							/* 193 */       p.updateInventory();
 							/* 194 */       Habilidade.removeAbility(p);
 							/* 195 */       Deshfire.Armadura.remove(p.getName());

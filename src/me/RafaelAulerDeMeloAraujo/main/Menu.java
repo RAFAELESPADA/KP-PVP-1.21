@@ -666,7 +666,7 @@ if (Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
 	 X1.inx1.remove(p);
 	 X1.inx1.remove(p);
 	 X1.inx1.remove(p);
-
+	 GiveKitUnlocker.GiveUnlockers(p);
 		/*     */       p.setGameMode(GameMode.SURVIVAL);
 	 X1.inx1.remove(p);
 	 X1.inx1.remove(p);

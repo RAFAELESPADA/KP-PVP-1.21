@@ -35,6 +35,7 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Cooldown;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.NewKitMenu;
 import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
+import me.RafaelAulerDeMeloAraujo.main.GiveKitUnlocker;
 /*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
 import net.wavemc.core.bukkit.WaveBukkit;
 import net.wavemc.core.bukkit.account.WavePlayer;
@@ -140,6 +141,7 @@ if (!Main.getInstance().getConfig().getBoolean("DisableShop")) {
 /*  83 */     Habilidade.removeAbility(p);
 /*  84 */     API.vida(p);
 /*     */     
+GiveKitUnlocker.GiveUnlockers(p);
 /*     */ 
 /*  87 */     p.updateInventory();
 /*  88 */     p.sendMessage(Main.messages.getString("1v1Leave").replace("&", "§"));NewKitMenu.playSound(p, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);

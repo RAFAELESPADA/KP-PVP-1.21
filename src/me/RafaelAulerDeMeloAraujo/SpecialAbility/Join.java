@@ -27,6 +27,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import me.RafaelAulerDeMeloAraujo.Listeners.UpdateUtil;
 /*     */ import me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI;
 /*     */ import me.RafaelAulerDeMeloAraujo.X1.X1;
+import me.RafaelAulerDeMeloAraujo.main.GiveKitUnlocker;
 /*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*     */ 
 /*     */ 
@@ -252,6 +253,8 @@ NewKitMenu.playSound((Player)sender, Main.getInstace().getConfig().getString("So
 	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
 	/*     */       
 	/*     */ }
+
+	 GiveKitUnlocker.GiveUnlockers(p);
 	/* 107 */       p.updateInventory();
 	/*     */       
 	/*     */ 
@@ -386,6 +389,7 @@ if (!Main.getInstance().getConfig().getBoolean("DisableShopItem")) {
 /* 107 */       p.updateInventory();
 /*     */       
 /*     */ 
+GiveKitUnlocker.GiveUnlockers(p);
 /* 107 */       p.updateInventory();
 /*     */           
 /*     */ 
