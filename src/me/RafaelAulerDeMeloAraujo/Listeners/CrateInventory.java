@@ -67,6 +67,9 @@ public class CrateInventory implements Listener {
 	@EventHandler
 	public void aoClicarNoInv(InventoryClickEvent e) {
 		Player jogador = (Player) e.getWhoClicked();
+		if (e.getClickedInventory() == null) {
+    		return;
+    	}
 		if (!(e.getClickedInventory().getHolder() instanceof CustomHolder5)) {
     		return;
     	}
