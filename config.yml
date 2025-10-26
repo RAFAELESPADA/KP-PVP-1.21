@@ -1,0 +1,305 @@
+#KitPvP Version BUILD-122 | Author: zEnderX5_ , Rafael Auler
+#Author Channel: https://www.youtube.com/channel/UCb1kjbiQj2B4KnRQpgeUwmQ
+#Subscribe to help me to improve the plugin. Thanks =D
+#PS: use /kp for view the plugin command list
+#ALL MESSAGES SUPPORT COLORS! 
+#View all colors here: http://minecraft.tools/en/color-code.php
+#The plugin only works on 1.7 if you use BUILD-10 or lower
+#BUILD-14 is for 1.8 or greater servers
+
+#Prefix settings
+Prefix: '&8[&cKitPvP&8] '
+
+#Use vault instead of coins
+UseVault: false
+
+#If this is enable the perworldsupport is disabled
+#and players is automatically put on kitpvp when they join the server
+#and will be unable to leave
+bungeemode: false
+
+
+#Change the kit name when player has no kit selected
+NoKit-DefaultName: 'None'
+
+#Disable kitpvp initial items
+DisableInitialItems: false
+
+ThrowFireworksOnKill: true
+
+#Execute commands on the killer and killed on kills
+#Placeholders #killer and %killed%
+Commands-ON-KILL-Enabled: true
+Commands-Executed-On-Kill:
+- 'givecoins %killer% 20'
+- 'effect %killed% speed 1 20'
+- 'eco give %killer% 50'
+
+#Disable Compass
+DisableCompassItem: false
+
+#If this is false the player will leave kitpvp when they change world
+#BungeeMode needs to be false to it works
+DisableWorldLeaveKitPvPEvent: true
+
+#If this is true all players will be able to build and place blocks while on kitpvp
+#If false only players that write /kpeditmode (Needs permission) will be able to build
+EnableBuildingOnKitPvP: false
+
+#If this is true when players quit the server they will remain on kitpvp
+#Dont enable this with bungeemode: true
+PlayersRemainOnKitPvPOnLeave: false
+
+#Disable Recraft
+DisableRecraftItem: false
+
+#Disable KP Spawn protection
+DisableKPSpawnProtection: false
+
+#Disable KP /spawn Command here
+KP-Spawn-Command-Enabled: true
+
+#Disable WARP Item
+DisableWarpItem: false
+
+#Bot Kills allowed?
+BotsKillsAllowed: true
+
+#Disable Leave Item
+DisableLeaveItem: false
+
+#Combat Log Timer
+CombatLogTimer: 15
+
+UpdateCheckerDisabled: false
+
+#Disable ClickTest
+DisableClickTestItem: false
+
+#Initial Items Slots
+KitsItemSlot: 0
+ShopItemSlot: 1
+1v1ItemSlot: 2
+StatsItemSlot: 3
+ClickTestItemSlot: 4
+LeaveItemSlot: 8
+WarpItemSlot: 7
+
+#put this true if you want to disable plugin included combatlog
+DisableCombatLog: false
+
+disable-negation-of-ajleaderboards-no-update-permission: false
+
+#No Permission Message 
+#ALL PERMISSIONS IS LISTED HERE: https://pastebin.com/JuMPHpRD
+Permission: '&cSorry, but you dont have the permission to use this.'
+
+#IF THIS IS TRUE THE BOWL WILL NOT DISAPPEAR WHEN EATING SOUPS
+#ELSE IT WILL DISAPPEAR
+KeepBowl: true
+
+DisableStomperItem: false 
+
+#Message settings
+Message:
+  Kit: '&aYou have chosen kit &8- &a%kit%!'
+  KitUse: '&cYou have already taken a kit'
+  Clear: '&cYou reset your kit'
+  KitPvpJoin-Message: '&eYou join in the kitpvp'
+  KitPvpLeave-Message: '&eYou leave the kitpvp'
+  BlockedCMD-OnKitPvP: '&eThis command cannot be perfomed on kitpvp!'
+#Kit Menu item settings
+JoinItem:
+ 
+  Lore: '&7Right click to open the kit menu'
+  JoinSound: 'true'
+   
+  
+#Spiderman settings
+SidermanKit:
+  Name: '&aWall Climber &7(Right click)'
+  Lore: '&7(Right click) wall climber'
+#Airman settings
+AirmanKit:
+  Name: '&aFly &7(Right click)'
+  Lore: '&7(Right click) to fly'
+
+#Title settings
+#Only works on 1.8 or greater servers
+Title:
+  KitTitle: '&aYou have chosen the kit'
+  KitSubTitle: '&aKit &8- &a%kit% !'
+  DeathTitle: '&cYou died'
+  DeathSubTitle: '&7You are respawning'
+  JoinTitle: '&eYou joined on the kitpvp'
+  JoinSubTitle: '&eHave a great game!'
+  LeaveTitle: '&cYou leave the kitpvp!'
+  LeaveSubTitle: '&cTo join again use: /kitpvp join'
+  1v1Leave: '&aYou leave the 1v1'
+  SumoLeave: '&aYou leave the Sumo'
+#Respawn settings
+RespawnSound: true
+
+KITMENU-BACKGROUND-ITEM-MATERIAL: 'GLASS_PANE'
+KITMENU-BLOCKEDKIT-ITEM-MATERIAL: 'RED_STAINED_GLASS_PANE'
+SHOP-BACKGROUND-ITEM-MATERIAL: 'YELLOW_STAINED_GLASS_PANE'
+
+#Sound list: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
+Sound:
+  Kit: 'ITEM_PICKUP'
+  ShopMenu: 'CHEST_OPEN'
+  KitUse: 'ENDERDRAGON_HIT'
+  Soup: 'EAT'
+  Fisherman: 'ENDERMAN_TELEPORT'
+  Spiderman: 'SLIME_WALK'
+  Respawn: 'LEVEL_UP'
+  Join: 'LEVEL_UP'
+  KitMenu: 'DOOR_CLOSE'
+  SpongeUse: 'ENDERMAN_TELEPORT'
+  BowlDrop: 'ITEM_PICKUP'
+  ErrorMessage: 'ARROW_HIT'
+  ItemDespawn: 'LAVA_POP'
+  SucefullMessage: 'ORB_PICKUP'
+  NoPermissionMessage: 'WITHER_SHOOT'
+  SwitcherShoot: 'ENDERMAN_TELEPORT'
+  Timelord: 'WITHER_SPAWN'
+  Stomper: 'FIREWORK_BLAST'
+  NarutoAbility: 'BLAZE_DEATH'
+  CommandsSounds: 'BURP'
+  ShopMenu-Click: 'LEVEL_UP'
+  Streak: 'LEVEL_UP'
+  Airman-Fly: 'ENDERMAN_SCREAM'
+  DoubleJump-Ability: 'FIREWORK_BLAST2'
+  StomperDamage: 'ANVIL_LAND'
+  1v1: 'CLICK'
+  ClickTest: 'CLICK'
+  AnchorHit: 'ANVIL_BREAK'
+  RyuAbility: 'EXPLODE'
+  Respawning: 'CLICK'
+  RespawnSucess: 'ORB_PICKUP'
+
+#If the option below is true all commands play a sound when a player execute them
+#You can modify the sound in Sounds configuration
+EnableSoundsToAllCommands: true
+
+#Enable or disable command block feature on kitpvp
+#true means enabled / false means disabled
+#THIS IS A COMMAND BLACKLIST
+#Defaults to true
+EnableCommandBlockingInKitPvP: false
+
+
+
+#Enable or disable hard command block feature on kitpvp
+#If this is true only these commands can be executed while in kitpvp
+#true means enabled / false means disabled
+#THIS IS A COMMAND WHITELIST
+#Defaults to true
+EnableOnlyCommandsAllowedInKitPvP: true
+
+#Enable or disable hunger on kitpvp
+DisableHungerOnKitPvP: true
+
+#Enable or disable dropping items while in kitpvp
+#If this is true the player cannoy drop anhyting except bowls
+#If this is false he can drop any item
+#Recommended to leave this true
+#Defaults to true
+DisableDropsOnKitPvP: true
+
+#Enable or disable pickup items on kitpvp
+#If this is true the player can only pickup mushroom soups and bowls
+#If this is false the player can pickup any items
+#Defaults to true
+DisablePickupItemsOnKitPvP: true
+
+#Clear items that are dropped on ground in kitpvp?
+ClearItemsOnGround: true
+
+#The time in seconds to the time be cleared from the ground
+ClearInterval: 10
+  
+Death:
+#death message
+  Tell: 'You have died to %player%! You lost 50 coins.'
+  
+#kill message  
+Kill:
+  Tell: 'You killed %player%, you earned 100 coins.'
+
+
+ # Enable sending your server address to bStats? This could get you a couple more players. =)
+ # Defaults to true
+SendIPAddressData: true
+
+#Change the sponge boost
+#Be careful when changing that number
+#It is the amplifier multiplier of sponge boost
+#too high numbers can throw you to minecraft space! 
+#Play around with that number to see what you want in sponge boost
+SpongeBoostAmplifier: 8
+
+#Put here the cmds that are be allowed in kitpvp
+#Bypass permission: kitpvp.unblockedcmds
+ALLOWED_COMMANDS:
+- /kitpvp
+- /tell
+- /msg
+- /w
+- /adminmode
+- /sc
+- /tp
+- /tpall
+- /kpkitmenu
+- /spawn #Do not remove /spawn without disabling KP-Spawn-Command-Enabled above
+- /tag
+- /mute
+- /kick
+- /warn
+- /ac
+- /staffchat
+#Put here the cmds that are be blocked in kitpvp
+#Bypass permission: kitpvp.unblockedcmds
+BLOCKED_COMMANDS:
+- /warp
+- /ewarp
+- /tpa
+- /etpa
+- /server
+- /sw
+- /skywars
+- /bw
+- /bedwars
+- /home
+- /ehome
+- /is
+- /island
+- /mines
+status:
+  retaliado1:
+    kills: 2
+    deaths: 0
+  retaliado2:
+    kills: 2
+    deaths: 0
+Spawn:
+  World: world
+  X: 45.80294662701026
+  Y: 124.86933315841993
+  Z: -91.71575866737658
+  Pitch: 42.90001
+  Yaw: -9.5999975
+SpawnD:
+  World: world
+  X: 45.80294662701026
+  Y: 124.86933315841993
+  Z: -91.71575866737658
+  Pitch: 42.90001
+  Yaw: -9.5999975  
+  
+  
+
+
+ 
+
+  
