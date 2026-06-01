@@ -1,0 +1,149 @@
+#In this file you can edit kits description and some kit abilities options!
+BasicLore: '&7Basic and Standard kit!'
+PvPLore: '&7Stronger version of basic kit'
+KangarooLore: '&7Do doublejumps with your firework!'
+ArcherLore: '&7Start with bow and arrows!'
+TankLore: '&7Start with diamond amor and slowness 3'
+SnailLore: '&7On each hit you have a chance to give slowness'
+ViperLore: '&7On each hit you have a chance to give poison'
+StomperLore: '&7Smash your enemies'
+DeshfireLore: '&7Do a boost and put fire!'
+CriticalLore: '&7Have a chance to give a critical hit'
+GladiatorLore: '&7Challenge someone in a glass arena'
+ThorLore: '&7Throw thunders and be immune to them!'
+DoubleJumpLore: '&7Press space to do a doublejump'
+BomberLore: '&7Throw bombs in your enemies'
+WaspLore: '&7Start with a sharp 8 blaze rod'
+AirmanLore: '&7With this kit you can fly!'
+SwitcherLore: '&7Swaps places with your snowball'
+NinjaLore: '&7Press shift to teleport to your enemy'
+CactusLore: '&7Gets thorns armor!'
+PyroLore: '&7Starts with a fire bow and sword'
+JumperLore: '&7Starts with super jump 4!'
+TimelordLore: '&7Stops the time with your clock'
+FishermanLore: '&7Catch players with your fishing rod!'
+SpidermanLore: '&7Climb walls with your sword'
+WarperLore: '&7Start with enderpearls!'
+VampireLore: '&7Have a chance to drain blood of your enemy you each hit'
+NarutoLore: '&7Becomes naruto and have kyuubi'
+SonicLore: '&7Do a boost and put poison!'
+PhantomLore: '&7Fly for 5 seconds!'
+CamelLore: '&7Gain advantages on deserts'
+VikingLore: '&7Starts with a diamond axe instead of sword'
+PoseidonLore: '&7Gain advantages in water'
+ConfuserLore: '&7Give confusion in your enemies'
+ResouperLore: '&7Get soups on each kill!'
+AnchorLore: '&7Dont give and receive knockback!'
+RyuLore: '&7Shoots a hadouken!'
+MonkLore: '&7Swaps item on enemy inventory'
+FiremanLore: '&7Dont receive damage from fire or lava'
+AntiStomperLore: '&7Immune to stompers'
+ShielderLore: '&7Receives a shield and netherite sword'
+MilkmanLore: '&7Gets stronger with your milk'
+GhastLore: '&7Throw fireballs'
+TamerLore: '&7Spawn 4 dogs to fight for you!'
+HedgeHogLore: '&7Shoot arrows in all directions'
+BerserkerLore: '&7Get strenght on each kill!'
+CreeperLore: '&7Create a explosion on death!'
+
+#Modify the cooldown of some kits
+#They are in seconds
+
+GladiatorHasCooldown: true
+
+HedgeHogCooldown: 30
+StomperCooldown: 30
+ThorCooldown: 5
+TimelordCooldown: 30
+PhantomCooldown: 25
+SonicCooldown: 30
+DeshfireCooldown: 30
+NarutoCooldown: 40
+RyuCooldown: 25
+NinjaCooldown: 10
+MonkCooldown: 25
+GhastCooldown: 30
+GladiatorCooldown: 40
+TamerCooldown: 45
+
+
+#Disable kits here
+
+
+HedgehogDisabled: false
+TamerDisabled: false
+GladiatorDisabled: false
+GhastDisabled: false
+PhantomDisabled: false
+BomberDisabled: false
+DoubleJumpDisabled: false
+SpidermanDisabled: false
+AirmanDisabled: false
+StomperDisabled: false
+AnchorDisabled: false
+WarperDisabled: false
+KangarooDisabled: false
+TimelordDisabled: false
+SwitcherDisabled: false
+PvPDisabled: false
+MilkmanDisabled: false
+ConfuserDisabled: false
+NinjaDisabled: false
+MonkDisabled: false
+FiremanDisabled: false
+SonicDisabled: false
+DeshfireDisabled: false
+CriticalDisabled: false
+RyuDisabled: false
+NarutoDisabled: false
+PoseidonDisabled: false
+VampireDisabled: false
+ViperDisabled: false
+WaspDisabled: false
+ResouperDisabled: false
+BerserkerDisabled: false
+
+
+#Edit some kits ability options
+#Edit the chance of the kit working on each hit (Viper , Snail, Vampire , Confuser)
+#And edit some other kit options
+#0 in the amplifier means that the effect is level 1
+
+
+ViperChance: 33
+SnailChance: 33
+VampireChance: 27
+ConfuserChance: 33
+KitCriticalChance: 10
+StomperRadius: 2
+RyuDamage: 14
+TimelordRadius: 5
+SonicDamage: 10
+DeshfireDamage: 10
+NarutoSpeedAmplifier: 1
+NarutoRegenAmplifier: 2
+GhastFireballs: 6
+NarutoRegenTime: 15
+TamerDogsLastsFor: 15
+NarutoSpeedTime: 15
+FiremanWeaknessonWaterTime: 3
+FiremanWeaknessonWaterAmplifier: 1
+FiremanRegenonLavaTime: 3
+FiremanRegenonLavaAmplifier: 1
+ViperPoisonTime: 6
+SnailSlownessTime: 6
+PoseidonStrenghtTime: 4
+PoseidonStrenghtAmplifier: 0
+PoseidonDamageResistanceTime: 8
+PoseidonDamageResistanceAmplifier: 0
+PoseidonSpeedTime: 8
+PoseidonSpeedAmplifier: 1
+CamelRegenTime: 4
+CamelSpeedTime: 4
+CamelRegenAmplifier: 0
+CamelSpeedAmplifier: 0
+CriticalExtraDamage: 4
+SonicPoisonTime: 6
+SonicPoisonAmplifier: 1
+#number of maximium blocks of distance that the player hitted must be to ninja work
+NinjaErrorBlockNumber: 120

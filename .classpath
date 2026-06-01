@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-16">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Desktop/PRACTICE/plugins/worldguard-bukkit-7.0.15-beta-01.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/Vault.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/worldedit-bukkit-7.4.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/adventure-api-5.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/lombok.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/DecentHolograms-2.9.10.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/ajLeaderboards-2.11.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Desktop/PRACTICE/plugins/PlaceholderAPI-2.12.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/BungeeCord.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/folia-1.21.11-14.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/paper-api-26.1.1.build.14-alpha.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/annotations-26.1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Downloads/adventure-key-5.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Desktop/Desktop/KP-CORE-v4.0.8.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
