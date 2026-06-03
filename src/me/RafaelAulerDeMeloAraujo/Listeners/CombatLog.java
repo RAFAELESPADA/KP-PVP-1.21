@@ -56,17 +56,15 @@ public class CombatLog implements Listener
                 CombatLog.emcombate.put(hitter, p);
                 hitter.sendMessage("§7You are now in combat with §c" + p.getDisplayName());
                 p.sendMessage("§7You are now in combat with §c" + hitter.getDisplayName());
-                Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)Main.instance, (Runnable)new Runnable() {
-                    @Override
-                    public void run() {
+                Main.getFolia().getScheduler().runLater(task -> {
                         CombatLog.emcombate.remove(p);
                         CombatLog.emcombate.remove(hitter);
                         hitter.sendMessage("§aYou are no longer in combat");
                         p.sendMessage("§aYou are no longer in combat");
                     }
-                }, 20L * Main.getInstance().getConfig().getInt("CombatLogTimer"));
-            }
-        }
+                , 20L * Main.getInstance().getConfig().getInt("CombatLogTimer"));}}
+            
+        
     }
     
     

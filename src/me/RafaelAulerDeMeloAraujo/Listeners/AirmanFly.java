@@ -53,15 +53,13 @@ if (API.isInRegion(p)) {
 /*    */   
 /* 50 */       p.getWorld().playEffect(p.getLocation().add(0.0D, 1.5D, 0.0D), Effect.FIREWORK_SHOOT, 1);
 /* 51 */       p.setVelocity(v2);
-/* 52 */       org.bukkit.Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable()
-/*    */       {
-/*    */         public void run() {
+/* 52 */             Main.getFolia().getScheduler().runAtEntityLater(p, () -> {
 /* 55 */           p.sendMessage(API.fimcooldown);
 /*    */         }
-/* 57 */       }, 60L);
+/* 57 */       , 60L);
 /*    */     }
-/*    */   }
-/*    */ }
+/*    */   }}
+/*    */ 
 
 
 /* Location:              D:\Desktop\video\Minhas Coisas do Desktop\KP-PVPvB12 (1).jar!\me\RafaelAulerDeMeloAraujo\Listeners\AirmanFly.class

@@ -133,18 +133,17 @@ if (Cooldown.add(p)) {
 
 }, 60L);
 /*     */       
-/* 136 */       Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
-    public void run() {
+/* 136 */              Main.getFolia().getScheduler().runAtEntityLater(p, () -> { 
         Cooldown.remove(p);
 
         p.sendMessage(
             Main.messages.getString("DeshFireCooldownEnd")
                 .replace("&", "§")
         );
-    }
-}, Main.kits.getInt("DeshfireCooldown") * 20);
+    }, Main.kits.getInt("DeshfireCooldown") * 20);
 }
-/*     */   }
+}
+/*     */   
 /*     */   
 /*     */   @EventHandler
 /*     */   public void onDrop(PlayerDropItemEvent event) {

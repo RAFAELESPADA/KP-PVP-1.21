@@ -162,13 +162,9 @@ public boolean onCommand(CommandSender sender, Command cmd, String label, String
 /* 158 */       if (p.getItemInHand().getType() == Material.SLIME_BALL)
 /*     */       {
 /* 160 */         p.chat("/adminmode");
-/* 161 */         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable()
-/*     */         {
-/*     */           public void run()
-/*     */           {
-/* 165 */             p.chat("/adminmode");
-/*     */           }
-/* 167 */         }, 10L);
+/* 161 */          Main.getFolia().getScheduler().runAtEntityLater(p, () -> { 
+	p.chat("/adminmode");
+}, 30);
 /*     */       }
 /*     */     }
 /*     */   }

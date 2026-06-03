@@ -33,21 +33,18 @@ public void onShot(EntityDamageByEntityEvent e) {
 				
 				if (damagedPlayer.getName() != shooter.getName()) {
 					
-					new BukkitRunnable() {
-						
-						@Override
-						public void run() {
-							
-							double health = Math.round(damagedPlayer.getHealth() * 10.0) / 10.0;
-							
+					double health = Math.round(damagedPlayer.getHealth() * 10.0) / 10.0;
+					
+/* 52 */              Main.getFolia().getScheduler().runLater(task -> {
+
 								if (health != 20.0) {	
 									
 									shooter.sendMessage(API.NomeServer + "" + Main.messages.getString("ArrowHit-Message").replace("%player%", damagedPlayer.getName()).replace("%health%", String.valueOf(health)).replace("&", "§"));									
 								}						
 															}							
-						}
 						
-					.runTaskLater(Main.instance, 2L);
+
+/* 57 */       , 60L);
 					
 				}
 			}

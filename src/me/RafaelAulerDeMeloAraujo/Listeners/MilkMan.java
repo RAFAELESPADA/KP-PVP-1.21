@@ -40,9 +40,8 @@ public class MilkMan implements Listener {
 		  return;
 	  }
         Cooldown.add(p, 30);
-        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)Main.getInstance(), (Runnable)new Runnable() {
-            @Override
-            public void run() {
+
+        Main.getFolia().getScheduler().runLater(task -> {
 
                 event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, 5 * 20, 0));
                 event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10 * 20, 0));
@@ -51,11 +50,9 @@ public class MilkMan implements Listener {
                 event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 3 * 20, 0));
                 event.getPlayer().sendMessage("§aMilkman applied!");
                             }
-        }, 20L * 1);
-        Bukkit.getScheduler().scheduleSyncDelayedTask((Plugin)Main.getInstance(), (Runnable)new Runnable() {
-            @Override
-            public void run() {
+        , 1);
+        Main.getFolia().getScheduler().runLater(task -> {
             	p.sendMessage(API.fimcooldown);
-    }}, 20L * 30);
+    }, 20L * 30);
         
     }}

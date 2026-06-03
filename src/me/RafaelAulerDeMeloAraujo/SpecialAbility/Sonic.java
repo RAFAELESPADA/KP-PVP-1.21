@@ -136,15 +136,16 @@ if (Cooldown.add(p)) {
     Sonic.fall.remove(p.getName());
 
 }, 60L);
-/*     */       
-/* 136 */       Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
-    public void run() {
-        Cooldown.remove(p);
-        p.sendMessage(Main.messages.getString("SonicCooldownEnd").replace("&", "§"));
-    }
-}, Main.kits.getInt("SonicCooldown") * 20);
-/*     */     }
-/*     */   }
+/*     */  Main.getFolia().getScheduler().runAtEntityLater(p, () -> { 
+    Cooldown.remove(p);     
+       p.sendMessage(
+            Main.messages.getString("SonicCooldownEnd")
+                .replace("&", "§")
+        );
+    }, Main.kits.getInt("SonicCooldown") * 20);
+}
+}
+
 /*    */   public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
 /*    */   {
 /* 27 */     Player p = (Player)sender;

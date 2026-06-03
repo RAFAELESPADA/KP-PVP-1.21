@@ -9,6 +9,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 /*    */ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.ProjectileLaunchEvent;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.Vector;
 
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
@@ -43,8 +44,7 @@ import me.RafaelAulerDeMeloAraujo.main.Main;
 		             e.setCancelled(true);
 		             snowball1.setVelocity(multiplied);
 		             snowball1.setShooter(p);
-		             Bukkit.getServer().getScheduler().runTaskLater(Main.getInstance(), () -> {
-		                 
+		             Main.getFolia().getScheduler().runAtEntityLater(p, () -> { 
 		                 snowball1.remove();
 		             }, 20);
 	            Cooldown.add(p, 7);
