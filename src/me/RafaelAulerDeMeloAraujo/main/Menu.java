@@ -154,126 +154,177 @@ Bukkit.getConsoleSender().sendMessage("[KP-PVP] Removing " + p.getName() + " fro
 /*  94 */     item.setItemMeta(meta);
 /*  95 */     inv.setItem(Slot, item);
 /*     */   }
-/*     */   @EventHandler
-/*     */   public void onEvent(PlayerJoinEvent e)
-/*     */   {
-     Player p = e.getPlayer(); 
-     if (!Main.plugin.getConfig().getBoolean("bungeemode")) {
-	 return;
-}
-if (!Join.game.contains(p.getName())) {
-/*  74 */     Join.game.add(p.getName());
-}
+@EventHandler
+public void onEvent(PlayerJoinEvent e) {
 
+    Player p = e.getPlayer();
 
+    if (!Main.plugin.getConfig().getBoolean("bungeemode")) {
+        return;
+    }
 
-	/*     */ 
-	/* 200 */          World w = Objects.requireNonNull(
-		    Bukkit.getWorld(
-		            Main.plugin.getConfig().getString("Spawn.World")
-		        )
-		    );
-	double x = Main.plugin.getConfig().getDouble("Spawn.X");
-	/* 202 */           double y = Main.plugin.getConfig().getDouble("Spawn.Y");
-	/* 203 */           double z = Main.plugin.getConfig().getDouble("Spawn.Z");
-	/* 204 */           Location lobby = new Location(w, x, y, z);
+    if (!Join.game.contains(p.getName())) {
+        Join.game.add(p.getName());
+    }
 
+    World w = Objects.requireNonNull(
+            Bukkit.getWorld(
+                    Main.plugin.getConfig().getString("Spawn.World")
+            )
+    );
 
-	/*     */ 
-	/* 211 */           lobby.setPitch((float)Main.plugin.getConfig().getDouble("Spawn.Pitch"));
-	/* 212 */           lobby.setYaw((float)Main.plugin.getConfig().getDouble("Spawn.Yaw"));
-	/* 213 */           p.getInventory().clear();
-	p.getInventory().clear();
+    double x = Main.plugin.getConfig().getDouble("Spawn.X");
+    double y = Main.plugin.getConfig().getDouble("Spawn.Y");
+    double z = Main.plugin.getConfig().getDouble("Spawn.Z");
 
-	Main.getFolia().getScheduler()
-	    .teleportAsync(p, lobby)
-	    .thenRun(() -> {
+    Location lobby = new Location(w, x, y, z);
+    lobby.setPitch((float) Main.plugin.getConfig().getDouble("Spawn.Pitch"));
+    lobby.setYaw((float) Main.plugin.getConfig().getDouble("Spawn.Yaw"));
 
-	        p.getScheduler().run(
-	            Main.getPlugin(),
-	            task -> {
+    p.getScheduler().runDelayed(
+            Main.getPlugin(),
+            task -> {
 
-	                p.getInventory().clear();
-	                p.getInventory().setArmorContents(null);
-	            	/*     */       
-	            		
-	            	/*     */           
-	            	/*     */ 
+                if (!p.isOnline()) {
+                    return;
+                }
 
-	            	/*     */ 
-	            	/* 235 */           p.setExp(0.0F);
-	            	/* 236 */           p.setExhaustion(20.0F);
-	            	/* 237 */           p.setFireTicks(0);
-	            	/* 238 */           p.setFoodLevel(20);
-	          
-	                p.setExp(0F);
-	                p.setExhaustion(20F);
-	                p.setFireTicks(0);
-	                p.setFoodLevel(20);
-	                if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
-	            		
-	                	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
-	                	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
-	                	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
-	                	/*  98 */       kitsr.setItemMeta(kitsr2);
-	                	/*  95 */       ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
-	                	/*  96 */       ItemMeta kits2 = kits.getItemMeta();
-	                	/*  97 */       kits2.setDisplayName(Main.messages.getString("ShopItemName").replace("&", "§"));
-	                	/*  98 */       kits.setItemMeta(kits2);
-	                	/*  99 */       ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
-	                	/* 100 */       ItemMeta st2 = st.getItemMeta();
-	                	/* 101 */       st2.setDisplayName(Main.messages.getString("1v1ItemName").replace("&", "§"));
-	                	/* 102 */       st.setItemMeta(st2);
-	                	ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
-	                	/* 227 */           ItemMeta stats2 = kits.getItemMeta();
-	                	/* 228 */           stats2.setDisplayName(Main.messages.getString("StatsItemName").replace("&", "§"));
-	                	/* 229 */           stats.setItemMeta(stats2);
-	                	p.getInventory().setItem(Main.getInstance().getConfig().getInt("StatsItemSlot"), stats);
+                Main.getFolia().getScheduler().teleportAsync(p, lobby);
 
-	                	ItemStack stats1 = Main.getInstance().getConfig().getItemStack("ClickTestItem");
-	                	/* 227 */           ItemMeta stats12 = stats1.getItemMeta();
-	                	/* 228 */           stats12.setDisplayName(Main.messages.getString("ClickTestItemName").replace("&", "§"));
-	                	/* 229 */           stats1.setItemMeta(stats12);
-	                	ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
-	                	/* 227 */           ItemMeta warp2 = warp.getItemMeta();
-	                	/* 228 */           warp2.setDisplayName("§aWarps");
-	                	/* 229 */           warp.setItemMeta(warp2);
-	                	if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
-	                		p.getInventory().setItem(Main.getInstance().getConfig().getInt("WarpItemSlot"), warp);
-	                		}
-	                	ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
-	                	/* 227 */           ItemMeta sair2 = sair.getItemMeta();
-	                	/* 228 */           sair2.setDisplayName(Main.messages.getString("LeaveItemName").replace("&", "§"));
-	                	/* 229 */           sair.setItemMeta(sair2);
-	                	if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
-	                		p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
-	                	}
-	                	/* 103 */     
-	                	if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
-	                		p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
-	                		}
-	                	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
-	                	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
-	                	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-	                	/*     */       
-	                	/*     */ 
-	                	}
-	                API.tirarEfeitos(p);
+                p.getInventory().clear();
+                p.getInventory().setArmorContents(null);
 
-	                TitleAPI.sendTitle(
-	                    p,
-	                    40,
-	                    80,
-	                    40,
-	                    Main.getInstance().getConfig().getString("Title.JoinTitle"),
-	                    Main.getInstance().getConfig().getString("Title.JoinSubTitle")
-	                );
+                p.setExp(0F);
+                p.setExhaustion(20F);
+                p.setFireTicks(0);
+                p.setFoodLevel(20);
 
-	            },
-	            null
-	        );
+                if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
 
-	    });
+                    ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
+                    if (kitsr != null) {
+                        ItemMeta kitsr2 = kitsr.getItemMeta();
+                        kitsr2.setDisplayName(
+                                Main.messages.getString("KitsItemName").replace("&", "§")
+                        );
+                        kitsr.setItemMeta(kitsr2);
+                    }
+
+                    ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
+                    if (kits != null) {
+                        ItemMeta kits2 = kits.getItemMeta();
+                        kits2.setDisplayName(
+                                Main.messages.getString("ShopItemName").replace("&", "§")
+                        );
+                        kits.setItemMeta(kits2);
+                    }
+
+                    ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
+                    if (st != null) {
+                        ItemMeta st2 = st.getItemMeta();
+                        st2.setDisplayName(
+                                Main.messages.getString("1v1ItemName").replace("&", "§")
+                        );
+                        st.setItemMeta(st2);
+                    }
+
+                    ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
+                    if (stats != null) {
+                        ItemMeta stats2 = stats.getItemMeta(); // CORRIGIDO
+                        stats2.setDisplayName(
+                                Main.messages.getString("StatsItemName").replace("&", "§")
+                        );
+                        stats.setItemMeta(stats2);
+
+                        p.getInventory().setItem(
+                                Main.getInstance().getConfig().getInt("StatsItemSlot"),
+                                stats
+                        );
+                    }
+
+                    ItemStack clickTest = Main.getInstance().getConfig().getItemStack("ClickTestItem");
+                    if (clickTest != null) {
+                        ItemMeta clickMeta = clickTest.getItemMeta();
+                        clickMeta.setDisplayName(
+                                Main.messages.getString("ClickTestItemName").replace("&", "§")
+                        );
+                        clickTest.setItemMeta(clickMeta);
+
+                        if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
+                            p.getInventory().setItem(
+                                    Main.getInstance().getConfig().getInt("ClickTestItemSlot"),
+                                    clickTest
+                            );
+                        }
+                    }
+
+                    ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
+                    if (warp != null) {
+                        ItemMeta warp2 = warp.getItemMeta();
+                        warp2.setDisplayName("§aWarps");
+                        warp.setItemMeta(warp2);
+
+                        if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
+                            p.getInventory().setItem(
+                                    Main.getInstance().getConfig().getInt("WarpItemSlot"),
+                                    warp
+                            );
+                        }
+                    }
+
+                    ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
+                    if (sair != null) {
+                        ItemMeta sair2 = sair.getItemMeta();
+                        sair2.setDisplayName(
+                                Main.messages.getString("LeaveItemName").replace("&", "§")
+                        );
+                        sair.setItemMeta(sair2);
+
+                        if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
+                            p.getInventory().setItem(
+                                    Main.getInstance().getConfig().getInt("LeaveItemSlot"),
+                                    sair
+                            );
+                        }
+                    }
+
+                    if (kitsr != null) {
+                        p.getInventory().setItem(
+                                Main.getInstance().getConfig().getInt("KitsItemSlot"),
+                                kitsr
+                        );
+                    }
+
+                    if (kits != null) {
+                        p.getInventory().setItem(
+                                Main.getInstance().getConfig().getInt("ShopItemSlot"),
+                                kits
+                        );
+                    }
+
+                    if (st != null) {
+                        p.getInventory().setItem(
+                                Main.getInstance().getConfig().getInt("1v1ItemSlot"),
+                                st
+                        );
+                    }
+                }
+
+                API.tirarEfeitos(p);
+
+                TitleAPI.sendTitle(
+                        p,
+                        40,
+                        80,
+                        40,
+                        Main.getInstance().getConfig().getString("Title.JoinTitle"),
+                        Main.getInstance().getConfig().getString("Title.JoinSubTitle")
+                );
+
+            },
+            null,
+            20L
+    );
 }
 @EventHandler
 /*     */   public void onEvent2(PlayerJoinEvent e)
