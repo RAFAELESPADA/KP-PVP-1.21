@@ -5,6 +5,9 @@ package me.RafaelAulerDeMeloAraujo.main;
 import java.util.ArrayList;
 /*     */ import java.util.Arrays;
 /*     */ import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*     */ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -56,7 +59,8 @@ import me.RafaelAulerDeMeloAraujo.X1.X1;
 /*     */   private Main main;
 private static WaveAnimation waveAnimation;
 private static String text = "";
-/*     */  public static ArrayList<String> has = new ArrayList();
+public static final Set<String> has =
+ConcurrentHashMap.newKeySet();
 /*     */   
 /*     */   public Menu(Main main)
 /*     */   {
@@ -164,8 +168,12 @@ if (!Join.game.contains(p.getName())) {
 
 
 	/*     */ 
-	/* 200 */           World w = Bukkit.getServer().getWorld(Main.plugin.getConfig().getString("Spawn.World"));
-	/* 201 */           double x = Main.plugin.getConfig().getDouble("Spawn.X");
+	/* 200 */          World w = Objects.requireNonNull(
+		    Bukkit.getWorld(
+		            Main.plugin.getConfig().getString("Spawn.World")
+		        )
+		    );
+	double x = Main.plugin.getConfig().getDouble("Spawn.X");
 	/* 202 */           double y = Main.plugin.getConfig().getDouble("Spawn.Y");
 	/* 203 */           double z = Main.plugin.getConfig().getDouble("Spawn.Z");
 	/* 204 */           Location lobby = new Location(w, x, y, z);
@@ -175,76 +183,97 @@ if (!Join.game.contains(p.getName())) {
 	/* 211 */           lobby.setPitch((float)Main.plugin.getConfig().getDouble("Spawn.Pitch"));
 	/* 212 */           lobby.setYaw((float)Main.plugin.getConfig().getDouble("Spawn.Yaw"));
 	/* 213 */           p.getInventory().clear();
-	/*     */           
-	/*     */ ;
-	/* 216 */           Main.getFolia().getScheduler().teleportAsync(p, lobby);
-	/*     */           
-	/*     */ 
-	/* 219 */           p.getInventory().clear();
-	/* 220 */           p.getInventory().setArmorContents(null);
-	if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
-		
-	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
-	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
-	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
-	/*  98 */       kitsr.setItemMeta(kitsr2);
-	/*  95 */       ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
-	/*  96 */       ItemMeta kits2 = kits.getItemMeta();
-	/*  97 */       kits2.setDisplayName(Main.messages.getString("ShopItemName").replace("&", "§"));
-	/*  98 */       kits.setItemMeta(kits2);
-	/*  99 */       ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
-	/* 100 */       ItemMeta st2 = st.getItemMeta();
-	/* 101 */       st2.setDisplayName(Main.messages.getString("1v1ItemName").replace("&", "§"));
-	/* 102 */       st.setItemMeta(st2);
-	ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
-	/* 227 */           ItemMeta stats2 = kits.getItemMeta();
-	/* 228 */           stats2.setDisplayName(Main.messages.getString("StatsItemName").replace("&", "§"));
-	/* 229 */           stats.setItemMeta(stats2);
-	p.getInventory().setItem(Main.getInstance().getConfig().getInt("StatsItemSlot"), stats);
+	p.getInventory().clear();
 
-	ItemStack stats1 = Main.getInstance().getConfig().getItemStack("ClickTestItem");
-	/* 227 */           ItemMeta stats12 = stats1.getItemMeta();
-	/* 228 */           stats12.setDisplayName(Main.messages.getString("ClickTestItemName").replace("&", "§"));
-	/* 229 */           stats1.setItemMeta(stats12);
-	ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
-	/* 227 */           ItemMeta warp2 = warp.getItemMeta();
-	/* 228 */           warp2.setDisplayName("§aWarps");
-	/* 229 */           warp.setItemMeta(warp2);
-	if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("WarpItemSlot"), warp);
-		}
-	ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
-	/* 227 */           ItemMeta sair2 = sair.getItemMeta();
-	/* 228 */           sair2.setDisplayName(Main.messages.getString("LeaveItemName").replace("&", "§"));
-	/* 229 */           sair.setItemMeta(sair2);
-	if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
-	}
-	/* 103 */     
-	if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
-		}
-	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
-	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
-	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-	/*     */       
-	/*     */ 
-	/* 107 */       p.updateInventory();
-	}
-	p.getInventory().setArmorContents(null);
-	/*     */       
-		
-	/* 107 */       p.updateInventory();
-	/*     */           
-	/*     */ 
+	Main.getFolia().getScheduler()
+	    .teleportAsync(p, lobby)
+	    .thenRun(() -> {
 
-	/*     */ 
-	/* 235 */           p.setExp(0.0F);
-	/* 236 */           p.setExhaustion(20.0F);
-	/* 237 */           p.setFireTicks(0);
-	/* 238 */           p.setFoodLevel(20);
-	/* 239 */           TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), Main.getInstance().getConfig().getString("Title.JoinTitle"), Main.getInstance().getConfig().getString("Title.JoinSubTitle"));
-	API.tirarEfeitos(p);
+	        p.getScheduler().run(
+	            Main.getPlugin(),
+	            task -> {
+
+	                p.getInventory().clear();
+	                p.getInventory().setArmorContents(null);
+	            	/*     */       
+	            		
+	            	/*     */           
+	            	/*     */ 
+
+	            	/*     */ 
+	            	/* 235 */           p.setExp(0.0F);
+	            	/* 236 */           p.setExhaustion(20.0F);
+	            	/* 237 */           p.setFireTicks(0);
+	            	/* 238 */           p.setFoodLevel(20);
+	          
+	                p.setExp(0F);
+	                p.setExhaustion(20F);
+	                p.setFireTicks(0);
+	                p.setFoodLevel(20);
+	                if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+	            		
+	                	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
+	                	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
+	                	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
+	                	/*  98 */       kitsr.setItemMeta(kitsr2);
+	                	/*  95 */       ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
+	                	/*  96 */       ItemMeta kits2 = kits.getItemMeta();
+	                	/*  97 */       kits2.setDisplayName(Main.messages.getString("ShopItemName").replace("&", "§"));
+	                	/*  98 */       kits.setItemMeta(kits2);
+	                	/*  99 */       ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
+	                	/* 100 */       ItemMeta st2 = st.getItemMeta();
+	                	/* 101 */       st2.setDisplayName(Main.messages.getString("1v1ItemName").replace("&", "§"));
+	                	/* 102 */       st.setItemMeta(st2);
+	                	ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
+	                	/* 227 */           ItemMeta stats2 = kits.getItemMeta();
+	                	/* 228 */           stats2.setDisplayName(Main.messages.getString("StatsItemName").replace("&", "§"));
+	                	/* 229 */           stats.setItemMeta(stats2);
+	                	p.getInventory().setItem(Main.getInstance().getConfig().getInt("StatsItemSlot"), stats);
+
+	                	ItemStack stats1 = Main.getInstance().getConfig().getItemStack("ClickTestItem");
+	                	/* 227 */           ItemMeta stats12 = stats1.getItemMeta();
+	                	/* 228 */           stats12.setDisplayName(Main.messages.getString("ClickTestItemName").replace("&", "§"));
+	                	/* 229 */           stats1.setItemMeta(stats12);
+	                	ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
+	                	/* 227 */           ItemMeta warp2 = warp.getItemMeta();
+	                	/* 228 */           warp2.setDisplayName("§aWarps");
+	                	/* 229 */           warp.setItemMeta(warp2);
+	                	if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
+	                		p.getInventory().setItem(Main.getInstance().getConfig().getInt("WarpItemSlot"), warp);
+	                		}
+	                	ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
+	                	/* 227 */           ItemMeta sair2 = sair.getItemMeta();
+	                	/* 228 */           sair2.setDisplayName(Main.messages.getString("LeaveItemName").replace("&", "§"));
+	                	/* 229 */           sair.setItemMeta(sair2);
+	                	if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
+	                		p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
+	                	}
+	                	/* 103 */     
+	                	if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
+	                		p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
+	                		}
+	                	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+	                	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+	                	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
+	                	/*     */       
+	                	/*     */ 
+	                	}
+	                API.tirarEfeitos(p);
+
+	                TitleAPI.sendTitle(
+	                    p,
+	                    40,
+	                    80,
+	                    40,
+	                    Main.getInstance().getConfig().getString("Title.JoinTitle"),
+	                    Main.getInstance().getConfig().getString("Title.JoinSubTitle")
+	                );
+
+	            },
+	            null
+	        );
+
+	    });
 }
 @EventHandler
 /*     */   public void onEvent2(PlayerJoinEvent e)
@@ -269,9 +298,7 @@ Bukkit.getConsoleSender().sendMessage("Putting " + p.getName() + " back on KITPV
 	/*     */ if (!Join.game.contains(p.getName())) {
 		Bukkit.getConsoleSender().sendMessage("Adding " + p.getName() + " kitpvp variable!");
 		/*  74 */     Join.game.add(p.getName());
-		Join.game.add(p.getName());
 	}
-	Join.game.add(p.getName());
 	/* 200 */           World w = Bukkit.getServer().getWorld(Main.plugin.getConfig().getString("Spawn.World"));
 	/* 201 */           double x = Main.plugin.getConfig().getDouble("Spawn.X");
 	/* 202 */           double y = Main.plugin.getConfig().getDouble("Spawn.Y");
@@ -284,73 +311,74 @@ Bukkit.getConsoleSender().sendMessage("Putting " + p.getName() + " back on KITPV
 	/* 212 */           lobby.setYaw((float)Main.plugin.getConfig().getDouble("Spawn.Yaw"));
 	/* 213 */           p.getInventory().clear();
 	/*     */           
-	/*     */ ;
-	/* 216 */           Main.getFolia().getScheduler().teleportAsync(p, lobby);
+	/*     */ Main.getFolia().getScheduler()
+    .teleportAsync(p, lobby)
+    .thenRun(() -> {
+        p.setFoodLevel(20);
+    	/* 219 */           p.getInventory().clear();
+    	/* 220 */           p.getInventory().setArmorContents(null);
+    	if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
+    		
+    		/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
+    		/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
+    		/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
+    		/*  98 */       kitsr.setItemMeta(kitsr2);
+    		/*  95 */       ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
+    		/*  96 */       ItemMeta kits2 = kits.getItemMeta();
+    		/*  97 */       kits2.setDisplayName(Main.messages.getString("ShopItemName").replace("&", "§"));
+    		/*  98 */       kits.setItemMeta(kits2);
+    		/*  99 */       ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
+    		/* 100 */       ItemMeta st2 = st.getItemMeta();
+    		/* 101 */       st2.setDisplayName(Main.messages.getString("1v1ItemName").replace("&", "§"));
+    		/* 102 */       st.setItemMeta(st2);
+    		ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
+    		/* 227 */           ItemMeta stats2 = kits.getItemMeta();
+    		/* 228 */           stats2.setDisplayName(Main.messages.getString("StatsItemName").replace("&", "§"));
+    		/* 229 */           stats.setItemMeta(stats2);
+    		p.getInventory().setItem(Main.getInstance().getConfig().getInt("StatsItemSlot"), stats);
+
+    		ItemStack stats1 = Main.getInstance().getConfig().getItemStack("ClickTestItem");
+    		/* 227 */           ItemMeta stats12 = stats1.getItemMeta();
+    		/* 228 */           stats12.setDisplayName(Main.messages.getString("ClickTestItemName").replace("&", "§"));
+    		/* 229 */           stats1.setItemMeta(stats12);
+    		ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
+    		/* 227 */           ItemMeta warp2 = warp.getItemMeta();
+    		/* 228 */           warp2.setDisplayName("§aWarps");
+    		/* 229 */           warp.setItemMeta(warp2);
+    		if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
+    			p.getInventory().setItem(Main.getInstance().getConfig().getInt("WarpItemSlot"), warp);
+    			}
+    		ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
+    		/* 227 */           ItemMeta sair2 = sair.getItemMeta();
+    		/* 228 */           sair2.setDisplayName(Main.messages.getString("LeaveItemName").replace("&", "§"));
+    		/* 229 */           sair.setItemMeta(sair2);
+    		if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
+    			p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
+    		}
+    		/* 103 */     
+    		if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
+    			p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
+    			}
+    		p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+    		/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+    		/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
+    		/*     */       }
+    		/*     */ 	p.getInventory().setArmorContents(null);
+    		/*     */       
+    		
+    		/*     */           
+    		/*     */ 
+
+    		/*     */ 
+    		/* 235 */           p.setExp(0.0F);
+    		/* 236 */           p.setExhaustion(20.0F);
+    		/* 237 */           p.setFireTicks(0);
+    		/* 238 */           p.setFoodLevel(20);
+    		/* 239 */           TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), Main.getInstance().getConfig().getString("Title.JoinTitle"), Main.getInstance().getConfig().getString("Title.JoinSubTitle"));
+    		API.tirarEfeitos(p);
+    });
 	/*     */           
 	/*     */ 
-	/* 219 */           p.getInventory().clear();
-	/* 220 */           p.getInventory().setArmorContents(null);
-	if (!Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
-		
-	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
-	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
-	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
-	/*  98 */       kitsr.setItemMeta(kitsr2);
-	/*  95 */       ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
-	/*  96 */       ItemMeta kits2 = kits.getItemMeta();
-	/*  97 */       kits2.setDisplayName(Main.messages.getString("ShopItemName").replace("&", "§"));
-	/*  98 */       kits.setItemMeta(kits2);
-	/*  99 */       ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
-	/* 100 */       ItemMeta st2 = st.getItemMeta();
-	/* 101 */       st2.setDisplayName(Main.messages.getString("1v1ItemName").replace("&", "§"));
-	/* 102 */       st.setItemMeta(st2);
-	ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
-	/* 227 */           ItemMeta stats2 = kits.getItemMeta();
-	/* 228 */           stats2.setDisplayName(Main.messages.getString("StatsItemName").replace("&", "§"));
-	/* 229 */           stats.setItemMeta(stats2);
-	p.getInventory().setItem(Main.getInstance().getConfig().getInt("StatsItemSlot"), stats);
-
-	ItemStack stats1 = Main.getInstance().getConfig().getItemStack("ClickTestItem");
-	/* 227 */           ItemMeta stats12 = stats1.getItemMeta();
-	/* 228 */           stats12.setDisplayName(Main.messages.getString("ClickTestItemName").replace("&", "§"));
-	/* 229 */           stats1.setItemMeta(stats12);
-	ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
-	/* 227 */           ItemMeta warp2 = warp.getItemMeta();
-	/* 228 */           warp2.setDisplayName("§aWarps");
-	/* 229 */           warp.setItemMeta(warp2);
-	if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("WarpItemSlot"), warp);
-		}
-	ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
-	/* 227 */           ItemMeta sair2 = sair.getItemMeta();
-	/* 228 */           sair2.setDisplayName(Main.messages.getString("LeaveItemName").replace("&", "§"));
-	/* 229 */           sair.setItemMeta(sair2);
-	if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
-	}
-	/* 103 */     
-	if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
-		}
-	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
-	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
-	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-	/*     */       }
-	/*     */ 
-	/* 107 */       p.updateInventory();	p.getInventory().setArmorContents(null);
-	/*     */       
-	
-	/* 107 */       p.updateInventory();
-	/*     */           
-	/*     */ 
-
-	/*     */ 
-	/* 235 */           p.setExp(0.0F);
-	/* 236 */           p.setExhaustion(20.0F);
-	/* 237 */           p.setFireTicks(0);
-	/* 238 */           p.setFoodLevel(20000);
-	/* 239 */           TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), Main.getInstance().getConfig().getString("Title.JoinTitle"), Main.getInstance().getConfig().getString("Title.JoinSubTitle"));
-	API.tirarEfeitos(p);
 }
 /*     */   
 @EventHandler
@@ -373,20 +401,6 @@ if (X1.inx1.contains(p)) {
 	/* 281 */       Deshfire.Armadura2.remove(p.getName());
 	/* 282 */       Deshfire.cooldownm.remove(p);
 	/* 283 */       Join.game.remove(p.getName());
-	/* 284 */       Join.game.remove(p.getName());
-	/* 285 */       Join.game.remove(p.getName());
-	/* 286 */       Join.game.remove(p.getName());
-	/* 287 */       Join.game.remove(p.getName());
-	/* 288 */       Join.game.remove(p.getName());
-	/* 289 */       Join.game.remove(p.getName());
-	/* 290 */       Join.game.remove(p.getName());
-	/* 291 */       Join.game.remove(p.getName());
-	/* 292 */       Join.game.remove(p.getName());
-	/* 293 */       Join.game.remove(p.getName());
-	/* 294 */       Join.game.remove(p.getName());Join.game.remove(p.getName());
-	/* 295 */       Join.game.remove(p.getName());
-	/* 296 */       Join.game.remove(p.getName());
-	/* 297 */       Join.game.remove(p.getName());
 
 	/*     */ 
 	/*     */ 
@@ -394,18 +408,24 @@ if (X1.inx1.contains(p)) {
 	/* 302 */       Cooldown.remove(p);
 	/* 303 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.KitPvpLeave-Message").replace("&", "§")));
 	/* 304 */       p.getInventory().clear();
-	  /* 26 */        Main.getFolia().getScheduler().teleportAsync(p, (Location)Join.saveworld.get(p.getName()));
-	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
-	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
-	p.setLevel(Join.savelevel.get(p.getName()));
-	p.setFoodLevel(Join.savehunger.get(p.getName()));
-	p.setRemainingAir(Join.saveair.get(p.getName()));
-	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
+	/*  90 */     Main.getFolia().getScheduler()
+    .teleportAsync(p, (Location)Join.saveworld.get(p.getName()))
+    .thenRun(() -> {
+        p.setFoodLevel(20);
+
+    	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
+    	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
+    	p.setLevel(Join.savelevel.get(p.getName()));
+    	p.setFoodLevel(Join.savehunger.get(p.getName()));
+    	p.setRemainingAir(Join.saveair.get(p.getName()));
+
+    	API.tirarEfeitos(p);
+    	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
+
+    });
 	TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), this.main.getConfig().getString("Title.LeaveTitle"), this.main.getConfig().getString("Title.LeaveSubTitle"));
 
 	/*     */   
-	/* 311 */       p.updateInventory();
-	API.tirarEfeitos(p);
 }
 /*     */   }
 @EventHandler
@@ -430,39 +450,28 @@ if (X1.inx1.contains(p)) {
 	/* 281 */       Deshfire.Armadura2.remove(p.getName());
 	/* 282 */       Deshfire.cooldownm.remove(p);
 	/* 283 */       Join.game.remove(p.getName());
-	/* 284 */       Join.game.remove(p.getName());
-	/* 285 */       Join.game.remove(p.getName());
-	/* 286 */       Join.game.remove(p.getName());
-	/* 287 */       Join.game.remove(p.getName());
-	/* 288 */       Join.game.remove(p.getName());
-	/* 289 */       Join.game.remove(p.getName());
-	/* 290 */       Join.game.remove(p.getName());
-	/* 291 */       Join.game.remove(p.getName());
-	/* 292 */       Join.game.remove(p.getName());
-	/* 293 */       Join.game.remove(p.getName());
-	/* 294 */       Join.game.remove(p.getName());Join.game.remove(p.getName());
-	/* 295 */       Join.game.remove(p.getName());
-	/* 296 */       Join.game.remove(p.getName());
-	/* 297 */       Join.game.remove(p.getName());
 
 	/*     */ 
 	/*     */ 
 	/*     */ 
 	/* 302 */       Cooldown.remove(p);
 	/* 303 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.KitPvpLeave-Message").replace("&", "§")));
-	/* 304 */       p.getInventory().clear();
-	  /* 26 */        Main.getFolia().getScheduler().teleportAsync(p, (Location)Join.saveworld.get(p.getName()));
-	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
-	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
-	p.setLevel(Join.savelevel.get(p.getName()));
-	p.setFoodLevel(Join.savehunger.get(p.getName()));
-	p.setRemainingAir(Join.saveair.get(p.getName()));
-	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
-	TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), this.main.getConfig().getString("Title.LeaveTitle"), this.main.getConfig().getString("Title.LeaveSubTitle"));
+	/* 304 */       p.getInventory().clear();	/*  90 */    
+	/*  90 */     Main.getFolia().getScheduler()
+    .teleportAsync(p, (Location)Join.saveworld.get(p.getName()))
+    .thenRun(() -> {
+        p.setFoodLevel(20);
 
-	/*     */   
-	/* 311 */       p.updateInventory();
-	API.tirarEfeitos(p);
+    	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
+    	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
+    	p.setLevel(Join.savelevel.get(p.getName()));
+    	p.setFoodLevel(Join.savehunger.get(p.getName()));
+    	p.setRemainingAir(Join.saveair.get(p.getName()));
+
+    	API.tirarEfeitos(p);
+    	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
+
+    });
 }
 /*     */   } 
 
@@ -576,20 +585,6 @@ if (Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
     	/* 281 */       Deshfire.Armadura2.remove(p);
     	/* 282 */       Deshfire.cooldownm.remove(p);
     	/* 283 */       Join.game.remove(p.getName());
-    	/* 284 */       Join.game.remove(p.getName());
-    	/* 285 */       Join.game.remove(p.getName());
-    	/* 286 */       Join.game.remove(p.getName());
-    	/* 287 */       Join.game.remove(p.getName());
-    	/* 288 */       Join.game.remove(p.getName());
-    	/* 289 */       Join.game.remove(p.getName());
-    	/* 290 */       Join.game.remove(p.getName());
-    	/* 291 */       Join.game.remove(p.getName());
-    	/* 292 */       Join.game.remove(p.getName());
-    	/* 293 */       Join.game.remove(p.getName());
-    	/* 294 */       Join.game.remove(p.getName());Join.game.remove(p.getName());
-    	/* 295 */       Join.game.remove(p.getName());
-    	/* 296 */       Join.game.remove(p.getName());
-    	/* 297 */       Join.game.remove(p.getName());
 
     	/*     */ 
     	/*     */ 
@@ -597,19 +592,22 @@ if (Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
     	/* 302 */       Cooldown.remove(p);
     	/* 303 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.KitPvpLeave-Message").replace("&", "§")));
     	/* 304 */       p.getInventory().clear();
-    	  /* 26 */        Main.getFolia().getScheduler().teleportAsync(p, (Location)Join.saveworld.get(p.getName()));
-    	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
-    	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
-    	
-    	p.setLevel(Join.savelevel.get(p.getName()));
-    	p.setFoodLevel(Join.savehunger.get(p.getName()));
-    	p.setRemainingAir(Join.saveair.get(p.getName()));
-    	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
-    	TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), this.main.getConfig().getString("Title.LeaveTitle"), this.main.getConfig().getString("Title.LeaveSubTitle"));
+    	/*  90 */     Main.getFolia().getScheduler()
+        .teleportAsync(p, (Location)Join.saveworld.get(p.getName()))
+        .thenRun(() -> {
+            p.setFoodLevel(20);
 
+        	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
+        	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
+        	p.setLevel(Join.savelevel.get(p.getName()));
+        	p.setFoodLevel(Join.savehunger.get(p.getName()));
+        	p.setRemainingAir(Join.saveair.get(p.getName()));
+        	TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), this.main.getConfig().getString("Title.LeaveTitle"), this.main.getConfig().getString("Title.LeaveSubTitle"));
+        	API.tirarEfeitos(p);
+        	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
+
+        });
     	/*     */   
-    	/* 311 */       p.updateInventory();
-    	API.tirarEfeitos(p);
           NewKitMenu.playSound(p, this.main.getConfig().getString("Sound.CommandSounds"), 1.0F, 1.0F);
 	/*    */   }  }
 	
@@ -698,85 +696,88 @@ if (Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
 	/*  87 */       lobby.setPitch((float)Main.plugin.getConfig().getDouble("Spawn.Pitch"));
 	/*  88 */       lobby.setYaw((float)Main.plugin.getConfig().getDouble("Spawn.Yaw"));
 	/*  89 */       p.getInventory().clear();
-	/*  90 */     ;
-	/* 216 */           Main.getFolia().getScheduler().teleportAsync(p, lobby);
-	/*     */      API.vida(p);
-	/*  92 */       p.getInventory().setLeggings(new ItemStack(Material.AIR));
-	/*  93 */       p.getInventory().setBoots(new ItemStack(Material.AIR));
-	/*  94 */       p.getInventory().setArmorContents(null);
-	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
-	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
-	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
-	/*  98 */       kitsr.setItemMeta(kitsr2);
-	/*  95 */       ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
-	/*  96 */       ItemMeta kits2 = kits.getItemMeta();
-	/*  97 */       kits2.setDisplayName(Main.messages.getString("ShopItemName").replace("&", "§"));
-	/*  98 */       kits.setItemMeta(kits2);
-	/*  99 */       ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
-	/* 100 */       ItemMeta st2 = st.getItemMeta();
-	/* 101 */       st2.setDisplayName(Main.messages.getString("1v1ItemName").replace("&", "§"));
-	/* 102 */       st.setItemMeta(st2);
-	ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
-	/* 227 */           ItemMeta stats2 = kits.getItemMeta();
-	/* 228 */           stats2.setDisplayName(Main.messages.getString("StatsItemName").replace("&", "§"));
-	/* 229 */           stats.setItemMeta(stats2);
-	p.getInventory().setItem(Main.getInstance().getConfig().getInt("StatsItemSlot"), stats);
+	/*  90 */     Main.getFolia().getScheduler()
+    .teleportAsync(p, lobby);
+        p.setFoodLevel(20);
+             API.vida(p);
+    	/*  92 */       p.getInventory().setLeggings(new ItemStack(Material.AIR));
+    	/*  93 */       p.getInventory().setBoots(new ItemStack(Material.AIR));
+    	/*  94 */       p.getInventory().setArmorContents(null);
+    	/*  94 */       ItemStack kitsr = Main.getInstance().getConfig().getItemStack("KitsItem");
+    	/*  96 */       ItemMeta kitsr2 = kitsr.getItemMeta();
+    	/*  97 */       kitsr2.setDisplayName(Main.messages.getString("KitsItemName").replace("&", "§"));
+    	/*  98 */       kitsr.setItemMeta(kitsr2);
+    	/*  95 */       ItemStack kits = Main.getInstance().getConfig().getItemStack("ShopItem");
+    	/*  96 */       ItemMeta kits2 = kits.getItemMeta();
+    	/*  97 */       kits2.setDisplayName(Main.messages.getString("ShopItemName").replace("&", "§"));
+    	/*  98 */       kits.setItemMeta(kits2);
+    	/*  99 */       ItemStack st = Main.getInstance().getConfig().getItemStack("1v1Item");
+    	/* 100 */       ItemMeta st2 = st.getItemMeta();
+    	/* 101 */       st2.setDisplayName(Main.messages.getString("1v1ItemName").replace("&", "§"));
+    	/* 102 */       st.setItemMeta(st2);
+    	ItemStack stats = Main.getInstance().getConfig().getItemStack("StatsItem");
+    	/* 227 */           ItemMeta stats2 = kits.getItemMeta();
+    	/* 228 */           stats2.setDisplayName(Main.messages.getString("StatsItemName").replace("&", "§"));
+    	/* 229 */           stats.setItemMeta(stats2);
+    	p.getInventory().setItem(Main.getInstance().getConfig().getInt("StatsItemSlot"), stats);
 
-	ItemStack stats1 = Main.getInstance().getConfig().getItemStack("ClickTestItem");
-	/* 227 */           ItemMeta stats12 = stats1.getItemMeta();
-	/* 228 */           stats12.setDisplayName(Main.messages.getString("ClickTestItemName").replace("&", "§"));
-	/* 229 */           stats1.setItemMeta(stats12);
-	ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
-	/* 227 */           ItemMeta warp2 = warp.getItemMeta();
-	/* 228 */           warp2.setDisplayName("§aWarps");
-	/* 229 */           warp.setItemMeta(warp2);
-	if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("WarpItemSlot"), warp);
-		}
-	ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
-	/* 227 */           ItemMeta sair2 = sair.getItemMeta();
-	/* 228 */           sair2.setDisplayName(Main.messages.getString("LeaveItemName").replace("&", "§"));
-	/* 229 */           sair.setItemMeta(sair2);
-	if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
-	}
-	/* 103 */     
-	if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
-		p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
-		}
-	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
-	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
-	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
-	/*     */       
-	/*     */ 
-	/* 107 */       p.updateInventory();	/* 107 */       p.updateInventory();
-	/*     */       p.setAllowFlight(false);
-	API.vida(p);
+    	ItemStack stats1 = Main.getInstance().getConfig().getItemStack("ClickTestItem");
+    	/* 227 */           ItemMeta stats12 = stats1.getItemMeta();
+    	/* 228 */           stats12.setDisplayName(Main.messages.getString("ClickTestItemName").replace("&", "§"));
+    	/* 229 */           stats1.setItemMeta(stats12);
+    	ItemStack warp = Main.getInstance().getConfig().getItemStack("WarpItem");
+    	/* 227 */           ItemMeta warp2 = warp.getItemMeta();
+    	/* 228 */           warp2.setDisplayName("§aWarps");
+    	/* 229 */           warp.setItemMeta(warp2);
+    	if (!Main.getInstance().getConfig().getBoolean("DisableWarpItem")) {
+    		p.getInventory().setItem(Main.getInstance().getConfig().getInt("WarpItemSlot"), warp);
+    		}
+    	ItemStack sair = Main.getInstance().getConfig().getItemStack("LeaveItem");
+    	/* 227 */           ItemMeta sair2 = sair.getItemMeta();
+    	/* 228 */           sair2.setDisplayName(Main.messages.getString("LeaveItemName").replace("&", "§"));
+    	/* 229 */           sair.setItemMeta(sair2);
+    	if (!Main.getInstance().getConfig().getBoolean("DisableLeaveItem")) {
+    		p.getInventory().setItem(Main.getInstance().getConfig().getInt("LeaveItemSlot"), sair);
+    	}
+    	/* 103 */     
+    	if (!Main.getInstance().getConfig().getBoolean("DisableClickTestItem")) {
+    		p.getInventory().setItem(Main.getInstance().getConfig().getInt("ClickTestItemSlot"), stats1);
+    		}
+    	p.getInventory().setItem(Main.getInstance().getConfig().getInt("KitsItemSlot"), kitsr);
+    	/* 103 */     	p.getInventory().setItem(Main.getInstance().getConfig().getInt("ShopItemSlot"), kits);
+    	/* 104 */       	p.getInventory().setItem(Main.getInstance().getConfig().getInt("1v1ItemSlot"), st);
+    	/*     */       
+    	/*     */       p.setAllowFlight(false);
+    	API.vida(p);
+
+    	/*     */ API.tirarEfeitos(p);
+    
 
 	/* 107 */    
 	/*     */       
-	/*     */ API.tirarEfeitos(p);
 	if (Main.getInstance().getConfig().getBoolean("DisableInitialItems")) {
 		 p.getInventory().clear();
 	 }
 
 	 GiveKitUnlocker.GiveUnlockers(p);
-	/* 107 */       p.updateInventory();
 /*     */         
 
 /*     */         
 /*     */ 
 /*     */ 
 /*     */ 
-/* 159 */         
+/* 159 */     
     NewKitMenu.playSound(p, "UI_BUTTON_CLICK", 1.0F, 1.0F);
-	 }, 10L);
+	 }
+
+	 , 20);
 }}
+}
 
 /* 407 */        
 /*     */       
 /*     */     
-/*     */   } 
+/*     */   
 @EventHandler
 public void onBauKit(PlayerInteractEvent e)
 {
@@ -821,42 +822,38 @@ public void onLeaveKit(PlayerInteractEvent e)
     	/* 281 */       Deshfire.Armadura2.remove(p);
     	/* 282 */       Deshfire.cooldownm.remove(p);
     	/* 283 */       Join.game.remove(p.getName());
-    	/* 284 */       Join.game.remove(p.getName());
-    	/* 285 */       Join.game.remove(p.getName());
-    	/* 286 */       Join.game.remove(p.getName());
-    	/* 287 */       Join.game.remove(p.getName());
-    	/* 288 */       Join.game.remove(p.getName());
-    	/* 289 */       Join.game.remove(p.getName());
-    	/* 290 */       Join.game.remove(p.getName());
-    	/* 291 */       Join.game.remove(p.getName());
-    	/* 292 */       Join.game.remove(p.getName());
-    	/* 293 */       Join.game.remove(p.getName());
-    	/* 294 */       Join.game.remove(p.getName());Join.game.remove(p.getName());
-    	/* 295 */       Join.game.remove(p.getName());
-    	/* 296 */       Join.game.remove(p.getName());
-    	/* 297 */       Join.game.remove(p.getName());
+    	/*     */ 
+    	/*     */ 
+    	/* 133 */    	/* 279 */       Habilidade.removeAbility(p);
+    	/* 280 */       Deshfire.Armadura.remove(p.getName());
+    	/* 281 */       Deshfire.Armadura2.remove(p.getName());
+    	/* 282 */       Deshfire.cooldownm.remove(p);
+    	/* 283 */       Join.game.remove(p.getName());
 
     	/*     */ 
     	/*     */ 
     	/*     */ 
     	/* 302 */       Cooldown.remove(p);
     	/* 303 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.KitPvpLeave-Message").replace("&", "§")));
-    	/* 304 */       p.getInventory().clear();
-    	  /* 26 */        Main.getFolia().getScheduler().teleportAsync(p, (Location)Join.saveworld.get(p.getName()));
-    	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
-    	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
-    	
-    	p.setLevel(Join.savelevel.get(p.getName()));
-    	p.setFoodLevel(Join.savehunger.get(p.getName()));
-    	p.setRemainingAir(Join.saveair.get(p.getName()));
-    	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
-    	TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), this.main.getConfig().getString("Title.LeaveTitle"), this.main.getConfig().getString("Title.LeaveSubTitle"));
+    	/* 304 */       p.getInventory().clear();	/*  90 */    
+    	/*  90 */     Main.getFolia().getScheduler()
+        .teleportAsync(p, (Location)Join.saveworld.get(p.getName()))
+        .thenRun(() -> {
+            p.setFoodLevel(20);
 
-    	/*     */   
-    	/* 311 */       p.updateInventory();
+        	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
+        	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
+        	p.setLevel(Join.savelevel.get(p.getName()));
+        	p.setFoodLevel(Join.savehunger.get(p.getName()));
+        	p.setRemainingAir(Join.saveair.get(p.getName()));
+
+
+            NewKitMenu.playSound(p, "UI_BUTTON_CLICK", 1.0F, 1.0F);  
+        	API.tirarEfeitos(p);
+        	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
+
+        });
     	API.tirarEfeitos(p);
-
-        NewKitMenu.playSound(p, "UI_BUTTON_CLICK", 1.0F, 1.0F);  
     }
     	
     

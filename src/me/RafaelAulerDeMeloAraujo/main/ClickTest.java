@@ -32,66 +32,59 @@ public static void StartClick(Player p) {
          return;
 	 }
          ClickTest.fazendoclicktest.add(p.getName());
-         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, (Runnable)new Runnable() {
-             @Override
-             public void run() {
+         Main.getFolia().getScheduler().runLater(task -> {
+
             	 p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("ClickTestStarting").replace("&", "§")).replace("%time%", "5"));
 
                  NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.ClickTest"), 1.0F, 1.0F);  
                  p.setLevel(0);
              }
-         }, 0L);
-         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, (Runnable)new Runnable() {
-             @Override
-             public void run() {
+         , 0L);
+         Main.getFolia().getScheduler().runLater(task -> {
+
             	 p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("ClickTestStarting").replace("&", "§")).replace("%time%", "4"));
 
                  NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.ClickTest"), 1.0F, 1.0F);  
              }
-         }, 20L);
-         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, (Runnable)new Runnable() {
-             @Override
-             public void run() {
+         , 20L);
+         Main.getFolia().getScheduler().runLater(task -> {
+
             	 p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("ClickTestStarting").replace("&", "§")).replace("%time%", "3"));
 
                  NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.ClickTest"), 1.0F, 1.0F);  
-             }
+             
          }, 40L);
-         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, (Runnable)new Runnable() {
-             @Override
-             public void run() {
+         Main.getFolia().getScheduler().runLater(task -> {
+
             	 p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("ClickTestStarting").replace("&", "§")).replace("%time%", "2"));
 
                  NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.ClickTest"), 1.0F, 1.0F);  
              }
-         }, 60L);
-         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, (Runnable)new Runnable() {
-             @Override
-             public void run() {
+         , 60L);
+         Main.getFolia().getScheduler().runLater(task -> {
+
                  p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("ClickTestStarting").replace("&", "§")).replace("%time%", "1"));
 
                  NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.ClickTest"), 1.0F, 1.0F);  
              }
-         }, 80L);
-         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, (Runnable)new Runnable() {
-             @Override
-             public void run() {
+         , 80L);
+         Main.getFolia().getScheduler().runLater(task -> {
+
                  p.sendMessage(String.valueOf(API.NomeServer) + Main.messages.getString("ClickTestStarted").replace("&", "§"));
 
                  NewKitMenu.playSound(p, Main.getInstance().getConfig().getString("Sound.ClickTest"), 1.0F, 1.0F);  
                  ClickTest.emclicktest.add(p.getName());
              }
-         }, 100L);
-         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, (Runnable)new Runnable() {
-             @Override
-             public void run() {
+         , 100L);
+         Main.getFolia().getScheduler().runLater(task -> {
+
                  p.sendMessage(String.valueOf(API.NomeServer) + Main.messages.getString("ClickTestFinished").replace("&", "§"));
                  p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("ClickTestResult").replace("&", "§").replace("%clicks%", Integer.toString(p.getLevel() / 5))));
                  ClickTest.emclicktest.remove(p.getName());
                  ClickTest.fazendoclicktest.remove(p.getName());
                  p.setLevel(0);
              }
-         }, 200L);
+         , 200L);
      }
 @org.bukkit.event.EventHandler
 public void click(final PlayerInteractEvent e) {

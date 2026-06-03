@@ -133,9 +133,7 @@ public class API
 		        try {
 		            Method publicMethod = clazz2.getMethod("MAX_HEALTH");
 
-		            Bukkit.getLogger().info("[KP-PVP - DEBUG] publicMethod MAX_HEALTH exists: " + (publicMethod != null));
 		        } catch (NoSuchMethodException e) {
-		        	Bukkit.getLogger().info("[KP-PVP - DEBUG] publicMethod MAX_HEALTH does not exist.");
 		        	  o.setHealth(o.getMaxHealth());
 		        	  return;
 		        }

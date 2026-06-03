@@ -11,7 +11,9 @@ import org.bukkit.enchantments.Enchantment;
 /*    */ import org.bukkit.entity.Player;
 /*    */ import org.bukkit.event.EventHandler;
 /*    */ import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 /*    */ import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 /*    */ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -68,49 +70,65 @@ public void RemoverDan2o(EntityDamageEvent e)
    Player p = (Player) e.getEntity();
    if (e.getCause() == EntityDamageEvent.DamageCause.FALL && !Habilidade.ContainsAbility(p) && this.fall2.contains(p.getName()) && e.getEntity().getLocation().getY() < Main.plugin.getConfig().getInt("Spawn.Y") && Join.game.contains(p.getName()) && p.getWorld().equals(Bukkit.getWorld(Main.plugin.getConfig().getString("Spawn.World"))))  {
 	   e.setCancelled(true);
-	      p.getInventory().clear();
-	      /* 45 */       ItemStack dima = new ItemStack(Material.DIAMOND_SWORD);
-	      /* 46 */       ItemMeta souperaa = dima.getItemMeta();
-	      /* 47 */       souperaa.setDisplayName("§cSword");
-	      /* 48 */       dima.setItemMeta(souperaa);
-	                     dima.addEnchantment(Enchantment.SHARPNESS, 1);
-	                     
-	      /* 49 */       ItemStack sopa = new ItemStack(Material.MUSHROOM_STEW);
-	      /* 50 */       ItemMeta sopas = sopa.getItemMeta();
-	      /* 51 */       sopas.setDisplayName("§6Soup");
-	      /* 52 */       sopa.setItemMeta(sopas);
-	      /*    */       
-	      /*    */ 
-	      /* 55 */       ItemStack capacete0 = new ItemStack(Material.IRON_HELMET);
-	      /*    */       
-	      /* 57 */       ItemStack peitoral0 = new ItemStack(Material.IRON_CHESTPLATE);
-	      /*    */       
-	      /* 59 */       ItemStack calca0 = new ItemStack(Material.IRON_LEGGINGS);
-	      /*    */       
-	      /* 61 */       ItemStack Bota0 = new ItemStack(Material.IRON_BOOTS);
-	      /*    */       
-	      /* 63 */       p.getInventory().setHelmet(capacete0);
-	      /* 64 */       p.getInventory().setChestplate(peitoral0);
-	      /* 65 */       p.getInventory().setLeggings(calca0);
-	      /* 66 */       p.getInventory().setBoots(Bota0);
-	      /* 67 */       Habilidade.setAbility(p, "Basic");
-	      /* 68 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "Basic").replace("&", "§"));
-	      /*    */       API.give(p);
-	      /* 70 */       p.getInventory().addItem(new ItemStack[] { dima });
-	      /*    */       
-	      /*    */ 
-	      /*    */ 
-	      /*    */ 
-	      /* 75 */       for (int i = 0; i <= 34; i++) {
-	      /* 76 */         p.getInventory().addItem(new ItemStack[] { sopa });
-	      /* 77 */         me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI.sendTitle(p, Integer.valueOf(20), Integer.valueOf(60), Integer.valueOf(20), this.main.getConfig().getString("Title.KitTitle"), this.main.getConfig().getString("Title.KitSubTitle").replaceAll("%kit%", "Basic"));
-	      /*    */       }
-	      /*    */     }
+	   p.getInventory().clear();
+	   /* 45 */       ItemStack dima = new ItemStack(Material.DIAMOND_SWORD);
+	   /* 46 */       ItemMeta souperaa = dima.getItemMeta();
+	   /* 47 */       souperaa.setDisplayName("§cSword");
+	   /* 48 */       dima.setItemMeta(souperaa);
+	                  dima.addEnchantment(Enchantment.SHARPNESS, 1);
+	                  
+	   /* 49 */       ItemStack sopa = new ItemStack(Material.MUSHROOM_STEW);
+	   /* 50 */       ItemMeta sopas = sopa.getItemMeta();
+	   /* 51 */       sopas.setDisplayName("§6Soup");
+	   /* 52 */       sopa.setItemMeta(sopas);
+	   /*    */       
+	   /*    */ 
+	   /* 55 */       ItemStack capacete0 = new ItemStack(Material.IRON_HELMET);
+	   /*    */       
+	   /* 57 */       ItemStack peitoral0 = new ItemStack(Material.IRON_CHESTPLATE);
+	   /*    */       
+	   /* 59 */       ItemStack calca0 = new ItemStack(Material.IRON_LEGGINGS);
+	   /*    */       
+	   /* 61 */       ItemStack Bota0 = new ItemStack(Material.IRON_BOOTS);
+	   /*    */       
+	   /* 63 */       p.getInventory().setHelmet(capacete0);
+	   /* 64 */       p.getInventory().setChestplate(peitoral0);
+	   /* 65 */       p.getInventory().setLeggings(calca0);
+	   /* 66 */       p.getInventory().setBoots(Bota0);
+	   /* 67 */       Habilidade.setAbility(p, "Basic");
+	   /* 68 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "Basic").replace("&", "§"));
+	   /*    */       API.give(p);
+	   RTP.TeleportArenaRandom(p);
+	   /* 70 */       p.getInventory().addItem(new ItemStack[] { dima });
+	   /*    */       
+	   /*    */ 
+	   /*    */ 
+	   /*    */ 
+	   /* 75 */       for (int i = 0; i <= 34; i++) {
+	   /* 76 */         p.getInventory().addItem(new ItemStack[] { sopa });
+	   /* 77 */         me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI.sendTitle(p, Integer.valueOf(20), Integer.valueOf(60), Integer.valueOf(20), this.main.getConfig().getString("Title.KitTitle"), this.main.getConfig().getString("Title.KitSubTitle").replaceAll("%kit%", "Basic"));
+	   /*    */       }
+   }
 	      /*    */     
 	   /*    */     
    this.fall2.remove(p.getName());
    }
+@EventHandler
+public void onFarmlandTrample(PlayerInteractEvent event) {
+    if (event.getAction() != Action.PHYSICAL) {
+        return;
+    }
 
+    if (event.getClickedBlock() == null) {
+        return;
+    }
+if (!Join.game.contains(event.getPlayer().getName())) {
+	return;
+}
+    if (event.getClickedBlock().getType() == Material.FARMLAND) {
+        event.setCancelled(true);
+    }
+}
 @EventHandler
 private void Jumps(PlayerMoveEvent e) {
 	Player p = e.getPlayer();

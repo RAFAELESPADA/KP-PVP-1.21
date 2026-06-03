@@ -4,6 +4,8 @@
 /*     */ import java.util.Arrays;
 /*     */ import java.util.HashMap;
 /*     */ import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /*     */ import org.bukkit.Bukkit;
 /*     */ import org.bukkit.ChatColor;
@@ -77,7 +79,8 @@ public static HashMap<String, Integer> saveair = new HashMap<String, Integer>();
 /*     */ 
 /*     */ 
 /*  76 */   HashMap<String, Location> maps = new HashMap<String, Location>();
-/*  77 */   public static ArrayList<String> game = new ArrayList<String>();
+/*  77 */   public static final Set<String> game =
+	    ConcurrentHashMap.newKeySet();
 public static ArrayList<Player> player = new ArrayList<Player>();
 /*  78 */   List<String> commands = Arrays.asList(new String[] { "admin", "list", "create", "delete", "1v1", "score", "setspawn", "join", "leave", "reset", "coins", "setchallenge", "kit", "kitunlocker", "resetkit", "stats", "reload", "update" });
 /*     */   
