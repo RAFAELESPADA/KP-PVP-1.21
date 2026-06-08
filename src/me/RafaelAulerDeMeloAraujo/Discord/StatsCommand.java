@@ -34,49 +34,48 @@ public class StatsCommand extends ListenerAdapter {
         if (sub.equals("stats")) {
         
         	 try {
+        		 event.deferReply().queue();
         	OptionMapping option = event.getOption("jogador");
 
         	if (option == null) {
-        	    event.reply("You must specify a player.")
-        	            .setEphemeral(true)
-        	            .queue();
-        	    return;
+        		event.getHook()
+        	     .editOriginal("You must specify a player.")
+        	     .queue();
+        		 return;
         	}
 
         	String player = option.getAsString();
         UUID uuid;
 
-        try {
-            uuid = Bukkit.getOfflinePlayer(player).getUniqueId();
-        } catch (Exception e) {
-            event.reply("Player not found.")
-                    .setEphemeral(true)
-                    .queue();
-            return;
-        }
+        
         WavePlayer data2 = WaveBukkit
                 .getPlayerManager()
                 .getOfflinePlayer(player);
-
         if (data2 == null) {
-            event.reply("Player data not found.")
-                    .setEphemeral(true)
-                    .queue();
+            event.getHook().editOriginal("Player not found").queue();
             return;
         }
-        if (data2.getPvp() == null) {
-            event.reply("Player PvP data not found.")
-                 .setEphemeral(true)
-                 .queue();
+        try {
+        	uuid = data2.getUuid();
+        } catch (Exception e) {
+            event.getHook().editOriginal("Player not found").queue();
             return;
         }
+        
             // Carrega do banco/arquivo
         try (StorageConnection storageConnection = WaveBukkit.getStorage().newConnection()) {
             WaveBukkit.getPlayerManager().getController().load(data2, storageConnection);
+            System.out.println("Loading Player: " + data2.getName());
+            System.out.println("Kills: " + data2.getPvp().getKills());
+            System.out.println("Deaths: " + data2.getPvp().getDeaths());
+            System.out.println("Coins: " + data2.getPvp().getCoins());
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
-
+        if (data2.getPvp() == null) {
+            event.getHook().editOriginal("Player data not found").queue();
+            return;
+        }
            
         PlayerPvP data = data2.getPvp();
         double kdr = AntiDeathDrop.GetDeaths(uuid) == 0 ? (double) AntiDeathDrop.GetKills(uuid) : (double) AntiDeathDrop.GetKills(uuid) / (double) AntiDeathDrop.GetDeaths(uuid);
@@ -108,31 +107,34 @@ public class StatsCommand extends ListenerAdapter {
         .addField("XP", "#" + data.getXp(), true);
         embed.setThumbnail("https://crafatar.com/avatars/" + uuid.toString());
         embed.setColor(0x00AAFF);
-        event.replyEmbeds(embed.build()).queue();
+        event.getHook().editOriginalEmbeds(embed.build()).queue();
+        return;
         	  } catch (Exception ex) {
         	        ex.printStackTrace();
 
         	        if (!event.isAcknowledged()) {
-        	            event.reply("Internal error: " + ex.getClass().getSimpleName())
-        	                 .setEphemeral(true)
-        	                 .queue();
+        	        	 event.getHook()
+        	             .editOriginal("Internal error: " + ex.getClass().getSimpleName())
+        	             .queue();
         	        }
     }
         if (sub.equals("leaderboard")) {
-
+        	event.deferReply().queue();
+            try {
             List<WavePlayer> topPlayers = WaveBukkit.getPlayerManager()
-                    .getPlayers()
-                    .stream()
-                    .sorted((a, b) -> Integer.compare(
-                            b.getPvp().getKills(),
-                            a.getPvp().getKills()))
-                    .limit(10)
-                    .toList();
+            	    .getPlayers()
+            	    .stream()
+            	    .filter(p -> p.getPvp() != null)
+            	    .sorted((a, b) -> Integer.compare(
+            	        b.getPvp().getKills(),
+            	        a.getPvp().getKills()))
+            	    .limit(10)
+            	    .toList();
 
             if (topPlayers.isEmpty()) {
-                event.reply("No Player Found in the leaderboard.")
-                        .setEphemeral(true)
-                        .queue();
+            	event.getHook()
+                .editOriginal("No Player Found in the leaderboard.")
+                .queue();
                 return;
             }
 
@@ -141,7 +143,8 @@ public class StatsCommand extends ListenerAdapter {
             int pos = 1;
 
             for (WavePlayer player2 : topPlayers) {
-
+            	System.out.println("[KP-PVP LEADERBOARD COMMAND DEBUG] Players loaded: " +
+            		    WaveBukkit.getPlayerManager().getPlayers().size());
                 String medal = switch (pos) {
                     case 1 -> "🥇";
                     case 2 -> "🥈";
@@ -164,7 +167,15 @@ public class StatsCommand extends ListenerAdapter {
                     .setDescription(sb.toString())
                     .setFooter("Top 10 PLAYERS BY KILLS (KITPVP)");
             embed.setColor(0xFFAA00);
-            event.replyEmbeds(embed.build()).queue();
+            event.getHook().editOriginalEmbeds(embed.build()).queue();
+            }  catch (Exception ex) {
+                ex.printStackTrace();
+
+                event.getHook()
+                .editOriginal("Internal error: " + ex.getClass().getSimpleName())
+                .queue();
+            }
+            
         }if (sub.equals("online")) {
 
             int online = Bukkit.getOnlinePlayers().size();
