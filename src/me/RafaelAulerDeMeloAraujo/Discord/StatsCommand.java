@@ -11,6 +11,7 @@ import me.RafaelAulerDeMeloAraujo.main.AntiDeathDrop;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.wavemc.core.bukkit.WaveBukkit;
 import net.wavemc.core.bukkit.account.WavePlayer;
 import net.wavemc.core.bukkit.account.provider.PlayerPvP;
@@ -30,26 +31,42 @@ public class StatsCommand extends ListenerAdapter {
         	if (sub == null) {
         	    return;
         	}
-        String player = event.getOption("jogador").getAsString();
+        	OptionMapping option = event.getOption("jogador");
 
-        WavePlayer data2 = WaveBukkit
-                .getPlayerManager().getPlayer(player);
-        if (data2 == null) {
+        	if (option == null) {
+        	    event.reply("You must specify a player.")
+        	            .setEphemeral(true)
+        	            .queue();
+        	    return;
+        	}
+
+        	String player = option.getAsString();
+        UUID uuid;
+
+        try {
+            uuid = Bukkit.getOfflinePlayer(player).getUniqueId();
+        } catch (Exception e) {
             event.reply("Player not found.")
                     .setEphemeral(true)
                     .queue();
             return;
         }
+        WavePlayer data2 = WaveBukkit
+                .getPlayerManager()
+                .getOfflinePlayer(player);
 
-        UUID uuid = data2.getUuid();
+        if (data2 == null) {
+
+            // Carrega do banco/arquivo
+            data2 = WaveBukkit.getPlayerManager().getController().load(data2, null);
+
+            if (data2 == null) {
+                event.reply("Player data not found.")
+                        .setEphemeral(true)
+                        .queue();
+                return;
+            }
         PlayerPvP data = data2.getPvp();
-
-        if (data == null) {
-            event.reply("Player data not found.")
-                    .setEphemeral(true)
-                    .queue();
-            return;
-        }
         double kdr = AntiDeathDrop.GetDeaths(uuid) == 0 ? (double) AntiDeathDrop.GetKills(uuid) : (double) AntiDeathDrop.GetKills(uuid) / (double) AntiDeathDrop.GetDeaths(uuid);
         
         EmbedBuilder embed = new EmbedBuilder()
@@ -81,6 +98,7 @@ public class StatsCommand extends ListenerAdapter {
         embed.setColor(0x00AAFF);
         event.replyEmbeds(embed.build()).queue();
     }
+        }
         if (event.getSubcommandName().equals("leaderboard")) {
 
             List<WavePlayer> topPlayers = WaveBukkit.getPlayerManager()
@@ -103,7 +121,7 @@ public class StatsCommand extends ListenerAdapter {
 
             int pos = 1;
 
-            for (WavePlayer player : topPlayers) {
+            for (WavePlayer player2 : topPlayers) {
 
                 String medal = switch (pos) {
                     case 1 -> "🥇";
@@ -115,10 +133,10 @@ public class StatsCommand extends ListenerAdapter {
 
                 sb.append(medal)
                 .append(" **")
-                .append(player.getName())
+                .append(player2.getName())
                 .append("**")
                 .append(" • ")
-                .append(player.getPvp().getKills())
+                .append(player2.getPvp().getKills())
                 .append(" Kills\n");
                 pos++;
             }
