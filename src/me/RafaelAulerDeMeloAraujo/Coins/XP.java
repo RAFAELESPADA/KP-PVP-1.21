@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import me.RafaelAulerDeMeloAraujo.main.Main;
@@ -32,20 +33,26 @@ public static HashMap<Player, Integer> bal = new HashMap();
 	  Sun8oxData.getPvp().setXp(amount);
   }
   
-  public static int getXP(UUID player)
-  {
-	  if (player == null) {
-		  Bukkit.getConsoleSender().sendMessage("Could not get a player XP");
-		  return 0;
-	  }
-	  Player p = Bukkit.getPlayer(player);
-	  WavePlayer Sun8oxData = WaveBukkit.getPlayerManager().getPlayer(p.getName());
-	  
-	  if (Sun8oxData == null) {
-		  return 0;
-	  }
-	  return  Sun8oxData.getPvp().getXp();
-  }
+  public static int getXP(UUID player) {
+	    if (player == null) {
+	        Bukkit.getConsoleSender().sendMessage("Could not get a player XP");
+	        return 0;
+	    }
+
+	    OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(player);
+
+	    if (offlinePlayer.getName() == null) {
+	        return 0;
+	    }
+
+	    WavePlayer sun8oxData = WaveBukkit.getPlayerManager().getPlayer(offlinePlayer.getName());
+
+	    if (sun8oxData == null) {
+	        return 0;
+	    }
+
+	    return sun8oxData.getPvp().getXp();
+	}
 
   public static void removeXP(Player player, int amount)
   {
