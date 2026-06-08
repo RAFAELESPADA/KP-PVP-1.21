@@ -19,6 +19,19 @@ UseVault: false
 bungeemode: false
 
 
+#Enable discord integration
+DiscordIntegrationEnabled: false
+
+#Your bot token 
+BOT-TOKEN: 'YOURTOKEN'
+
+#ANNOUNCE KILLS TO A DISCORD CHANNEL
+#NEEDS DiscordIntegrationEnabled to be set to true and a valid bot token
+DiscordChatThatAnnounceKillEnabled: true
+
+#Change this to your channel id
+DiscordChatThatAnnounceKillsID: 1485027853341950203
+
 #Change the kit name when player has no kit selected
 NoKit-DefaultName: 'None'
 

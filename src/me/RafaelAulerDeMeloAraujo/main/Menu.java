@@ -100,7 +100,7 @@ ConcurrentHashMap.newKeySet();
 
 @EventHandler
 /*  45 */   public void playerdeath(PlayerLevelUPEvent ev) { 
-	   int playerLevel = Level.getLevel(ev.getPlayer());
+	   int playerLevel = Level.getLevel(ev.getPlayer().getUniqueId());
 				  for (String commands : Main.customization.getStringList("Levels.Levels." + playerLevel + ".commands")) {
 					    Main.getFolia().getScheduler().runNextTick(task -> {
 					        Bukkit.getGlobalRegionScheduler().execute(Main.getPlugin(), () -> {

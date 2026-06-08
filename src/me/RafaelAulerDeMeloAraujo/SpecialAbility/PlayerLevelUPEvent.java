@@ -18,9 +18,9 @@ public class PlayerLevelUPEvent extends Event {
 	
 	public PlayerLevelUPEvent(Player player) {
 		this.player = player;
-		this.level = Level.getLevel(player);
+		this.level = Level.getLevel(player.getUniqueId());
 
-		this.xp2 = XP.getXP(player);
+		this.xp2 = XP.getXP(player.getUniqueId());
 	}
 	
 	public Player getPlayer() { return player; }

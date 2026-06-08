@@ -29,12 +29,12 @@ public class ScoreboardTask extends BukkitRunnable
 			 WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(player.getName());
 				int ks = Sun8oxData.getPvp().getKillstreak();
 			scoreboard.getTeam("kit").setSuffix(Habilidade.getAbility(player));
-			scoreboard.getTeam("kills").setSuffix(String.valueOf(AntiDeathDrop.GetKills(player)));
-			scoreboard.getTeam("deaths").setSuffix(String.valueOf(AntiDeathDrop.GetDeaths(player)));
+			scoreboard.getTeam("kills").setSuffix(String.valueOf(AntiDeathDrop.GetKills(player.getUniqueId())));
+			scoreboard.getTeam("deaths").setSuffix(String.valueOf(AntiDeathDrop.GetDeaths(player.getUniqueId())));
 			scoreboard.getTeam("killstreak").setSuffix(String.valueOf((ks)));
 			scoreboard.getTeam("coins").setSuffix(String.valueOf(Coins.getCoins(player)));
-			scoreboard.getTeam("xp").setSuffix(String.valueOf(XP.getXP(player)));
-			scoreboard.getTeam("level").setSuffix(String.valueOf(Level.getLevel(player)));
+			scoreboard.getTeam("xp").setSuffix(String.valueOf(XP.getXP(player.getUniqueId())));
+			scoreboard.getTeam("level").setSuffix(String.valueOf(Level.getLevel(player.getUniqueId())));
 		}
 	  }
 	      public void run()

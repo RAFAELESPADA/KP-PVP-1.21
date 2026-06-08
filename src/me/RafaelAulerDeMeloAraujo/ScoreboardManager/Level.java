@@ -1,6 +1,7 @@
 package me.RafaelAulerDeMeloAraujo.ScoreboardManager;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
@@ -10,7 +11,7 @@ import me.RafaelAulerDeMeloAraujo.main.Main;
 
 public class Level
 {
-    public static Integer getLevel(final Player p) {
+    public static Integer getLevel(final UUID p) {
         final int a = XP.getXP(p);
         if (a == 0.0) {
             return 0;
@@ -20,7 +21,7 @@ public class Level
         }
     return 0;
 }
-    public static final int getXPToLevelUp(Player p) {
+    public static final int getXPToLevelUp(UUID p) {
         // How much XP is needed to level?
        return (Main.customization.getInt("XP-Required-To-LevelUP") - (XP.getXP(p) - Main.customization.getInt("XP-Required-To-LevelUP") * getLevel(p))); // 600XP for lvl1, 700XP for lvl2, 800XP for lvl3 ...
    }
@@ -29,7 +30,7 @@ public class Level
        return (Main.customization.getIntegerList("Levels.Levels.")); // 600XP for lvl1, 700XP for lvl2, 800XP for lvl3 ...
    }
 public static String getPlayerLevelPrefix(Player username) {
-    String playerLevel = String.valueOf(getLevel(username));
+    String playerLevel = String.valueOf(getLevel(username.getUniqueId()));
     return Main.customization.getString("Levels.Levels." + playerLevel + ".Prefix")
             .replace("%level%", playerLevel).replace("&", "§");
 }

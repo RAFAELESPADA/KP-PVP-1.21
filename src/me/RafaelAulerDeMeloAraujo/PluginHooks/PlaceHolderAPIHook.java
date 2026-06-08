@@ -117,13 +117,13 @@ import net.wavemc.core.bukkit.account.WavePlayer;
   public String onPlaceholderRequest(Player p, String indentifier)
   {
     if (indentifier.equals("player_kills")) {
-      return String.valueOf(AntiDeathDrop.GetKills(p));
+      return String.valueOf(AntiDeathDrop.GetKills(p.getUniqueId()));
     }
     if (p == null) {
       return "";
     }
     if (indentifier.equals("player_deaths")) {
-      return String.valueOf(AntiDeathDrop.GetDeaths(p));
+      return String.valueOf(AntiDeathDrop.GetDeaths(p.getUniqueId()));
     }
 
     if (indentifier.equals("player_x1_wins")) {
@@ -156,7 +156,7 @@ import net.wavemc.core.bukkit.account.WavePlayer;
       }
     if (indentifier.equals("player_streak"))
     {
-    	WavePlayer Sun8oxData = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
+    	WavePlayer Sun8oxData = WaveBukkit.getPlayerManager().getPlayer(p.getName());
     	if (Sun8oxData == null) {
     		  return "0";
     	  }
@@ -169,15 +169,15 @@ import net.wavemc.core.bukkit.account.WavePlayer;
         return Integer.toString(coins);
       }
     if (indentifier.equals("player_xp")) {
-        int xp = XP.getXP(p);
+        int xp = XP.getXP(p.getUniqueId());
         return String.valueOf(xp);
       }
     if (indentifier.equals("player_level")) {
-        Integer level = Level.getLevel(p);
+        Integer level = Level.getLevel(p.getUniqueId());
         return String.valueOf(level);
       }
     if (indentifier.equals("player_xp_to_levelup")) {
-        Integer level = Level.getXPToLevelUp(p);
+        Integer level = Level.getXPToLevelUp(p.getUniqueId());
         return String.valueOf(level);
       }
     if (indentifier.equals("player_is_on_kitpvp")) {

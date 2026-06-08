@@ -36,8 +36,7 @@ import org.bukkit.inventory.ItemStack;
 /*     */ import org.bukkit.potion.PotionEffectType;
 /*     */
 
-import com.hidan.folialib.FoliaLib;
-
+import com.hidan2.folialib.FoliaLib;
 import cooldown1.UpdateScheduler;
 import cooldown1.UpdateScheduler2;
 import eu.decentsoftware.holograms.api.DHAPI;
@@ -45,9 +44,9 @@ import eu.decentsoftware.holograms.api.holograms.Hologram;
 /*     */ import me.RafaelAulerDeMeloAraujo.BStatsSystem.Metrics;
 import me.RafaelAulerDeMeloAraujo.Coins.Coins;
 import me.RafaelAulerDeMeloAraujo.Coins.CoinsCommand;
-/*     */ import me.RafaelAulerDeMeloAraujo.Coins.Commands;
 import me.RafaelAulerDeMeloAraujo.Coins.PayCoins;
 import me.RafaelAulerDeMeloAraujo.Coins.RemoveCoins;
+import me.RafaelAulerDeMeloAraujo.Discord.StatsCommand;
 /*     */ import me.RafaelAulerDeMeloAraujo.Listeners.AirmanFly;
 import me.RafaelAulerDeMeloAraujo.Listeners.ArrowMessage;
 import me.RafaelAulerDeMeloAraujo.Listeners.CombatLog;
@@ -131,6 +130,11 @@ import me.RafaelAulerDeMeloAraujo.X1.SetSumo;
 /*     */ import me.RafaelAulerDeMeloAraujo.X1.SetX1;
 import me.RafaelAulerDeMeloAraujo.X1.Sumo;
 /*     */ import me.RafaelAulerDeMeloAraujo.X1.X1;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
+import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
 import net.wavemc.core.bukkit.WaveBukkit;
 import us.ajg0702.leaderboards.LeaderboardPlugin;
 
@@ -170,7 +174,7 @@ private static Hologram topPlayersHd;
 /*     */   public static Main instance;
 /*     */   private static ConfigUtils cH;
 private static FoliaLib foliaLib;
-
+private static JDA jda;
 /*  98 */   public static File file_x1 = new File("plugins/KP-PVP", "1v1.yml");
 /*     */   SettingsManager settings = SettingsManager.getInstance();
 /*     */   public static Main getPlugin()
@@ -227,9 +231,73 @@ metrics.addCustomChart(new Metrics.DrilldownPie("serverAddress", () -> {
 }));
 
 
+if (Main.getInstance().getConfig().getBoolean("DiscordIntegrationEnabled")) {
+String token = Main.getInstance().getConfig().getString("BOT-TOKEN");
 
+JDA jda2 = JDABuilder.createDefault(token)
+        .addEventListeners(new StatsCommand())
+        .build();
+jda = jda2;
+if (token == null || token.isBlank() || token == "YOURTOKEN") {
 
+    getLogger().warning(
+        "[KP-PVP] Discord BOT-TOKEN is empty!"
+    );
 
+    return;
+}
+try {
+	jda2.awaitReady();
+} catch (Exception ex) {
+
+    getLogger().severe(
+        "[KP-PVP] Failed to connect Discord bot!"
+    );
+
+    ex.printStackTrace();
+    return;
+}
+
+jda2.updateCommands().addCommands(
+	    Commands.slash("kitpvp", "KP-PVP Discord Commands")
+	        .addSubcommands(
+	            new SubcommandData(
+	                "leaderboard",
+	                "Show best players by kills"
+	            )
+	        )
+	        .addSubcommands(
+	            new SubcommandData(
+	                "stats",
+	                "Show a player's KP-PVP stats"
+	            )
+	                .addOption(
+	                    OptionType.STRING,
+	                    "jogador",
+	                    "Player name",
+	                    true
+	                )
+	        )
+	        .addSubcommands(
+	            new SubcommandData(
+	                "online",
+	                "Players online on the server"
+	            )
+	        )
+	).queue(success -> getLogger().info(
+            "[KP-PVP] Discord commands registered!"
+        ),
+        Throwable::printStackTrace
+    );
+    getLogger().info("================================");
+	getLogger().info("KP-PVP Discord Integration");
+	getLogger().info("Bot connected successfully!");
+	getLogger().info("Commands loaded:");
+	getLogger().info("- /kitpvp stats");
+	getLogger().info("- /kitpvp leaderboard");
+	getLogger().info("- /kitpvp online");
+	getLogger().info("================================");
+}
 if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
 	/* 151 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aPlaceHolderAPI is found!");
 	/* 151 */       Bukkit.getConsoleSender().sendMessage("§e[KP-PVP] §aHooking into it!");
@@ -465,7 +533,8 @@ public static void loadTopPlayersHologram() {
 	getCommand("antistomper").setExecutor(new AntiStomper(this));
 	getCommand("kmilkman").setExecutor(new MilkManCMD(this));
 /* 191 */     getCommand("kitreload").setExecutor(new Reload(this));
-/* 192 */     getCommand("givecoins").setExecutor(new Commands());
+/* 192 */     getCommand("givecoins").setExecutor(new 
+		 me.RafaelAulerDeMeloAraujo.Coins.Commands());
 getCommand("settopkills").setExecutor(new SetTopKills());
               getCommand("removecoins").setExecutor(new RemoveCoins());
               getCommand("coins").setExecutor(new CoinsCommand());
@@ -776,6 +845,9 @@ public void onDisable()
 public static FoliaLib getFolia() {
    return foliaLib;
 }
+public static JDA getJDA() {
+	   return jda;
+	}
 public static String TAC(String s)
 {
   return ChatColor.translateAlternateColorCodes('&', s);

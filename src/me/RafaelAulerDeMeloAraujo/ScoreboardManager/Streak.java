@@ -1,11 +1,13 @@
 /*     */ package me.RafaelAulerDeMeloAraujo.ScoreboardManager;
 import java.io.IOException;
+import java.time.Instant;
 import java.util.Random;
 
 /*     */ import org.bukkit.Bukkit;
 /*     */ import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -18,9 +20,12 @@ import org.bukkit.inventory.meta.FireworkMeta;
 /*     */ import me.RafaelAulerDeMeloAraujo.Coins.Coins;
 import me.RafaelAulerDeMeloAraujo.Coins.XP;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Join;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.PlayerLevelUPEvent;
 /*     */ import me.RafaelAulerDeMeloAraujo.main.Main;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.wavemc.core.bukkit.WaveBukkit;
 import net.wavemc.core.bukkit.account.WavePlayer;
 /*     */ 
@@ -59,7 +64,7 @@ Player p = ev.getEntity();
 Player k = p.getKiller();
 boolean isCitizensNPC = p.hasMetadata("NPC");
 
-double killstreak = XP.getXP(k);
+double killstreak = XP.getXP(k.getUniqueId());
 /*  46 */     if ((p.getKiller() instanceof Player))
 /*     */     {
 /*     */ 
@@ -74,11 +79,11 @@ if (isCitizensNPC && Main.getInstance().getConfig().getBoolean("BotsKillsAllowed
 	Sun8oxData.getPvp().addKills(1);
 	if (killstreak % Main.customization.getInt("XP-Required-To-LevelUP") == 0) {
 
-		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
-		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
+		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k.getUniqueId())))).replaceAll("&", "§"));
+		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k.getUniqueId())))).replaceAll("&", "§"));
 
-		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
-		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
+		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k.getUniqueId())))).replaceAll("&", "§"));
+		Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k.getUniqueId())))).replaceAll("&", "§"));
 
 	}
 	k.sendMessage(String.valueOf(API.NomeServer + Main.getInstace().getConfig().getString("Kill.Tell").replaceAll("%player%", p.getName())));
@@ -88,7 +93,7 @@ if (isCitizensNPC && Main.getInstance().getConfig().getBoolean("BotsKillsAllowed
 	k.sendMessage("§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
 	k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
 
-    WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData);
+    WaveBukkit.getPlayerManager().getController().save(Sun8oxData);
 }
 
   else if (!isCitizensNPC) {
@@ -125,9 +130,9 @@ if (Main.getInstance().getConfig().getBoolean("ThrowFireworksOnKill")) {
 			});
   }
   
-if (killstreak % Main.customization.getInt("XP-Required-To-LevelUP") == 0 && Level.getLevel(k) != 0) {
+if (killstreak % Main.customization.getInt("XP-Required-To-LevelUP") == 0 && Level.getLevel(k.getUniqueId()) != 0) {
 
-	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
+	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k.getUniqueId())))).replaceAll("&", "§"));
 	PlayerLevelUPEvent helixPlayerDeathEvent = new me.RafaelAulerDeMeloAraujo.SpecialAbility.PlayerLevelUPEvent(
 			k
 	);
@@ -136,9 +141,9 @@ if (killstreak % Main.customization.getInt("XP-Required-To-LevelUP") == 0 && Lev
 /*  64 */       int kills2 = Sun8oxData2.getPvp().getKillstreak();
 if (kills2 >= 3) {
 	broadcast(API.NomeServer + "" + Main.messages.getString("KillStreakLostBroadcast").replace("&", "§").replace("%killstreak%", String.valueOf(kills2)).replace("%player%", p.getName()).replace("%killer%", k.getName()) , p.getWorld());
-	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
+	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k.getUniqueId())))).replaceAll("&", "§"));
 
-	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k)))).replaceAll("&", "§"));
+	Streak.sendToGame(String.valueOf(API.NomeServer + Main.messages.getString("LevelUP").replaceAll("%player%", k.getName()).replaceAll("%level%", Integer.toString(Level.getLevel(k.getUniqueId())))).replaceAll("&", "§"));
 }
 
 p.sendMessage(String.valueOf(API.NomeServer + Main.getInstace().getConfig().getString("Death.Tell").replaceAll("%player%", k.getName())));
@@ -150,8 +155,8 @@ Coins.removeCoins(p, Main.customization.getInt("Lost-Coins-Per-Death"));
 p.sendMessage("§cYou died to " + k.getName());
 k.sendMessage("§a+" + Main.customization.getInt("XPEarned-OnKill") + "XP");
 k.sendMessage("§a+" + Main.customization.getInt("Earned-Coins-Per-Kill")  + "COINS");
-WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData);
-WaveBukkit.getInstance().getPlayerManager().getController().save(Sun8oxData2);
+WaveBukkit.getPlayerManager().getController().save(Sun8oxData);
+WaveBukkit.getPlayerManager().getController().save(Sun8oxData2);
 Bukkit.getConsoleSender().sendMessage("§e" + p.getName() + " (" +  ev.getEntityType() + ")" + " has been killed by " + k.getName() + " (" +  ev.getEntity().getKiller().getType() + ")" + " on kitpvp");     
    
   }
@@ -220,14 +225,153 @@ killer.sendMessage(API.NomeServer + "" + ChatColor.GREEN + "You are on " + ChatC
 /*  76 */      
 /*     */     
 }
-/*     */   }
-/*     */ 
 
+/*     */   }
+
+/*     */ 
+public static void sendKillMessage(Player killer, Player victim) {
+
+    TextChannel channel = Main.getJDA()
+            .getTextChannelById(Main.getInstance().getConfig().getLong("DiscordChatThatAnnounceKillsID"));
+
+    if (channel == null) {
+        return;
+    }
+    Material material = killer.getInventory()
+            .getItemInMainHand()
+            .getType();
+
+    String weapon = material == Material.AIR
+            ? "Fists"
+            : material.name()
+                .replace("_", " ")
+                .toLowerCase();
+
+    weapon = Character.toUpperCase(weapon.charAt(0))
+            + weapon.substring(1);
+    WavePlayer wavePlayer = WaveBukkit.getPlayerManager()
+            .getPlayer(killer.getName());
+    if (wavePlayer == null || wavePlayer.getPvp() == null) {
+        return;
+    }
+    double kdr = wavePlayer.getPvp().getDeaths() == 0
+            ? wavePlayer.getPvp().getKills()
+            : (double) wavePlayer.getPvp().getKills()
+            / wavePlayer.getPvp().getDeaths();
+    EmbedBuilder embed = new EmbedBuilder()
+            .setTitle("⚔️ Player Killed on KITPVP");
+    String description =
+            "**" + killer.getName() + "** killed **" +
+            victim.getName() + "**";
+
+    if (wavePlayer.getPvp().getKillstreak() >= 5) {
+        description += "\n\n🔥 **HIGH STREAK ACTIVE!**";
+    }
+
+    embed.setDescription(description);
+            String streakText = String.valueOf(
+                    wavePlayer.getPvp().getKillstreak());
+
+            if (wavePlayer.getPvp().getKillstreak() >= 5) {
+                streakText += " 🔥 HIGH STREAK!";
+            }
+
+            embed.addField(
+                    "Killstreak",
+                    streakText,
+                    true
+            )
+            .addField(
+                    "Total Kills",
+                    String.valueOf(
+                            wavePlayer.getPvp().getKills()
+                    ),
+                    true
+            )  .addField(
+                    "KDR",
+                    String.format("%.2f", kdr),
+                    true
+                    
+            ).addField(
+            		
+            	    "Weapon",
+            	    weapon,
+            	    true
+            	)
+            .addField(
+            	    "Coins",
+            	    "+" + Main.customization.getInt("Earned-Coins-Per-Kill"),
+            	    true
+            	)
+            .addField("Kit",
+                    Habilidade.getAbility(killer),
+                    true)
+            .addField(
+            	    "Level",
+            	    String.valueOf(Level.getLevel(killer.getUniqueId())),
+            	    true
+            	)
+            .setTimestamp(Instant.now()).setThumbnail(
+            	    "https://crafatar.com/avatars/" +
+            	    	    killer.getUniqueId()
+            	    	);
+            embed.setAuthor(
+                    killer.getName(),
+                    null,
+                    "https://crafatar.com/avatars/" +
+                    killer.getUniqueId()
+            );
+            if (wavePlayer.getPvp().getKillstreak() >= 5) {
+                embed.setColor(0xFFA500); // laranja
+            } else {
+                embed.setColor(0xFF0000);
+            }
+            int streak = wavePlayer.getPvp().getKillstreak();
+
+            if (streak == 5 ||
+                streak == 10 ||
+                streak == 15 ||
+                streak == 25 ||
+                streak == 50 || streak == 75 ||
+                streak == 100) {
+
+               
+            	channel.sendMessage(
+            		    "🚨 **KILLSTREAK ALERT** 🚨\n\n" +
+            		    "🔥 **" + killer.getName() + "** has reached a **" +
+            		    streak + "** killstreak!"
+                ).queue();
+            }
+            channel.sendMessageEmbeds(embed.build()).queue(
+                    success -> {},
+                    Throwable::printStackTrace
+            );
+}
   public static void broadcast(String text, World w){
     for(Player p: w.getPlayers()){
         p.sendMessage(text);
     }
   }
+  @EventHandler
+  public void onDeath(PlayerDeathEvent event) {
+
+      Player victim = event.getEntity();
+      Player killer = event.getEntity().getKiller();
+
+if (!(Main.getInstance().getConfig().getBoolean("DiscordIntegrationEnabled"))) {
+	return;
+}
+if (!(Main.getInstance().getConfig().getBoolean("DiscordChatThatAnnounceKillEnabled"))) {
+	return;
+}
+      if (!(victim.getKiller() instanceof Player)) {
+    	  return;
+      }
+      sendKillMessage(killer, victim);
+      }
+
+  
+  
 public static void sendToGame(String message) {
     for(String player : Join.game) {
         if(player != null) {
@@ -235,7 +379,9 @@ public static void sendToGame(String message) {
             p.sendMessage(message);
         }
     }
+    
 }
+
 }
 /* Location:              D:\Desktop\video\Minhas Coisas do Desktop\KP-PVPvB12 (1).jar!\me\RafaelAulerDeMeloAraujo\ScoreboardManager\Streak.class
  * Java compiler version: 8 (52.0)

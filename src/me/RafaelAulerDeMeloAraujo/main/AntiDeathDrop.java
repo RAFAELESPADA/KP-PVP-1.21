@@ -4,10 +4,12 @@ package me.RafaelAulerDeMeloAraujo.main;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -114,22 +116,28 @@ public class AntiDeathDrop
 	
 
 
-	  public static int GetKills(Player p)
-	  {
-		  if (p == null) {
-			  return 0;
-		  }
-		  WavePlayer killerHelixPlayer = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
-			
-	      
-	    return killerHelixPlayer.getPvp().getKills();
-	  }
+	public static int GetKills(UUID uuid)
+	{
+	    WavePlayer wavePlayer =
+	            WaveBukkit.getPlayerManager()
+	                      .getPlayers()
+	                      .stream()
+	                      .filter(p -> p.getUuid().equals(uuid))
+	                      .findFirst()
+	                      .orElse(null);
+
+	    if (wavePlayer == null) {
+	        return 0;
+	    }
+
+	    return wavePlayer.getPvp().getKills();
+	}
 	  public static int GetSumoK(Player p)
 	  {
 		  if (p == null) {
 			  return 0;
 		  }
-		  WavePlayer killerHelixPlayer = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
+		  WavePlayer killerHelixPlayer = WaveBukkit.getPlayerManager().getPlayer(p.getName());
 			
 	      
 	    return killerHelixPlayer.getPvp().getWinssumo();
@@ -187,14 +195,18 @@ public class AntiDeathDrop
 	  }
 	 
 	  
-	  public static int GetDeaths(Player p)
-	  {
-		  if (p == null) {
-			  return 0;
-		  }
-		  WavePlayer killerHelixPlayer = WaveBukkit.getInstance().getPlayerManager().getPlayer(p.getName());
-			
-	      
-		    return killerHelixPlayer.getPvp().getDeaths();
-	  }
+	  public static int GetDeaths(UUID uuid) {
+		  WavePlayer wavePlayer = WaveBukkit.getPlayerManager()
+		    .getPlayers()
+		    .stream()
+		    .filter(p -> p.getUuid().equals(uuid))
+		    .findFirst()
+		    .orElse(null);
+
+		    if (wavePlayer == null) {
+		        return 0;
+		    }
+
+		    return wavePlayer.getPvp().getDeaths();
+		}
 }
