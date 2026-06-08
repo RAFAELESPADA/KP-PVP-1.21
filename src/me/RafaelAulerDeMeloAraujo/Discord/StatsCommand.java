@@ -1,5 +1,6 @@
 package me.RafaelAulerDeMeloAraujo.Discord;
 
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.wavemc.core.bukkit.WaveBukkit;
 import net.wavemc.core.bukkit.account.WavePlayer;
 import net.wavemc.core.bukkit.account.provider.PlayerPvP;
+import net.wavemc.core.storage.StorageConnection;
 
 public class StatsCommand extends ListenerAdapter {
 
@@ -24,13 +26,14 @@ public class StatsCommand extends ListenerAdapter {
         if (!event.getName().equals("kitpvp"))
             return;
 
-        if (event.getSubcommandName().equals("stats")) {
-          
-        	String sub = event.getSubcommandName();
+        String sub = event.getSubcommandName();
 
-        	if (sub == null) {
-        	    return;
-        	}
+        if (sub == null)
+            return;
+
+        if (sub.equals("stats")) {
+        
+        	 try {
         	OptionMapping option = event.getOption("jogador");
 
         	if (option == null) {
@@ -56,16 +59,25 @@ public class StatsCommand extends ListenerAdapter {
                 .getOfflinePlayer(player);
 
         if (data2 == null) {
-
+            event.reply("Player data not found.")
+                    .setEphemeral(true)
+                    .queue();
+            return;
+        }
+        if (data2.getPvp() == null) {
+            event.reply("Player PvP data not found.")
+                 .setEphemeral(true)
+                 .queue();
+            return;
+        }
             // Carrega do banco/arquivo
-            data2 = WaveBukkit.getPlayerManager().getController().load(data2, null);
+        try (StorageConnection storageConnection = WaveBukkit.getStorage().newConnection()) {
+            WaveBukkit.getPlayerManager().getController().load(data2, storageConnection);
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
 
-            if (data2 == null) {
-                event.reply("Player data not found.")
-                        .setEphemeral(true)
-                        .queue();
-                return;
-            }
+           
         PlayerPvP data = data2.getPvp();
         double kdr = AntiDeathDrop.GetDeaths(uuid) == 0 ? (double) AntiDeathDrop.GetKills(uuid) : (double) AntiDeathDrop.GetKills(uuid) / (double) AntiDeathDrop.GetDeaths(uuid);
         
@@ -97,9 +109,16 @@ public class StatsCommand extends ListenerAdapter {
         embed.setThumbnail("https://crafatar.com/avatars/" + uuid.toString());
         embed.setColor(0x00AAFF);
         event.replyEmbeds(embed.build()).queue();
+        	  } catch (Exception ex) {
+        	        ex.printStackTrace();
+
+        	        if (!event.isAcknowledged()) {
+        	            event.reply("Internal error: " + ex.getClass().getSimpleName())
+        	                 .setEphemeral(true)
+        	                 .queue();
+        	        }
     }
-        }
-        if (event.getSubcommandName().equals("leaderboard")) {
+        if (sub.equals("leaderboard")) {
 
             List<WavePlayer> topPlayers = WaveBukkit.getPlayerManager()
                     .getPlayers()
@@ -146,8 +165,7 @@ public class StatsCommand extends ListenerAdapter {
                     .setFooter("Top 10 PLAYERS BY KILLS (KITPVP)");
             embed.setColor(0xFFAA00);
             event.replyEmbeds(embed.build()).queue();
-        }
-        if (event.getSubcommandName().equals("online")) {
+        }if (sub.equals("online")) {
 
             int online = Bukkit.getOnlinePlayers().size();
 
@@ -170,7 +188,7 @@ public class StatsCommand extends ListenerAdapter {
                     .setFooter("Players online on kitpvp server.");
 
             event.replyEmbeds(embed.build()).queue();
-        }
+        }}
         }}
 
 
