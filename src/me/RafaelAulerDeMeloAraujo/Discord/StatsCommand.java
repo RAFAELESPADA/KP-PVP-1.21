@@ -87,25 +87,25 @@ public class StatsCommand extends ListenerAdapter {
                 .addField("Coins", String.valueOf(data.getCoins()), true)     
                 .addField("KDR", String.format("%.2f",kdr), true)
                 .addField("Killstreak", String.valueOf(data.getKillstreak()), true)
-                .addField("Wins (Sumo)", "#" + data.getWinssumo(), true)
+                .addField("Wins (Sumo)", "" + data.getWinssumo(), true)
 
-                .addField("Losses (Sumo)", "#" + data.getDeathssumo(), true)
-        .addField("Winstreak (Sumo)", "#" + data.getWinstreaksumo(), true)
+                .addField("Losses (Sumo)", "" + data.getDeathssumo(), true)
+        .addField("Winstreak (Sumo)", "" + data.getWinstreaksumo(), true)
 
-        .addField("Wins (1v1)", "#" + data.getWinsx1(), true)
+        .addField("Wins (1v1)", "" + data.getWinsx1(), true)
 
-        .addField("Losses (1v1)", "#" + data.getDeathsx1(), true)
+        .addField("Losses (1v1)", "" + data.getDeathsx1(), true)
 
-        .addField("Winstreak (1v1)", "#" + data.getWinstreakx1(), true)
+        .addField("Winstreak (1v1)", "" + data.getWinstreakx1(), true)
 
-        .addField("Level", "#" + Level.getLevel(uuid), true)
+        .addField("Level", "" + Level.getLevel(uuid), true)
 
-        .addField("XP To LevelUP", "#" + Level.getXPToLevelUp(uuid), true)
+        .addField("XP To LevelUP", "" + Level.getXPToLevelUp(uuid), true)
         .addField("Next Level",
-                "#" + (Level.getLevel(uuid) + 1),
+                "" + (Level.getLevel(uuid) + 1),
                 true)
-        .addField("XP", "#" + data.getXp(), true);
-        embed.setThumbnail("https://crafatar.com/avatars/" + uuid.toString());
+        .addField("XP", "" + data.getXp(), true);
+        embed.setThumbnail("https://crafatar.com/avatars/" + player);
         embed.setColor(0x00AAFF);
         event.getHook().editOriginalEmbeds(embed.build()).queue();
         return;
@@ -120,61 +120,74 @@ public class StatsCommand extends ListenerAdapter {
     }
         if (sub.equals("leaderboard")) {
         	event.deferReply().queue();
-            try {
-            List<WavePlayer> topPlayers = WaveBukkit.getPlayerManager()
-            	    .getPlayers()
-            	    .stream()
-            	    .filter(p -> p.getPvp() != null)
-            	    .sorted((a, b) -> Integer.compare(
-            	        b.getPvp().getKills(),
-            	        a.getPvp().getKills()))
-            	    .limit(10)
-            	    .toList();
+        	System.out.println("[DISCORD] Executing leaderboard commabd");
+        	System.out.println("[DISCORD] Players loaded: " +
+        	        WaveBukkit.getPlayerManager().getPlayers().size());
+        	try {
 
-            if (topPlayers.isEmpty()) {
-            	event.getHook()
-                .editOriginal("No Player Found in the leaderboard.")
-                .queue();
-                return;
-            }
+                List<WavePlayer> topPlayers = WaveBukkit.getPlayerManager()
+                        .getPlayers()
+                        .stream()
+                        .filter(p -> p != null)
+                        .filter(p -> p.getPvp() != null)
+                        .sorted((a, b) ->
+                                Integer.compare(
+                                        b.getPvp().getKills(),
+                                        a.getPvp().getKills()))
+                        .limit(10)
+                        .toList();
 
-            StringBuilder sb = new StringBuilder();
+                if (topPlayers.isEmpty()) {
+                    event.getHook()
+                            .editOriginal("No players found.")
+                            .queue();
+                    return;
+                }
 
-            int pos = 1;
+                StringBuilder sb = new StringBuilder();
 
-            for (WavePlayer player2 : topPlayers) {
-            	System.out.println("[KP-PVP LEADERBOARD COMMAND DEBUG] Players loaded: " +
-            		    WaveBukkit.getPlayerManager().getPlayers().size());
-                String medal = switch (pos) {
-                    case 1 -> "🥇";
-                    case 2 -> "🥈";
-                    case 3 -> "🥉";
-                    default -> "🏅";
-                };
-            
+                int pos = 1;
 
-                sb.append(medal)
-                .append(" **")
-                .append(player2.getName())
-                .append("**")
-                .append(" • ")
-                .append(player2.getPvp().getKills())
-                .append(" Kills\n");
-                pos++;
-            }
-            EmbedBuilder embed = new EmbedBuilder()
-                    .setTitle("🏆 Kills Leaderboard (KITPVP)")
-                    .setDescription(sb.toString())
-                    .setFooter("Top 10 PLAYERS BY KILLS (KITPVP)");
-            embed.setColor(0xFFAA00);
-            event.getHook().editOriginalEmbeds(embed.build()).queue();
-            }  catch (Exception ex) {
+                for (WavePlayer player : topPlayers) {
+
+                    String medal = switch (pos) {
+                        case 1 -> "🥇";
+                        case 2 -> "🥈";
+                        case 3 -> "🥉";
+                        default -> "🏅";
+                    };
+
+                    sb.append(medal)
+                      .append(" ")
+                      .append(player.getName())
+                      .append(" • ")
+                      .append(player.getPvp().getKills())
+                      .append(" kills\n");
+
+                    pos++;
+                }
+
+                EmbedBuilder embed = new EmbedBuilder()
+                        .setTitle("🏆 KITPVP Leaderboard")
+                        .setDescription(sb.toString())
+                        .setColor(0xFFAA00);
+
+                event.getHook()
+                        .editOriginalEmbeds(embed.build())
+                        .queue();
+
+            } catch (Exception ex) {
+
                 ex.printStackTrace();
 
                 event.getHook()
-                .editOriginal("Internal error: " + ex.getClass().getSimpleName())
-                .queue();
+                        .editOriginal("Leaderboard error: "
+                                + ex.getClass().getSimpleName())
+                        .queue();
             }
+
+            return;
+        }
             
         }if (sub.equals("online")) {
 

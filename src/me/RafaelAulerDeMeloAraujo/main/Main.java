@@ -842,7 +842,7 @@ public void onDisable()
 }
 
 
-public static FoliaLib getFolia() {
+public static com.hidan2.folialib.FoliaLib getFolia() {
    return foliaLib;
 }
 public static JDA getJDA() {
