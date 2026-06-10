@@ -118,7 +118,7 @@ NewKitMenu.playSound((Player)sender, Main.getInstace().getConfig().getString("So
 	/* 27 */       sender.sendMessage("§4§l\u274C §2§lCREDITS §f§lAND §e§lINFORMATION §4§l \u274C");
 	/* 28 */       sender.sendMessage("§6\u279C §cPlugin Name: §eKP-PVP");
 	/* 29 */       sender.sendMessage("§6\u279C §cPlugin Version: §e " + Main.getInstance().getDescription().getVersion());
-	/* 30 */       sender.sendMessage("§6\u279C §cAuthor: §ezEnderX5_ , Rafael Auler");
+	/* 30 */       sender.sendMessage("§6\u279C §cAuthor: §eNoleexy , Rafael Auler");
 	/* 31 */       sender.sendMessage("§6\u279C §cAuthor Channel: http://bit.ly/2kC345B");
 	/* 32 */       sender.sendMessage("§6\u279C §cSpigot Profile: http://bit.ly/2j5qvnM");
 	/* 33 */       sender.sendMessage("§6\u279C §cPlugin Page: http://bit.ly/2BZCtLE");

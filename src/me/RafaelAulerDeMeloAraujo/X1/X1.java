@@ -266,23 +266,23 @@ frezze.add(p2);
 NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F); 
 NewKitMenu.playSound(p2, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§4§l3");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§4§l3");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§4§l3", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§4§l3", "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 }, 20L);
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§6§l2");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§6§l2");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§6§l2", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§6§l2", "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 }, 40L);
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§2§l1");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§2§l1");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§2§l1", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§2§l1", "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 }, 60L);
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§a§lGO");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§a§lGO");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§a§lGO", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§a§lGO" , "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 }, 80L);
 /*     */     Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {

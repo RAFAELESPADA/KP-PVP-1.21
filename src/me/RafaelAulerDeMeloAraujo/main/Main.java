@@ -85,6 +85,7 @@ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Cooldown;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Creeper;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.CreeperK;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Critical;
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.Crusher;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Deshfire;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.DesifireCMD;
 /*     */ import me.RafaelAulerDeMeloAraujo.SpecialAbility.Dublejump;
@@ -580,6 +581,8 @@ getCommand("setsumo").setExecutor(new SetSumo());
 /* 216 */     getCommand("cactus").setExecutor(new Kits(this));
 getCommand("kshielder").setExecutor(new Shielder(this));
 /* 217 */     getCommand("bomber").setExecutor(new Kits(this));
+
+/* 217 */     getCommand("kcrusher").setExecutor(new Crusher(this));
 /* 218 */     getCommand("spiderman").setExecutor(new Kits(this));
 /* 219 */     getCommand("stats").setExecutor(new Stats());
 /* 220 */     getCommand("kpstats").setExecutor(new KPStats());

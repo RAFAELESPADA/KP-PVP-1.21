@@ -1,9 +1,9 @@
-package me.RafaelAulerDeMeloAraujo.SpecialAbility;
-
+/*    */ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
 /*    */ import org.bukkit.Material;
 import org.bukkit.Sound;
 /*    */ import org.bukkit.command.Command;
 /*    */ import org.bukkit.command.CommandSender;
+import org.bukkit.enchantments.Enchantment;
 /*    */ 
 /*    */ import org.bukkit.entity.Player;
 /*    */ import org.bukkit.inventory.ItemStack;
@@ -13,12 +13,12 @@ import org.bukkit.Sound;
 /*    */ 
 /*    */ import me.RafaelAulerDeMeloAraujo.main.Main;
 /*    */ 
-/*    */ public class AntiStomper implements org.bukkit.command.CommandExecutor
+/*    */ public class Crusher implements org.bukkit.command.CommandExecutor
 /*    */ {
 /*    */   private Main main;
 /*    */   static Main plugin;
 /*    */   
-/*    */   public AntiStomper(Main main)
+/*    */   public Crusher(Main main)
 /*    */   {
 /* 20 */     this.main = main;
 /* 21 */     plugin = main;
@@ -29,31 +29,41 @@ import org.bukkit.Sound;
 /*    */   {
 /* 27 */     Player p = (Player)sender;
 /*    */     
-/* 29 */     if (cmd.getName().equalsIgnoreCase("antistomper"))
+/* 29 */     if (cmd.getName().equalsIgnoreCase("kcrusher"))
 /*    */     {
 /*    */ 
 /*    */ 
-/*    */   if (!p.hasPermission("kitpvp.kit.antistomper"))
+/*    */ 
+/* 34 */       if (Habilidade.ContainsAbility(p)) {
+/* 35 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.KitUse").replace("&", "§"));
+/* 36 */        NewKitMenu.playSound(p, Main.getInstace().getConfig().getString("Sound.StomperDamage"), 1.0F, 1.0F);
+ return true;
+/*    */       }
+if (!p.hasPermission("kitpvp.kit.crusher"))
 /*     */       {
 /*  71 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Permission").replace("&", "§").replaceAll("%permisson%", commandLabel));
 /*  72 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.NoPermissionMessage")), 1.0F, 1.0F);
 /*  73 */         return true;
 /*     */       }
-/* 34 */       if (Habilidade.ContainsAbility(p)) {
-/* 35 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.KitUse").replace("&", "§"));
-/* 36 */        
-NewKitMenu.playSound(p, Main.getInstace().getConfig().getString("Sound.NarutoAbility"), 3.0F, 3.0F); return true;
-/*    */       }
 /* 39 */       if (!Join.game.contains(p.getName()))
 /*    */       {
 /* 41 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + " §eYou are not in kitpvp to choose this kit!");
 /* 42 */         return true;
 /*    */       }
 /* 44 */       p.getInventory().clear();
-/* 45 */       ItemStack dima = new ItemStack(Material.DIAMOND_SWORD);
+/* 45 */       ItemStack dima = new ItemStack(Material.MACE);
 /* 46 */       ItemMeta souperaa = dima.getItemMeta();
 /* 47 */       souperaa.setDisplayName("§cSword");
 /* 48 */       dima.setItemMeta(souperaa);
+               dima.addEnchantment(Enchantment.DENSITY, 2);
+
+               dima.addEnchantment(Enchantment.UNBREAKING, 2);
+               
+               ItemStack dima2 = new ItemStack(Material.WIND_CHARGE);
+               /* 46 */       ItemMeta souperaa2 = dima.getItemMeta();
+               /* 47 */       souperaa2.setDisplayName("§cWind Charge!");
+               /* 48 */       dima2.setItemMeta(souperaa2);
+               dima2.setAmount(24);
                
 /* 49 */       ItemStack sopa = new ItemStack(Material.MUSHROOM_STEW);
 /* 50 */       ItemMeta sopas = sopa.getItemMeta();
@@ -73,18 +83,20 @@ NewKitMenu.playSound(p, Main.getInstace().getConfig().getString("Sound.NarutoAbi
 /* 64 */       p.getInventory().setChestplate(peitoral0);
 /* 65 */       p.getInventory().setLeggings(calca0);
 /* 66 */       p.getInventory().setBoots(Bota0);
-/* 67 */       Habilidade.setAbility(p, "AntiStomper");
-/* 68 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "AntiStomper").replace("&", "§"));
+/* 67 */       Habilidade.setAbility(p, "Crusher");
+/* 68 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Message.Kit").replaceAll("%kit%", "Crusher").replace("&", "§"));
 /*    */       API.give(p);
 RTP.TeleportArenaRandom(p);
 /* 70 */       p.getInventory().addItem(new ItemStack[] { dima });
+
+/* 70 */       p.getInventory().addItem(new ItemStack[] { dima2 });
 /*    */       
 /*    */ 
 /*    */ 
 /*    */ 
 /* 75 */       for (int i = 0; i <= 34; i++) {
 /* 76 */         p.getInventory().addItem(new ItemStack[] { sopa });
-/* 77 */         me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI.sendTitle(p, Integer.valueOf(20), Integer.valueOf(60), Integer.valueOf(20), this.main.getConfig().getString("Title.KitTitle"), this.main.getConfig().getString("Title.KitSubTitle").replaceAll("%kit%", "Basic"));
+/* 77 */         me.RafaelAulerDeMeloAraujo.TitleAPI.TitleAPI.sendTitle(p, Integer.valueOf(20), Integer.valueOf(60), Integer.valueOf(20), this.main.getConfig().getString("Title.KitTitle"), this.main.getConfig().getString("Title.KitSubTitle").replaceAll("%kit%", "Crusher"));
 /*    */       }
 /*    */     }
 /*    */     
@@ -97,7 +109,7 @@ RTP.TeleportArenaRandom(p);
 /*    */ }
 
 
-/* Location:              D:\Desktop\video\Minhas Coisas do Desktop\KP-PVPvB12 (1).jar!\me\RafaelAulerDeMeloAraujo\SpecialAbility\Basic.class
+/* Location:              D:\Desktop\video\Minhas Coisas do Desktop\KP-PVPvB12 (1).jar!\me\RafaelAulerDeMeloAraujo\SpecialAbility\Crusher.class
  * Java compiler version: 8 (52.0)
  * JD-Core Version:       0.7.1
  */

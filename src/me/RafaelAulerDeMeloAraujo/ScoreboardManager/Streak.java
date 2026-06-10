@@ -367,6 +367,12 @@ if (!(Main.getInstance().getConfig().getBoolean("DiscordChatThatAnnounceKillEnab
       if (!(victim.getKiller() instanceof Player)) {
     	  return;
       }
+      if (!Join.game.contains(victim.getName())) {
+    	  return;
+      }
+      if (!Join.game.contains(killer.getName())) {
+    	  return;
+      }
       sendKillMessage(killer, victim);
       }
 

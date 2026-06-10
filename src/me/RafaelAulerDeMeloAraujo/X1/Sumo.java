@@ -346,29 +346,29 @@ frezze.add(p2);
 p1.playSound(p1.getLocation(), Sound.valueOf(Main.getInstance().getConfig().getString("Sound.1v1")), 5.0F, 5.0F);
 p2.playSound(p2.getLocation(), Sound.valueOf(Main.getInstance().getConfig().getString("Sound.1v1")), 5.0F, 5.0F);
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§4§l3");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§4§l3");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§4§l3", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§4§l3", "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
     NewKitMenu.playSound(p2, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 }, 20L);
 
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§6§l2");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§6§l2");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§6§l2", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§6§l2", "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
     NewKitMenu.playSound(p2, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 }, 40L);
 
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§a§l1");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§a§l1");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§a§l1", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§a§l1", "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
     NewKitMenu.playSound(p2, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 }, 60L);
 
 Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
-    TitleAPI.sendTitle(p1, 10, 10, 10, "§2§lGO!");
-    TitleAPI.sendTitle(p2, 10, 10, 10, "§2§lGO!");
+    TitleAPI.sendTitle(p1, 10, 10, 10, "§2§lGO!", "");
+    TitleAPI.sendTitle(p2, 10, 10, 10, "§2§lGO!", "");
     NewKitMenu.playSound(p1, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
     NewKitMenu.playSound(p2, Main.getInstace().getConfig().getString("Sound.1v1"), 1.0F, 1.0F);
 

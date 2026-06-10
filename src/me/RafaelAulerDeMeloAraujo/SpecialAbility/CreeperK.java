@@ -3,6 +3,7 @@ package me.RafaelAulerDeMeloAraujo.SpecialAbility;
 
 import org.bukkit.ChatColor;
 /*    */ import org.bukkit.Material;
+import org.bukkit.Sound;
 /*    */ import org.bukkit.command.Command;
 /*    */ import org.bukkit.command.CommandSender;
 /*    */ 
@@ -44,6 +45,12 @@ if (Main.kits.getBoolean("CreeperDisabled")) {
 	p.sendMessage(API.NomeServer + ChatColor.RED + "The Creeper kit is disabled, sorry");
 	return true;
 }
+if (!p.hasPermission("kitpvp.kit.creeper"))
+/*     */       {
+/*  71 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + this.main.getConfig().getString("Permission").replace("&", "§").replaceAll("%permisson%", commandLabel));
+/*  72 */         p.playSound(p.getLocation(), Sound.valueOf(this.main.getConfig().getString("Sound.NoPermissionMessage")), 1.0F, 1.0F);
+/*  73 */         return true;
+/*     */       }
 /* 39 */       if (!Join.game.contains(p.getName()))
 /*    */       {
 /* 41 */         p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + " §eYou are not in kitpvp to choose this kit!");

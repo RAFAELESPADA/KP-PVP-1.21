@@ -838,6 +838,11 @@ if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Kit §e§lMilkM
 /* 193 */           Bukkit.dispatchCommand(p, "kcamel");
 /* 194 */           p.closeInventory();
 /*     */         }
+if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Kit §e§lCrusher"))
+/*     */         {
+/* 193 */           Bukkit.dispatchCommand(p, "kcrusher");
+/* 194 */           p.closeInventory();
+/*     */         }
 /* 191 */         if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Kit §e§lViking"))
 /*     */         {
 /* 193 */           Bukkit.dispatchCommand(p, "kviking");
@@ -1324,6 +1329,21 @@ if (p.hasPermission("kitpvp.kit.milkman"))
 /* 558 */         ArrayList indiob = new ArrayList();
 /* 559 */         indiob.add((Main.kits.getString("AnchorLore")).replace("&", "§"));
 /* 560 */         
+/* 561 */         metapyro.setLore(indiob);
+/* 562 */         pyro.setItemMeta(metapyro);
+/* 563 */         kits.addItem(new ItemStack[] { pyro });
+/*     */       }
+/* 553 */       if (p.hasPermission("kitpvp.kit.crusher"))
+/*     */       {
+/* 555 */         ItemStack pyro = new ItemStack(Material.MACE);
+/* 556 */         ItemMeta metapyro = pyro.getItemMeta();
+/* 557 */         metapyro.setDisplayName("§7Kit §e§lCrusher");
+/* 558 */         ArrayList indiob = new ArrayList();
+if ((Main.kits.getString("CrusherLore") != null)) {
+/* 559 */         indiob.add((Main.kits.getString("CrusherLore")).replace("&", "§"));
+/* 560 */       }  else {
+	 indiob.add("§Start with a mace and 24 wind charges!");
+}
 /* 561 */         metapyro.setLore(indiob);
 /* 562 */         pyro.setItemMeta(metapyro);
 /* 563 */         kits.addItem(new ItemStack[] { pyro });
