@@ -54,11 +54,6 @@ kits.clear();
 	/* 228 */       ItemMeta barrier2 = barrier.getItemMeta();
 	/* 229 */       barrier2.setDisplayName((Main.messages.getString("CloseKitMenuBottom").replace("&", "§")));
 	/* 230 */       barrier.setItemMeta(barrier2);
-	/*     */       
-	/*     */ 
-	/* 233 */       
-	/* 234 */       
-	/* 252 */       kits.setItem(46, vidro1);
 	/* 253 */       kits.setItem(47, vidro1);
 	/* 254 */       kits.setItem(48, vidro1);
 	/* 255 */       kits.setItem(49, vidro1);
@@ -255,7 +250,17 @@ if (p.hasPermission("kitpvp.kit.berserker")) {
 	/* 429 */         pyro.setItemMeta(metapyro);
 	/* 430 */         kits.addItem(new ItemStack[] { pyro });
 	/*     */       }
-	/*     */       
+	/*     */       /* 553 */       if (p.hasPermission("kitpvp.kit.crusher"))
+	/*     */       {
+		/* 555 */         ItemStack pyro = new ItemStack(Material.COMPOSTER);
+		/* 556 */         ItemMeta metapyro = pyro.getItemMeta();
+		/* 557 */         metapyro.setDisplayName("§7Kit §e§lCrusher");
+		/* 558 */         ArrayList indiob = new ArrayList();
+			 indiob.add("§Start with a mace and 24 wind charges!");
+		/* 561 */         metapyro.setLore(indiob);
+		/* 562 */         pyro.setItemMeta(metapyro);
+		/* 563 */         kits.addItem(new ItemStack[] { pyro });
+		/*     */       }
 	/* 421 */       if (p.hasPermission("kitpvp.kit.confuser")) {
 	/* 422 */         ItemStack pyro = new ItemStack(Material.POTION);
 	/* 423 */         ItemMeta metapyro = pyro.getItemMeta();
@@ -910,8 +915,6 @@ if (e.getCurrentItem().getItemMeta().getDisplayName().equals("§7Kit §e§lTamer
 /*     */       
 /*     */ 
 /* 233 */       
-
-/* 252 */       kits.setItem(46, vidro1);
 /* 253 */       kits.setItem(47, vidro1);
 /* 254 */       kits.setItem(48, vidro1);
 /* 255 */       kits.setItem(49, vidro1);
@@ -1192,6 +1195,17 @@ if (p.hasPermission("kitpvp.kit.berserker")) {
 /* 512 */         pyro.setItemMeta(metapyro);
 /* 513 */         kits.addItem(new ItemStack[] { pyro });
 /*     */       }
+/* 553 */       if (p.hasPermission("kitpvp.kit.crusher"))
+/*     */       {
+/* 555 */         ItemStack pyro = new ItemStack(Material.COMPOSTER);
+/* 556 */         ItemMeta metapyro = pyro.getItemMeta();
+/* 557 */         metapyro.setDisplayName("§7Kit §e§lCrusher");
+/* 558 */         ArrayList indiob = new ArrayList();
+	 indiob.add("§Start with a mace and 24 wind charges!");
+/* 561 */         metapyro.setLore(indiob);
+/* 562 */         pyro.setItemMeta(metapyro);
+/* 563 */         kits.addItem(new ItemStack[] { pyro });
+/*     */       }
 /* 515 */       if (p.hasPermission("kitpvp.kit.fisherman"))
 /*     */       {
 /* 517 */         ItemStack pyro = new ItemStack(Material.FISHING_ROD);
@@ -1329,21 +1343,6 @@ if (p.hasPermission("kitpvp.kit.milkman"))
 /* 558 */         ArrayList indiob = new ArrayList();
 /* 559 */         indiob.add((Main.kits.getString("AnchorLore")).replace("&", "§"));
 /* 560 */         
-/* 561 */         metapyro.setLore(indiob);
-/* 562 */         pyro.setItemMeta(metapyro);
-/* 563 */         kits.addItem(new ItemStack[] { pyro });
-/*     */       }
-/* 553 */       if (p.hasPermission("kitpvp.kit.crusher"))
-/*     */       {
-/* 555 */         ItemStack pyro = new ItemStack(Material.MACE);
-/* 556 */         ItemMeta metapyro = pyro.getItemMeta();
-/* 557 */         metapyro.setDisplayName("§7Kit §e§lCrusher");
-/* 558 */         ArrayList indiob = new ArrayList();
-if ((Main.kits.getString("CrusherLore") != null)) {
-/* 559 */         indiob.add((Main.kits.getString("CrusherLore")).replace("&", "§"));
-/* 560 */       }  else {
-	 indiob.add("§Start with a mace and 24 wind charges!");
-}
 /* 561 */         metapyro.setLore(indiob);
 /* 562 */         pyro.setItemMeta(metapyro);
 /* 563 */         kits.addItem(new ItemStack[] { pyro });

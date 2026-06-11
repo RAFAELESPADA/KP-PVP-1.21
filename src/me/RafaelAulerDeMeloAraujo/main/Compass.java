@@ -1,10 +1,8 @@
 package me.RafaelAulerDeMeloAraujo.main;
 
-import java.util.List;
-
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -43,28 +41,23 @@ public class Compass implements Listener {
             return;
         }
 
-        List<Entity> nearby = p.getNearbyEntities(1000, 128, 1000);
-
         Player nearest = null;
         double nearestDistance = Double.MAX_VALUE;
 
-        for (Entity entity : nearby) {
+        Location playerLocation = p.getLocation();
 
-            if (entity.hasMetadata("NPC")) {
-                continue;
-            }
-
-            if (entity.getType() != EntityType.PLAYER) {
-                continue;
-            }
-
-            Player target = (Player) entity;
+        for (Player target : Bukkit.getOnlinePlayers()) {
 
             if (target.equals(p)) {
                 continue;
             }
 
-            double distance = p.getLocation().distanceSquared(target.getLocation());
+            if (!target.getWorld().equals(p.getWorld())) {
+                continue;
+            }
+
+            double distance = playerLocation.distanceSquared(
+                    target.getLocation());
 
             if (distance < nearestDistance) {
                 nearestDistance = distance;
@@ -72,33 +65,45 @@ public class Compass implements Listener {
             }
         }
 
-        Player finalNearest = nearest;
+        if (nearest == null) {
+
+            p.setCompassTarget(
+                    p.getWorld().getSpawnLocation());
+
+            p.sendMessage(
+                    "§cNo Player has found! Pointing to spawn");
+
+            return;
+        }
+
+        Player target = nearest;
 
         Main.getFolia().getScheduler().runAtEntity(
-                p,
+                target,
                 task -> {
 
-                    if (!p.isOnline()) {
+                    if (!target.isOnline()) {
                         return;
                     }
 
-                    if (finalNearest != null && finalNearest.isOnline()) {
+                    Location targetLocation =
+                            target.getLocation().clone();
 
-                        p.setCompassTarget(finalNearest.getLocation());
+                    Main.getFolia().getScheduler().runAtEntity(
+                            p,
+                            task2 -> {
 
-                        p.sendMessage(
-                                "§fCompass pointing to: §5"
-                                        + finalNearest.getName());
+                                if (!p.isOnline()) {
+                                    return;
+                                }
 
-                    } else {
+                                p.setCompassTarget(
+                                        targetLocation);
 
-                        p.setCompassTarget(
-                                p.getWorld().getSpawnLocation());
-
-                        p.sendMessage(
-                                "§cNo Player has found! Pointing to spawn");
-                    }
-                }
-        );
+                                p.sendMessage(
+                                        "§fCompass pointing to: §5"
+                                                + target.getName());
+                            });
+                });
     }
 }

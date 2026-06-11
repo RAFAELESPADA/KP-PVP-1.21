@@ -34,9 +34,8 @@ import org.bukkit.inventory.ItemStack;
 /*     */ import org.bukkit.plugin.java.JavaPlugin;
 /*     */ import org.bukkit.potion.PotionEffect;
 /*     */ import org.bukkit.potion.PotionEffectType;
-/*     */
 
-import com.hidan2.folialib.FoliaLib;
+
 import cooldown1.UpdateScheduler;
 import cooldown1.UpdateScheduler2;
 import eu.decentsoftware.holograms.api.DHAPI;
@@ -136,9 +135,9 @@ import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.interactions.commands.build.SubcommandData;
+import net.folialib.FoliaLib;
 import net.wavemc.core.bukkit.WaveBukkit;
 import us.ajg0702.leaderboards.LeaderboardPlugin;
-
 
 
 
@@ -826,7 +825,6 @@ public void onDisable()
 
   /*     */ FoliaLib foliaLib = new FoliaLib(this);
 
-  /*     */ 
   /*     */ foliaLib.getScheduler().cancelAllTasks();
   /* 302 */       Cooldown.remove(p);
   /* 303 */       p.sendMessage(ChatColor.RED + "The plugin has been reloaded/disabled so you are forced to leave the game");
@@ -845,7 +843,7 @@ public void onDisable()
 }
 
 
-public static com.hidan2.folialib.FoliaLib getFolia() {
+public static FoliaLib getFolia() {
    return foliaLib;
 }
 public static JDA getJDA() {

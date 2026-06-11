@@ -44,9 +44,9 @@ public class Commands implements CommandExecutor {
 					Integer coins = Integer.parseInt(args[1]);
 				
 					Coins.addCoins(target, coins);
-					WavePlayer t1 = WaveBukkit.getInstance().getPlayerManager().getPlayer(target.getName());
+					WavePlayer t1 = WaveBukkit.getPlayerManager().getPlayer(target.getName());
 				 try {
-					WaveBukkit.getInstance().getPlayerManager().getController().save(t1);
+					WaveBukkit.getPlayerManager().getController().save(t1);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
