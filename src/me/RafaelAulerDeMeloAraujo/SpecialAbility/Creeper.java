@@ -1,8 +1,5 @@
 package me.RafaelAulerDeMeloAraujo.SpecialAbility;
 
-
-import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
@@ -21,80 +18,90 @@ import me.RafaelAulerDeMeloAraujo.main.Main;
 
 public class Creeper implements Listener {
 
+    @EventHandler
+    public void onDamage(EntityDamageEvent event) {
+        if (!(event.getEntity() instanceof Player p)) {
+            return;
+        }
 
+        if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION
+                || event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION) {
 
-	public static HashMap<String, Location> saveworld = new HashMap();
-
-@EventHandler
-public void onDamage1(EntityDamageEvent event) {
-    if (event.getEntity() instanceof Player) {
-        Player p = (Player)event.getEntity();
-        if ((event.getCause() == EntityDamageEvent.DamageCause.ENTITY_EXPLOSION) || (event.getCause() == EntityDamageEvent.DamageCause.BLOCK_EXPLOSION)) {
-        	if (Habilidade.getAbility(p) == "Creeper") {
-        	    event.setCancelled(true);
-        	}
+            if ("Creeper".equals(Habilidade.getAbility(p))) {
+                event.setCancelled(true);
+            }
         }
     }
-}
-@EventHandler(priority = EventPriority.MONITOR)
-public void onDeatgh(PlayerDeathEvent event) {
-	final Player morreu = event.getEntity();
-    if (morreu.getKiller() != null) {
-	final Player matou = event.getEntity().getKiller();
-			
-	
-	
-	
-	 if (Habilidade.getAbility(matou) != "Berserker") {
-		 return;
-	 }
-API.darEfeito(matou, PotionEffectType.STRENGTH, 7, 0);
 
-API.darEfeito(matou, PotionEffectType.SPEED, 7, 1);
-		}
-     }
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onBerserkerKill(PlayerDeathEvent event) {
+        Player morreu = event.getEntity();
 
-			
-@EventHandler(priority = EventPriority.MONITOR)
-public void onDeath(PlayerDeathEvent event) {
-	final Player morreu = event.getEntity();
-			
-	
-	
-	
-	 if (Habilidade.getAbility(morreu) != "Creeper") {
-		 return;
-	 }
-	  if (API.isInRegion(morreu)) {
-		  return;
-	  }
-     if (morreu.getKiller() != null) {
-		morreu.getLocation().getWorld().playEffect(morreu.getLocation(), Effect.EXTINGUISH, 40);
-for (Player p : Bukkit.getOnlinePlayers()) {
-        p.playSound(p.getLocation(), Sound.valueOf(Main.getInstance().getConfig().getString("Sound.RyuAbility")), 3.0F, 3.0F);
-}
-		morreu.sendMessage(ChatColor.GREEN + "You died with creeper kit and created a explosion");
-	
-		
-		morreu.spigot().respawn();
-		saveworld.put(morreu.getName(), morreu.getLastDeathLocation());
-		Main.getFolia().getScheduler().runAtEntityLater(morreu, () -> {
+        if (morreu.getKiller() == null) {
+            return;
+        }
 
-		    Location deathLoc = saveworld.get(morreu.getName());
+        Player matou = morreu.getKiller();
 
-		    if (deathLoc != null) {
-		        morreu.getWorld().createExplosion(deathLoc, 20.0F);
-		    }
+        if (!"Berserker".equals(Habilidade.getAbility(matou))) {
+            return;
+        }
 
-		}, 1L);
+        API.darEfeito(matou, PotionEffectType.STRENGTH, 7, 0);
+        API.darEfeito(matou, PotionEffectType.SPEED, 7, 1);
+    }
 
+    @SuppressWarnings({ "deprecation", "removal" })
+	@EventHandler(priority = EventPriority.MONITOR)
+    public void onCreeperDeath(PlayerDeathEvent event) {
+        Player morreu = event.getEntity();
 
-		for (final Entity pertos : morreu.getKiller().getNearbyEntities(4.0, 4.0, 4.0)) {
-			if (pertos instanceof Player) {
-				morreu.getWorld().createExplosion(pertos.getLocation(), 4.0F);
-				morreu.getWorld().strikeLightning(pertos.getLocation());
-	}
-}
-     }
-}
+        if (!"Creeper".equals(Habilidade.getAbility(morreu))) {
+            return;
+        }
+
+        if (API.isInRegion(morreu)) {
+            return;
+        }
+
+        if (morreu.getKiller() == null) {
+            return;
+        }
+
+        Location deathLoc = morreu.getLocation().clone();
+
+        deathLoc.getWorld().playEffect(deathLoc, Effect.EXTINGUISH, 40);
+
+        for (Player online : Bukkit.getOnlinePlayers()) {
+            try {
+                Sound sound = Sound.valueOf(
+                        Main.getInstance().getConfig().getString("Sound.RyuAbility"));
+
+                online.playSound(online.getLocation(), sound, 3.0F, 3.0F);
+            } catch (Exception ignored) {
+            }
+        }
+
+        morreu.sendMessage(ChatColor.GREEN +
+                "You died with Creeper kit and created an explosion!");
+
+        Main.getFolia().getScheduler().runAtEntityLater(morreu, () -> {
+            morreu.spigot().respawn();
+        }, 1L);
+
+        Main.getFolia().getScheduler().runAtEntityLater(morreu, () -> {
+
+            if (deathLoc.getWorld() != null) {
+                deathLoc.getWorld().createExplosion(deathLoc, 8.0F);
+            }
+
+        }, 2L);
+
+        for (Entity entity : morreu.getKiller().getNearbyEntities(4.0, 4.0, 4.0)) {
+            if (entity instanceof Player) {
+                entity.getWorld().createExplosion(entity.getLocation(), 4.0F);
+                entity.getWorld().strikeLightning(entity.getLocation());
+            }
+        }
+    }
 }

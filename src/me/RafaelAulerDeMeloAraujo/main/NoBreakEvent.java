@@ -87,6 +87,12 @@ public final class NoBreakEvent
     }
   }  
   @EventHandler
+  public void onSignOpen(io.papermc.paper.event.player.PlayerOpenSignEvent event) {
+	  if (!embuild.contains(event.getPlayer()) && Join.game.contains(event.getPlayer().getName()) && !Main.getInstance().getConfig().getBoolean("EnableBuildingOnKitPvP")) {
+	      event.setCancelled(true);
+  }
+  }
+  @EventHandler
   public void aoconstruir(PlayerBucketEmptyEvent e)
   {
     Player p = e.getPlayer();
