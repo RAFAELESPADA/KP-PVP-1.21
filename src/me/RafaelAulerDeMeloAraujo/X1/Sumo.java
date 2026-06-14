@@ -375,8 +375,7 @@ Main.getFolia().getScheduler().runAtEntityLater(p1, () -> {
     frezze.remove(p1);
     frezze.remove(p2);
 }, 80L);
-/*     */     frezze.remove(p1);
-frezze.remove(p2);
+/*     */   
 /*     */   
 /*     */   }
 /*     */   
@@ -481,15 +480,11 @@ lutadores.remove(e.getPlayer().getName());
 /* 313 */         p.sendMessage(Main.cfg_x1.getString("sumo.msg.invite").replace("$player$", target.getName()).replace("&", "§"));
 /* 314 */         target.sendMessage(Main.cfg_x1.getString("sumo.msg.guest").replace("$player$", p.getName()).replace("&", "§"));
 /* 316 */         convites.put(p.getName(), target.getName());
-/* 317 */         BukkitTask runTaskLater = Bukkit.getServer().getScheduler().runTaskLater(Main.plugin, new BukkitRunnable()
-/*     */         {
-/*     */           public void run()
-/*     */           {
-/* 321 */             if (Sumo.convites.containsKey(p.getName())) {
-/* 322 */               Sumo.convites.remove(p.getName());
-/*     */             }
-/*     */           }
-/* 325 */         }, 200L);
+/* 317 */         Main.getFolia().getScheduler().runLater(() -> {
+    if (Sumo.convites.containsKey(p.getName())) {
+        Sumo.convites.remove(p.getName());
+    }
+}, 200L);
 /*     */       } else {
 /* 327 */         p.sendMessage(Main.cfg_x1.getString("sumo.msg.invite_cooldown").replace("&", "§"));
 /*     */       }
