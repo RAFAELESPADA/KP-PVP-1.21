@@ -5,7 +5,6 @@
 /*     */ import java.util.HashMap;
 /*     */ import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /*     */ import org.bukkit.Bukkit;
 /*     */ import org.bukkit.ChatColor;
@@ -14,6 +13,9 @@ import java.util.concurrent.ConcurrentHashMap;
 /*     */ import org.bukkit.Material;
 /*     */ import org.bukkit.World;
 /*     */ import org.bukkit.command.Command;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 /*     */ import org.bukkit.command.CommandExecutor;
 /*     */ import org.bukkit.command.CommandSender;
 /*     */ import org.bukkit.entity.Player;
@@ -42,15 +44,44 @@ import me.RafaelAulerDeMeloAraujo.main.GiveKitUnlocker;
 /*     */ public class Join
 /*     */   implements CommandExecutor, Listener
 /*     */ {
-/*  43 */   public static HashMap<String, ItemStack[]> saveinv = new HashMap<String, ItemStack[]>();
-/*  44 */   public static HashMap<String, ItemStack[]> savearmor = new HashMap<String, ItemStack[]>();
-/*  45 */   public static HashMap<String, Location> saveworld = new HashMap<String, Location>();
-/*  46 */   public static HashMap<String, GameMode> savegamemode = new HashMap<String, GameMode>();
-public static HashMap<String, Scoreboard> savescore = new HashMap<String, Scoreboard>();
-public static HashMap<String, Integer> savelevel = new HashMap<String, Integer>();
-public static HashMap<String, Integer> savehunger = new HashMap<String, Integer>();
-public static HashMap<String, PotionEffect> saveeffect = new HashMap<String, PotionEffect>();
-public static HashMap<String, Integer> saveair = new HashMap<String, Integer>();
+	public static final Map<String, ItemStack[]> saveinv =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, ItemStack[]> savearmor =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Location> saveworld =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, GameMode> savegamemode =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Scoreboard> savescore =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Integer> savelevel =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Integer> savehunger =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Integer> saveair =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Float> saveexp =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Float> savesaturation =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, Float> saveexhaustion =
+	        new ConcurrentHashMap<>();
+
+	public static final Map<String, List<PotionEffect>> saveeffects =
+	        new ConcurrentHashMap<>();
+
+	public static final Set<String> pendingReturnOnJoin =
+	        ConcurrentHashMap.newKeySet();
 
 /*     */ 
 /*     */   private Main main;
@@ -323,14 +354,27 @@ NewKitMenu.playSound((Player)sender, Main.getInstace().getConfig().getString("So
 		/* 202 */           double y = Main.plugin.getConfig().getDouble("Spawn.Y");
 		/* 203 */           double z = Main.plugin.getConfig().getDouble("Spawn.Z");
 		/* 204 */           Location lobby = new Location(w, x, y, z);
-		/* 205 */           saveworld.put(p.getName(), p.getLocation());
-		                    savescore.put(p.getName(), p.getScoreboard());
-		/* 206 */           saveinv.put(p.getName(), p.getInventory().getContents());
-		/* 207 */           savearmor.put(p.getName(), p.getInventory().getArmorContents());
-		/* 208 */           savegamemode.put(p.getName(), p.getGameMode());
-		/*     */           savelevel.put(p.getName(), p.getLevel());
-		savehunger.put(p.getName(), p.getFoodLevel());
-		saveair.put(p.getName(), p.getRemainingAir());
+		String name = p.getName();
+
+		saveworld.put(name, p.getLocation().clone());
+		savescore.put(name, p.getScoreboard());
+
+		saveinv.put(name, copyItems(p.getInventory().getContents()));
+		savearmor.put(name, copyItems(p.getInventory().getArmorContents()));
+
+		savegamemode.put(name, p.getGameMode());
+		savelevel.put(name, p.getLevel());
+		savehunger.put(name, p.getFoodLevel());
+		saveair.put(name, p.getRemainingAir());
+
+		saveexp.put(name, p.getExp());
+		savesaturation.put(name, p.getSaturation());
+		saveexhaustion.put(name, p.getExhaustion());
+
+		saveeffects.put(
+		        name,
+		        new ArrayList<>(p.getActivePotionEffects())
+		);
 		/*     */ 
 		/* 211 */           lobby.setPitch((float)Main.plugin.getConfig().getDouble("Spawn.Pitch"));
 		/* 212 */           lobby.setYaw((float)Main.plugin.getConfig().getDouble("Spawn.Yaw"));
@@ -409,66 +453,35 @@ API.tirarEfeitos(p);
 }
 if (args[0].equalsIgnoreCase("leave"))
 /*     */       {
-	if ((!game.contains(p.getName()))) {
-		p.sendMessage(API.NomeServer + Main.messages.getString("MustBeInGame").replace("&", "§"));
-		return true;
+	if (!game.contains(p.getName())) {
+	    p.sendMessage(
+	            API.NomeServer
+	            + Main.messages.getString("MustBeInGame").replace("&", "§")
+	    );
+	    return true;
 	}
-	if (p.getGameMode().equals(GameMode.SPECTATOR)) {
-		p.sendMessage(API.NomeServer + Main.messages.getString("NeedToRespawn").replace("&", "§"));
-		return true;
+
+	if (p.getGameMode() == GameMode.SPECTATOR) {
+	    p.sendMessage(
+	            API.NomeServer
+	            + Main.messages.getString("NeedToRespawn").replace("&", "§")
+	    );
+	    return true;
 	}
+
 	if (Main.plugin.getConfig().getBoolean("bungeemode")) {
-		p.sendMessage(API.NomeServer + Main.messages.getString("BungeeModeEnabled").replace("&", "§"));
-		return true;
+	    p.sendMessage(
+	            API.NomeServer
+	            + Main.messages.getString("BungeeModeEnabled").replace("&", "§")
+	    );
+	    return true;
 	}
-	/*     */       
-	/*     */ 
-	/*     */ 
-	/*     */ 
-	/*     */ 
-	/*     */ 
-	/* 279 */       Habilidade.removeAbility(p);
-	/* 280 */       Deshfire.Armadura.remove(p.getName());
-	/* 281 */       Deshfire.Armadura2.remove(p.getName());
-	/* 282 */       Deshfire.cooldownm.remove(p);
-	/* 283 */       game.remove(p.getName());
-	/* 284 */       game.remove(p.getName());
-	/* 285 */       game.remove(p.getName());
-	/* 286 */       game.remove(p.getName());
-	/* 287 */       game.remove(p.getName());
-	/* 288 */       game.remove(p.getName());
-	Cooldown.remove(p);
-	/* 289 */       game.remove(p.getName());
-	/* 290 */       game.remove(p.getName());
-	/* 291 */       game.remove(p.getName());
-	/* 292 */       game.remove(p.getName());
-	/* 293 */       game.remove(p.getName());
-	/* 294 */       game.remove(p.getName());game.remove(p.getName());
-	/* 295 */       game.remove(p.getName());
-	/* 296 */       game.remove(p.getName());
-	/* 297 */       game.remove(p.getName());
 
-	/*     */ 
-	/*     */ 
-	/*     */ 
-	/* 302 */       Cooldown.remove(p);
-	/* 303 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.KitPvpLeave-Message").replace("&", "§")));
-	/* 304 */       p.getInventory().clear();
-	/* 305 */       
-    /* 216 */           Main.getFolia().getScheduler().teleportAsync(p, (Location)saveworld.get(p.getName()));
-	/* 306 */       p.getInventory().setContents((ItemStack[])saveinv.get(p.getName()));
-	/* 307 */       p.setGameMode((GameMode)savegamemode.get(p.getName()));
-	p.setLevel(savelevel.get(p.getName()));
-	p.setFoodLevel(savehunger.get(p.getName()));
-	p.setRemainingAir(saveair.get(p.getName()));
-	/* 308 */       p.getInventory().setArmorContents((ItemStack[])savearmor.get(p.getName()));
-	TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), this.main.getConfig().getString("Title.LeaveTitle"), this.main.getConfig().getString("Title.LeaveSubTitle"));
-
-	/*     */   
-	/* 311 */       p.updateInventory();
-	API.tirarEfeitos(p);
-
-	/*     */     }
+	leaveKitPvP(p);
+	return true;
+}
+}
+return false;
 }
 
 
@@ -480,10 +493,7 @@ if (args[0].equalsIgnoreCase("leave"))
 /*     */ 
 /*     */ 
 /*     */ 
-/*     */ 
-/* 247 */     
-return false;
-}
+
 /*     */     
 /*     */ 
 /*     */ 
@@ -545,6 +555,165 @@ return false;
 /*     */  
 
 /*     */ }
+	
+}public static ItemStack[] copyItems(ItemStack[] original) {
+    if (original == null) {
+        return null;
+    }
+
+    ItemStack[] copy = new ItemStack[original.length];
+
+    for (int i = 0; i < original.length; i++) {
+        copy[i] = original[i] == null
+                ? null
+                : original[i].clone();
+    }
+
+    return copy;
+}public static void restoreSavedState(Player p, String name) {
+    ItemStack[] inventory = saveinv.get(name);
+    ItemStack[] armor = savearmor.get(name);
+
+    if (inventory != null) {
+        p.getInventory().setContents(copyItems(inventory));
+    }
+
+    if (armor != null) {
+        p.getInventory().setArmorContents(copyItems(armor));
+    }
+
+    GameMode gameMode = savegamemode.get(name);
+    if (gameMode != null) {
+        p.setGameMode(gameMode);
+    }
+
+    Integer level = savelevel.get(name);
+    if (level != null) {
+        p.setLevel(level);
+    }
+
+    Integer hunger = savehunger.get(name);
+    if (hunger != null) {
+        p.setFoodLevel(hunger);
+    }
+
+    Integer air = saveair.get(name);
+    if (air != null) {
+        p.setRemainingAir(air);
+    }
+
+    Float exp = saveexp.get(name);
+    if (exp != null) {
+        p.setExp(exp);
+    }
+
+    Float saturation = savesaturation.get(name);
+    if (saturation != null) {
+        p.setSaturation(saturation);
+    }
+
+    Float exhaustion = saveexhaustion.get(name);
+    if (exhaustion != null) {
+        p.setExhaustion(exhaustion);
+    }
+
+    Scoreboard scoreboard = savescore.get(name);
+    if (scoreboard != null) {
+        p.setScoreboard(scoreboard);
+    }
+
+    // Remove os efeitos do KitPvP e restaura os efeitos originais.
+    API.tirarEfeitos(p);
+
+    List<PotionEffect> effects = saveeffects.get(name);
+    if (effects != null) {
+        for (PotionEffect effect : effects) {
+            p.addPotionEffect(effect, true);
+        }
+    }
+
+    p.updateInventory();
+}
+public void leaveKitPvP(Player p) {
+    final String name = p.getName();
+    final Location destination = Join.saveworld.get(name);
+
+    if (destination == null || destination.getWorld() == null) {
+        p.sendMessage("§cWe cannot return you to your original location.");
+        return;
+    }
+
+    Main.getFolia().getScheduler()
+            .teleportAsync(p, destination.clone())
+            .whenComplete((success, error) -> {
+
+                Main.getFolia().getScheduler().runAtEntity(p, task -> {
+
+                    if (!p.isOnline()) {
+                        return;
+                    }
+
+                    if (error != null || !Boolean.TRUE.equals(success)) {
+                        p.sendMessage(
+                                "§cTeleported failed. You got your items restored"
+                        );
+                        return;
+                    }
+
+                    clearKitPvPState(p);
+                    restoreSavedState(p, name);
+                    clearSavedState(name, false);
+
+                    String prefix = main.getConfig()
+                            .getString("Prefix", "")
+                            .replace("&", "§");
+
+                    String message = main.getConfig()
+                            .getString("Message.KitPvpLeave-Message", "")
+                            .replace("&", "§");
+
+                    p.sendMessage(prefix + message);
+
+                    TitleAPI.sendTitle(
+                            p,
+                            40,
+                            80,
+                            40,
+                            main.getConfig().getString("Title.LeaveTitle"),
+                            main.getConfig().getString("Title.LeaveSubTitle")
+                    );
+                });
+            });
+}
+public static void clearSavedState(String name, boolean keepLocation) {
+    saveinv.remove(name);
+    savearmor.remove(name);
+    savegamemode.remove(name);
+    savescore.remove(name);
+    savelevel.remove(name);
+    savehunger.remove(name);
+    saveair.remove(name);
+    saveexp.remove(name);
+    savesaturation.remove(name);
+    saveexhaustion.remove(name);
+    saveeffects.remove(name);
+
+    if (!keepLocation) {
+        saveworld.remove(name);
+        pendingReturnOnJoin.remove(name);
+    }
+}
+
+public static void clearKitPvPState(Player p) {
+    String name = p.getName();
+
+    Habilidade.removeAbility(p);
+    Deshfire.Armadura.remove(name);
+    Deshfire.Armadura2.remove(name);
+    Deshfire.cooldownm.remove(p);
+    Cooldown.remove(p);
+
+    game.remove(name);
 }}
 
 

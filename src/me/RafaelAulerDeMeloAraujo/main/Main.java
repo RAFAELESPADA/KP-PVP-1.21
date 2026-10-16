@@ -65,6 +65,7 @@ import me.RafaelAulerDeMeloAraujo.Listeners.Protection;
 import me.RafaelAulerDeMeloAraujo.Listeners.StatusGUI;
 /*     */ import me.RafaelAulerDeMeloAraujo.Listeners.Switcher;
 /*     */ import me.RafaelAulerDeMeloAraujo.Listeners.ThrowTnt;
+import me.RafaelAulerDeMeloAraujo.Listeners.TrainingArea;
 import me.RafaelAulerDeMeloAraujo.Listeners.UpdateUtil;
 /*     */ import me.RafaelAulerDeMeloAraujo.Listeners.WallClamber;
 import me.RafaelAulerDeMeloAraujo.PluginHooks.PlaceHolderAPIHook;
@@ -173,6 +174,7 @@ private static Hologram topPlayersHd;
 /*     */   public static Plugin plugin;
 /*     */   public static Main instance;
 /*     */   private static ConfigUtils cH;
+private TrainingArea trainingArea;
 private static FoliaLib foliaLib;
 private static JDA jda;
 /*  98 */   public static File file_x1 = new File("plugins/KP-PVP", "1v1.yml");
@@ -495,7 +497,9 @@ public static void handleTopPlayers(Location location) {
 
 			
 
-			
+public TrainingArea getTrainingArea() {
+    return trainingArea;
+}	
 
 public static void loadTopPlayersHologram() {
 	Main.getFolia().getScheduler().runTimer(task -> {
@@ -529,6 +533,7 @@ public static void loadTopPlayersHologram() {
 /*     */   
 /*     */   private void registerCommands()
 /*     */   {
+	trainingArea = new TrainingArea();
 	getCommand("kpsoups").setExecutor(new KPSoup(this));
 	getCommand("antistomper").setExecutor(new AntiStomper(this));
 	getCommand("kmilkman").setExecutor(new MilkManCMD(this));
@@ -545,7 +550,9 @@ getCommand("settopkills").setExecutor(new SetTopKills());
 /* 196 */     getCommand("kpstats").setExecutor(new Stats());
 /* 197 */     getCommand("kphelp").setExecutor(new KITPVP());
 /* 198 */     getCommand("adminmode").setExecutor(new AdminMode(this));
-/*     */     getCommand("kpeditmode").setExecutor(new NoBreakEvent()); 
+/*     */     getCommand("kpeditmode").setExecutor(new NoBreakEvent(trainingArea)); 
+
+/* 262 */     this.pm.registerEvents(new NoBreakEvent(trainingArea), this);
 /* 201 */     getCommand("kpvp").setExecutor(new Kits(this));
 getCommand("khedgehog").setExecutor(new HedgeHof(this));
 getCommand("updatetopkill").setExecutor(new UpdateTopKill());
@@ -553,6 +560,15 @@ getCommand("updatetopkill").setExecutor(new UpdateTopKill());
 /* 203 */     getCommand("basic").setExecutor(new Basic(this));
 getCommand("kposeidon").setExecutor(new Poseidonkit(this));
 getCommand("kcamel").setExecutor(new Camel(this));
+
+
+Bukkit.getPluginManager().registerEvents(
+        trainingArea, this
+);
+
+getCommand("training").setExecutor(trainingArea);
+
+trainingArea.startAutomaticRestore();
 getCommand("paycoins").setExecutor(new PayCoins());
 /* 204 */     getCommand("airman").setExecutor(new Kits(this));
 /* 205 */     getCommand("fisherman").setExecutor(new Kits(this));
@@ -626,6 +642,7 @@ getCommand("kpwarp").setExecutor(new Warp());
 getCommand("kghast").setExecutor(new GhastKIT(this));
 getCommand("kpsetwarp").setExecutor(new Warp());
 this.pm.registerEvents(new ClickTest(), this);
+this.pm.registerEvents(new TrainingArea(), this);
 /* 246 */     
 /* 247 */     getCommand("set1v1").setExecutor(new SetX1());
 UpdateUtil updateChecker = new UpdateUtil(this, true);
@@ -688,7 +705,6 @@ if (Main.getInstace().getConfig().getString("DisableCombatLog").equalsIgnoreCase
 this.pm.registerEvents(new PlaceEvent(), this);
 /* 260 */     this.pm.registerEvents(new BlockCommands(this), this);
 /* 261 */     this.pm.registerEvents(new Menu(this), this);
-/* 262 */     this.pm.registerEvents(new NoBreakEvent(), this);
 /* 263 */     this.pm.registerEvents(new Fisherman(this), this);
 /* 264 */     this.pm.registerEvents(new Switcher(), this);
               this.pm.registerEvents(new Vampire(this), this);
@@ -822,7 +838,9 @@ public void onDisable()
   /* 295 */       Join.game.remove(p.getName());
   /* 296 */       Join.game.remove(p.getName());
   /* 297 */       Join.game.remove(p.getName());
-
+  if (trainingArea != null) {
+	    trainingArea.restoreOnDisable();
+	}
   /*     */ FoliaLib foliaLib = new FoliaLib(this);
 
   /*     */ foliaLib.getScheduler().cancelAllTasks();

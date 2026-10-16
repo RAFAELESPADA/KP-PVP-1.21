@@ -440,45 +440,75 @@ if (X1.inx1.contains(p)) {
 	X1.sair1v1(p);
 }
 }
-/*     */   @EventHandler
-/*     */   public void onLeave(PlayerQuitEvent e)
-/*     */   {
-/* 117 */     Player p = e.getPlayer();
-/*     */     if (Join.game.contains(p.getName())&& !Main.plugin.getConfig().getBoolean("bungeemode") && !Main.plugin.getConfig().getBoolean("PlayersRemainOnKitPvPOnLeave")) {
-	/*     */ 
-	/*     */ 
-	/* 133 */    	/* 279 */       Habilidade.removeAbility(p);
-	/* 280 */       Deshfire.Armadura.remove(p.getName());
-	/* 281 */       Deshfire.Armadura2.remove(p.getName());
-	/* 282 */       Deshfire.cooldownm.remove(p);
-	/* 283 */       Join.game.remove(p.getName());
+/*     */  @EventHandler(priority = EventPriority.HIGHEST)
+public void onLeave(PlayerQuitEvent e) {
+    Player p = e.getPlayer();
+    String name = p.getName();
 
-	/*     */ 
-	/*     */ 
-	/*     */ 
-	/* 302 */       Cooldown.remove(p);
-	/* 303 */       p.sendMessage(String.valueOf(this.main.getConfig().getString("Prefix").replace("&", "§")) + String.valueOf(this.main.getConfig().getString("Message.KitPvpLeave-Message").replace("&", "§")));
-	/* 304 */       p.getInventory().clear();
-	/*  90 */     Main.getFolia().getScheduler()
-    .teleportAsync(p, (Location)Join.saveworld.get(p.getName()))
-    .thenRun(() -> {
-        p.setFoodLevel(20);
+    if (!Join.game.contains(name)) {
+        return;
+    }
 
-    	/* 306 */       p.getInventory().setContents((ItemStack[])Join.saveinv.get(p.getName()));
-    	/* 307 */       p.setGameMode((GameMode)Join.savegamemode.get(p.getName()));
-    	p.setLevel(Join.savelevel.get(p.getName()));
-    	p.setFoodLevel(Join.savehunger.get(p.getName()));
-    	p.setRemainingAir(Join.saveair.get(p.getName()));
+    if (Main.plugin.getConfig().getBoolean("bungeemode")
+            || Main.plugin.getConfig().getBoolean(
+                    "PlayersRemainOnKitPvPOnLeave")) {
+        return;
+    }
 
-    	API.tirarEfeitos(p);
-    	/* 308 */       p.getInventory().setArmorContents((ItemStack[])Join.savearmor.get(p.getName()));
+    // Limpa as habilidades enquanto o evento ainda está sendo processado.
+    Join.clearKitPvPState(p);
 
-    });
-	TitleAPI.sendTitle(p, Integer.valueOf(40), Integer.valueOf(80), Integer.valueOf(40), this.main.getConfig().getString("Title.LeaveTitle"), this.main.getConfig().getString("Title.LeaveSubTitle"));
+    // Não teleporta nem limpa o inventário antes de restaurá-lo.
+    // O servidor poderá salvar o estado restaurado ao desconectar.
+    Join.restoreSavedState(p, name);
 
-	/*     */   
+    // Guarda somente a localização para o retorno no próximo login.
+    if (Join.saveworld.containsKey(name)) {
+    	Join. pendingReturnOnJoin.add(name);
+    }
+
+    // Os itens já foram restaurados; preserva a localização pendente.
+    Join.clearSavedState(name, true);
 }
-/*     */   }
+@EventHandler
+public void restoreLocationAfterQuit(PlayerJoinEvent e) {
+    Player p = e.getPlayer();
+    String name = p.getName();
+
+    if (!Join.pendingReturnOnJoin.contains(name)) {
+        return;
+    }
+
+    Location target = Join.saveworld.get(name);
+
+    if (target == null || target.getWorld() == null) {
+        Main.plugin.getLogger().warning(
+                "Não foi possível restaurar a localização de " + name
+        );
+        return;
+    }
+
+    Main.getFolia().getScheduler()
+            .teleportAsync(p, target.clone())
+            .whenComplete((success, error) -> {
+                if (error != null || !Boolean.TRUE.equals(success)) {
+                    Main.plugin.getLogger().warning(
+                            "Falha ao retornar " + name
+                                    + " à localização original."
+                    );
+                    return;
+                }
+
+                Main.getFolia().getScheduler().runAtEntity(p, task -> {
+                    if (!p.isOnline()) {
+                        return;
+                    }
+
+                    Join.saveworld.remove(name, target);
+                    Join.pendingReturnOnJoin.remove(name);
+                });
+                });
+}
 @EventHandler
 /*     */   public void onEventt(PlayerJoinEvent e)
 /*     */   {

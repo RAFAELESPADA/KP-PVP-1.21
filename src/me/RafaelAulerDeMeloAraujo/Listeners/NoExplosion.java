@@ -6,31 +6,46 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.entity.AbstractWindCharge;
 
 import me.RafaelAulerDeMeloAraujo.main.Main;
 
-public class NoExplosion
-  implements Listener
-{
-	  @EventHandler
-	  public void NoExplodeMyMapPlease(EntityExplodeEvent e)
-	  {
-		  World w = Bukkit.getServer().getWorld(Main.plugin.getConfig().getString("Spawn.World"));
-		  if (e.getEntity().getWorld().equals(w)) {
-	    e.setCancelled(true);
-		  }
-	  }
+public class NoExplosion implements Listener {
 
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent e) {
+        World spawnWorld = Bukkit.getWorld(
+                Main.plugin.getConfig().getString("Spawn.World")
+        );
 
+        if (spawnWorld == null
+                || !e.getEntity().getWorld().equals(spawnWorld)) {
+            return;
+        }
 
-	  @EventHandler
-	  public void NoExplodeMyMapPlease(BlockExplodeEvent e)
-	  {
-		  World w = Bukkit.getServer().getWorld(Main.plugin.getConfig().getString("Spawn.World"));
-		  if (e.getBlock().getWorld().equals(w)) {
-	    e.setCancelled(true);
-		  }
-	  }
+        // Permite a explosão da Wind Charge sem destruir blocos.
+        if (e.getEntity() instanceof AbstractWindCharge) {
+            e.blockList().clear();
+            e.setYield(0.0F);
+            return;
+        }
 
+        // Cancela as demais explosões de entidades no Spawn.
+        e.setCancelled(true);
+    }
 
+    @EventHandler
+    public void onBlockExplode(BlockExplodeEvent e) {
+        World spawnWorld = Bukkit.getWorld(
+                Main.plugin.getConfig().getString("Spawn.World")
+        );
+
+        if (spawnWorld == null
+                || !e.getBlock().getWorld().equals(spawnWorld)) {
+            return;
+        }
+
+        // Impede explosões originadas por blocos de destruírem o mapa.
+        e.setCancelled(true);
+    }
 }

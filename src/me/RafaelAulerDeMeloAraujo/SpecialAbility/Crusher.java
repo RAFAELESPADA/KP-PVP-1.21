@@ -60,7 +60,7 @@ if (!p.hasPermission("kitpvp.kit.crusher"))
                dima.addEnchantment(Enchantment.UNBREAKING, 2);
                
                ItemStack dima2 = new ItemStack(Material.WIND_CHARGE);
-               /* 46 */       ItemMeta souperaa2 = dima.getItemMeta();
+               /* 46 */       ItemMeta souperaa2 = dima2.getItemMeta();
                /* 47 */       souperaa2.setDisplayName("§cWind Charge!");
                /* 48 */       dima2.setItemMeta(souperaa2);
                dima2.setAmount(24);

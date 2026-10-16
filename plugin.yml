@@ -1,207 +1,209 @@
 name: KP-PVP
 main: me.RafaelAulerDeMeloAraujo.main.Main
-version: BUILD-198
+version: 'BUILD-204'
 author: Noleexy or Rafael Auler
-softdepend: [PlaceholderAPI , MVdWPlaceholderAPI, Vault, PlayerPoints, KPCore, WorldGuard]
-description: KitPvP Plugin what have much features like kits,shop with Custom Economy Support,A Unique 1v1 system to players fight,Coins System,Scoreboard,Stats kills,deaths,streak,Sponges acts like launchpads,Varius commands, and are very customisable,Support with others Gamemodes like Skywars and have everything to control your KITPVP Server. And the best part its is free to Download. If you want to support the developer subscribe to his channel.
-website: http://bit.ly/2kC345B , http://bit.ly/2j5qvnM
-api-version: 1.20
+softdepend:
+  - PlaceholderAPI
+  - MVdWPlaceholderAPI
+  - Vault
+  - PlayerPoints
+  - KPCore
+  - WorldGuard
+description: >-
+  KitPvP plugin with kits, a shop with custom economy support, a unique 1v1 system,
+  coins, scoreboard, kill/death/streak statistics, sponge launchpads, customizable
+  commands, support for other game modes such as SkyWars, and server management features.
+  The plugin is free to download. Support the developer by subscribing to the channel.
+website: "http://bit.ly/2kC345B"
+api-version: '1.21.11'
 folia-supported: true
-#PERMISSIONS ARENT HERE
-#SEE ALL PERMISSIONS HERE: https://pastebin.com/JuMPHpRD
+# Permissions reference: https://pastebin.com/JuMPHpRD
 commands:
-   kitpvp:
-        description: Main Command
-   kp:
-        description: Main Command
-   kghast:
-   ktamer:
-   khedgehog:
-   givekitunlocker:
-   kcreeper:
-   kberserker:
-   kcrusher:
-   kpsoups:
-        description: Gets Soups     
-   kpeditmode:
-        description: Enables or Disables Build on kitpvp
-   kpkickall:
-        description: Force all players to leave the kitpvp
-   kptpall:
-        description: Teleport all kitpvp players to yourself   
-   set1v1:
-        description: Set the kitpvp 1vs1
-   setsumo:
-        description: Set the kitpvp Sumo        
-   kpsetdeathspawn:
-        description: Sets the kitpvp death spawn
-   kpsetspawn:
-        description: Set the kitpvp spawn
-   kpkills:
-        description: Manage player kills 
-   settopkills:
-        description: Set Top Kills
-   kpwarp:
-        description: Go to Warp
-   kpsetwarp:
-        description: Set KP Warp
-   updatetopkill:
-        description: Update Top Kills    
-   skit:   
-        description: Create a kit with items to give to your players             
-   kpvp:
-        description: Kit PvP
-   kphantom:
-        description: Kit Phantom
-   kanchor:
-        description: Kit Anchor
-   kviking:
-        description: Kit Viking
-   kposeidon:
-        description: Kit Poseidon
-   kconfuser:
-        description: Kit Confuser
-   kmilkman:
-        description: Kit Milkman     
-   kresouper:
-        description: Kit Resouper
-   kryu:
-        description: Kit Ryu
-   sonic:
-        description: Kit Sonic     
-   kresouper:
-        description: Kit Resouper
-   viper:
-        description: Kit Viper to poison your enemies
-   kfireman:
-        description: Kit Fireman
-   kmonk:
-        description: Kit Monk
-   naruto:
-        description: Kit Naruto from anime - Naruto
-   gaara:
-        description: Kit Gaara from anime - Naruto
-   kcamel:
-        description: Kit Camel
-   kpsetlevel:
-        description: SET LEVEL            
-   kpkitmenu:
-        description: Original command to open the new kit menu
-   kthor:
-        description: Kit Thor to striking
-   gladiator:
-        description: My favorite kit from this plugin    
-   basic:
-        description: A Weaker version of the kit PvP
-   kshielder:
-        description: Gains netherite sword and a shield
-   antistomper:
-        description: Dont receive damage to stompers
-   archer:
-        description: Kit Archer to shot arrow in your enemies
-   pyro:
-        description: Kit Pyro
-   doublejump:
-        description: Kit Doublejump
-   tank:
-        description: Kit Tank
-   switcher:
-        description: Kit Switcher
-   tiggertoo:
-        description: Kit Tigertoo
-   freezer:
-        description: Kit Freezer
-   timelord:
-        description: Kit Timelord to freeze players
-   jumper:
-        description: Kit Jumper
-   cactus:
-        description: Kit Cactus
-   bomber:
-        description: Kit Bomber
-   warper:
-        description: Kit Warper
-   wasp:
-        description: Kit Wasp
-   spiderman:
-        description: Kit Spiderman
-   airman:
-        description: Kit Airman
-   fisherman:
-        description: Kit Fisherman
-   kangaroo:
-        description: Kit Kangaroo
-   snail:
-        description: Kit Snail    
-   kitreload:
-        description: Reload the configuration file
-   kpstats:
-        description: Display your statistics
-   stats:
-        description: Display your statistics
-   kpkit:
-        description: Open the kit menu
-   kitmenu:
-        description: Open the kit menu
-   kpkits:
-        description: Open the kit menu
-   kitcredits:
-        description: Display the credits and plugin info
-   dev:
-        description: Display the credits and plugin info
-   kitsc:
-        description: A Custom StaffChat
-   ksc:
-        description: A Custom StaffChat
-   stomper:
-        description: Kit Stomper
-   ninja:
-        description: Kit Ninja
-   critical:
-        description: Kit Critical
-   kvampire:
-        description: Kit Vampire       
-   deshfire:
-        description: Kit Deshfire     
-   shopmenu:
-        description: Open the shop menu
-   kploja:
-        description: Open the shop menu
-   kpshop:
-        description: Open the Shop menu
-   givecoins:
-        description: Manage the coins system
-   removecoins:
-        description: Manage the coins system
-   coins:
-        description: View your coins        
-   paycoins:
-        description: Pay coins       
-   adminmode:
-        description: Enter in adminmode to catch cheaters
-   kphelp:
-        description: Display command help menu
-  
-   kitclear:
-        description: Clears yours kit
-   setarena:
-        description: Set the Arena to teleport
-  
-        
-         
-                 
-  
-   
-   
-      
-
-     
-       
-          
-   
-   
-
-
-  
-   
-   
+  kitpvp:
+    description: "Main command"
+  kp:
+    description: "Main command alias"
+  kghast:
+    description: "Ghast kit command"
+  ktamer:
+    description: "Tamer kit command"
+  khedgehog:
+    description: "Hedgehog kit command"
+  givekitunlocker:
+    description: "Give a kit unlocker"
+  kcreeper:
+    description: "Creeper kit command"
+  kberserker:
+    description: "Berserker kit command"
+  kcrusher:
+    description: "Crusher kit command"
+  kpsoups:
+    description: "Get soups"
+  kpeditmode:
+    description: "Enable or disable arena editing"
+  kpkickall:
+    description: "Force all players to leave KitPvP"
+  kptpall:
+    description: "Teleport all KitPvP players to you"
+  set1v1:
+    description: "Set the KitPvP 1v1 location"
+  setsumo:
+    description: "Set the KitPvP Sumo location"
+  kpsetdeathspawn:
+    description: "Set the KitPvP death spawn"
+  kpsetspawn:
+    description: "Set the KitPvP spawn"
+  kpkills:
+    description: "Manage player kills"
+  settopkills:
+    description: "Set the top kills location"
+  kpwarp:
+    description: "Teleport to a KitPvP warp"
+  kpsetwarp:
+    description: "Set a KitPvP warp"
+  updatetopkill:
+    description: "Update top kills"
+  skit:
+    description: "Create a kit with items to give to players"
+  kpvp:
+    description: "PvP kit command"
+  kphantom:
+    description: "Phantom kit command"
+  kanchor:
+    description: "Anchor kit command"
+  kviking:
+    description: "Viking kit command"
+  kposeidon:
+    description: "Poseidon kit command"
+  kconfuser:
+    description: "Confuser kit command"
+  kmilkman:
+    description: "Milkman kit command"
+  kresouper:
+    description: "Resouper kit command"
+  kryu:
+    description: "Ryu kit command"
+  sonic:
+    description: "Sonic kit command"
+  viper:
+    description: "Viper kit to poison enemies"
+  kfireman:
+    description: "Fireman kit command"
+  kmonk:
+    description: "Monk kit command"
+  naruto:
+    description: "Naruto anime kit command"
+  gaara:
+    description: "Gaara anime kit command"
+  kcamel:
+    description: "Camel kit command"
+  kpsetlevel:
+    description: "Set a player level"
+  kpkitmenu:
+    description: "Open the kit menu"
+  kthor:
+    description: "Thor kit command"
+  gladiator:
+    description: "Gladiator kit command"
+  basic:
+    description: "Weaker version of the PvP kit"
+  kshielder:
+    description: "Kit with a netherite sword and shield"
+  antistomper:
+    description: "Prevent damage from stompers"
+  archer:
+    description: "Archer kit to shoot arrows at enemies"
+  pyro:
+    description: "Pyro kit command"
+  doublejump:
+    description: "Double Jump kit command"
+  tank:
+    description: "Tank kit command"
+  switcher:
+    description: "Switcher kit command"
+  tiggertoo:
+    description: "Tiggertoo kit command"
+  freezer:
+    description: "Freezer kit command"
+  timelord:
+    description: "Timelord kit to freeze players"
+  jumper:
+    description: "Jumper kit command"
+  cactus:
+    description: "Cactus kit command"
+  bomber:
+    description: "Bomber kit command"
+  warper:
+    description: "Warper kit command"
+  wasp:
+    description: "Wasp kit command"
+  spiderman:
+    description: "Spiderman kit command"
+  airman:
+    description: "Airman kit command"
+  fisherman:
+    description: "Fisherman kit command"
+  kangaroo:
+    description: "Kangaroo kit command"
+  snail:
+    description: "Snail kit command"
+  kitreload:
+    description: "Reload the configuration file"
+  kpstats:
+    description: "Display player statistics"
+  stats:
+    description: "Display player statistics"
+  kpkit:
+    description: "Open the kit menu"
+  kitmenu:
+    description: "Open the kit menu"
+  kpkits:
+    description: "Open the kit menu"
+  kitcredits:
+    description: "Display plugin credits and information"
+  dev:
+    description: "Display plugin credits and information"
+  kitsc:
+    description: "Custom staff chat"
+  ksc:
+    description: "Custom staff chat alias"
+  stomper:
+    description: "Stomper kit command"
+  ninja:
+    description: "Ninja kit command"
+  critical:
+    description: "Critical kit command"
+  kvampire:
+    description: "Vampire kit command"
+  deshfire:
+    description: "Deshfire kit command"
+  shopmenu:
+    description: "Open the shop menu"
+  kploja:
+    description: "Open the shop menu"
+  kpshop:
+    description: "Open the shop menu"
+  givecoins:
+    description: "Manage the coins system"
+  removecoins:
+    description: "Manage the coins system"
+  coins:
+    description: "View your coins"
+  paycoins:
+    description: "Pay coins to another player"
+  adminmode:
+    description: "Enter admin mode to catch cheaters"
+  kphelp:
+    description: "Display the command help menu"
+  kitclear:
+    description: "Clear your kit"
+  setarena:
+    description: "Set the arena teleport location"
+  training:
+    description: "Manage the training area"
+    usage: "/training <pos1|pos2|salvar|restaurar>"
+    permission: kppvp.admin
+permissions:
+  kppvp.admin:
+    description: Allows configuring the training area
+    default: op

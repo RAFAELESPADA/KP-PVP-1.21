@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import me.RafaelAulerDeMeloAraujo.Listeners.TrainingArea;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Cooldown;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Deshfire;
@@ -119,9 +120,67 @@ public class Warp implements CommandExecutor {
             else if (args[0].equalsIgnoreCase("Sumo")) {
             	Sumo.entrar1v1(p);
             }
-            
+            else if (args[0].equalsIgnoreCase("treino")
+                    || args[0].equalsIgnoreCase("training")) {
+
+                String path = "warps." + args[0].toLowerCase();
+
+                String worldName = settings.getData()
+                        .getString(path + ".world");
+
+                World world = Bukkit.getWorld(worldName);
+
+                if (world == null) {
+                    p.sendMessage(
+                            ChatColor.RED
+                                    + "The training world is not loaded or setted!"
+                    );
+                    return true;
+                }
+
+                double x = settings.getData().getDouble(path + ".x");
+                double y = settings.getData().getDouble(path + ".y");
+                double z = settings.getData().getDouble(path + ".z");
+
+                Location target = new Location(world, x, y, z);
+                p.setGameMode(GameMode.SURVIVAL);
+                p.setAllowFlight(false);
+                p.setFlying(false);
+
+                Cooldown.remove(p);
+
+                Deshfire.Armadura.remove(p.getName());
+                Deshfire.Armadura2.remove(p.getName());
+                Deshfire.cooldownm.remove(p);
+
+                Main.getFolia().getScheduler()
+                .teleportAsync(p, target)
+                .whenComplete((success, error) -> {
+                    Main.getFolia().getScheduler()
+                            .runAtEntity(p, task -> {
+                                if (!p.isOnline()) {
+                                    return;
+                                }
+
+                                if (error != null
+                                        || !Boolean.TRUE.equals(success)) {
+                                    p.sendMessage(
+                                            "§cCould not teleport to Training."
+                                    );
+                                    return;
+                                }
+
+                                TrainingArea area =
+                                        Main.getInstance().getTrainingArea();
+
+                                if (area != null) {
+                                    area.handleTrainingArrival(p);
+                                }
+                            });
+                });
+            }
     }
-		return false;
+	return false;
 	}
 
 
