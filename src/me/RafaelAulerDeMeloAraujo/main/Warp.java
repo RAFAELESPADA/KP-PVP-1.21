@@ -148,7 +148,7 @@ public class Warp implements CommandExecutor {
                 p.setFlying(false);
 
                 Cooldown.remove(p);
-
+Habilidade.setAbility(p, "Training");
                 Deshfire.Armadura.remove(p.getName());
                 Deshfire.Armadura2.remove(p.getName());
                 Deshfire.cooldownm.remove(p);

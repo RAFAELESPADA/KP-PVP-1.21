@@ -1,6 +1,6 @@
 name: KP-PVP
 main: me.RafaelAulerDeMeloAraujo.main.Main
-version: 'BUILD-204'
+version: 'BUILD-206'
 author: Noleexy or Rafael Auler
 softdepend:
   - PlaceholderAPI

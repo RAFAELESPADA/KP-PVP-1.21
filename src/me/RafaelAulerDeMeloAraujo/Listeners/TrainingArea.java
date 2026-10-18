@@ -1,6 +1,7 @@
 package me.RafaelAulerDeMeloAraujo.Listeners;
 
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
+import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 import me.RafaelAulerDeMeloAraujo.main.Main;
 
 import org.bukkit.Bukkit;
@@ -1117,7 +1118,7 @@ private void handleTrainingTransition(
                         }
 
                         API.tirarEfeitos(p);
-
+Habilidade.removeAbility(p);
 
                     },
                     null,
