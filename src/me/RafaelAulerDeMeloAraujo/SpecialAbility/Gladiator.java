@@ -66,7 +66,7 @@ public class Gladiator implements Listener {
         final Player p = e.getPlayer();
         if (Gladiator.lutando.containsKey(p.getName()) && e.getMessage().startsWith("/")) {
             e.setCancelled(true);
-            p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("NoGladCreateArena").replace("&", "§")));
+            p.sendMessage(String.valueOf(API.NomeServer) + (Main.messages.getString("NoCommandsInGlad").replace("&", "§")));
         }
     }
 
@@ -105,7 +105,7 @@ public class Gladiator implements Listener {
         /*  68 */         API.MensagemCooldown(p);
         /*  69 */         return;
         /*     */       }
-        int y = 80 + new Random().nextInt(100);
+        int y = 30 + new Random().nextInt(100);
         final Location loc = new Location(p.getWorld(), (double) p.getLocation().getBlockX(), p.getLocation().getBlockY() + y, (double) p.getLocation().getBlockZ());
         this.localizacao.put(p, loc);
         this.localizacao.put(r, loc);

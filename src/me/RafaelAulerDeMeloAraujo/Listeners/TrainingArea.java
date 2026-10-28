@@ -3,6 +3,7 @@ package me.RafaelAulerDeMeloAraujo.Listeners;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.API;
 import me.RafaelAulerDeMeloAraujo.SpecialAbility.Habilidade;
 import me.RafaelAulerDeMeloAraujo.main.Main;
+import me.RafaelAulerDeMeloAraujo.main.NoBreakEvent;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -1515,6 +1516,10 @@ public void onLeaveTrainingArea(PlayerMoveEvent event) {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
+    	Player player = event.getPlayer();
+    	if (NoBreakEvent.embuild.contains(player)) {
+    		return;
+    	}
         Location location = event.getBlockPlaced().getLocation();
         if (isRegionWorld(location) && !isInside(location)) {
             event.setCancelled(true);
@@ -1523,6 +1528,10 @@ public void onLeaveTrainingArea(PlayerMoveEvent event) {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
+    	Player player = event.getPlayer();
+    	if (NoBreakEvent.embuild.contains(player)) {
+    		return;
+    	}
         Location location = event.getBlock().getLocation();
         if (!isRegionWorld(location)) {
             return;

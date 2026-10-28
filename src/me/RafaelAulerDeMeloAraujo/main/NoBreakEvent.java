@@ -112,15 +112,22 @@ public final class NoBreakEvent implements Listener, CommandExecutor {
         return true;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
         Location location = event.getBlockPlaced().getLocation();
 
-        if (isAllowed(player, location)) {
+        // Jogadores em modo de edição podem construir.
+        if (embuild.contains(player)) {
             return;
         }
 
+        // Permite construção na área de treinamento.
+        if (isTrainingArea(location)) {
+            return;
+        }
+
+        // Bloqueia construção durante o KitPvP.
         if (shouldBlockKitPvP(player)) {
             event.setCancelled(true);
         }
